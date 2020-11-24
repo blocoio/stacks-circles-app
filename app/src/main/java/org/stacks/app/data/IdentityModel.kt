@@ -3,7 +3,7 @@ package org.stacks.app.data
 import org.json.JSONObject
 
 class IdentityModel(
-    private val json: JSONObject
+    val json: JSONObject
 ) {
     val username: String? by lazy {
         try {

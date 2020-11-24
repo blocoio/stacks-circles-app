@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Widget.Bloco.ToolbarNavigationButton" parent="Widget.AppCompat.Toolbar.Button.Navigation">
+    <style name="Widget.Stacks.ToolbarNavigationButton" parent="Widget.AppCompat.Toolbar.Button.Navigation">
         <item name="tint">?colorOnSurface</item>
     </style>
 
