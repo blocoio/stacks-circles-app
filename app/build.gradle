@@ -16,7 +16,7 @@ android {
 
     defaultConfig {
         applicationId "org.stacks.app"
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -49,6 +49,10 @@ android {
             minifyEnabled false
         }
     }
+
+    packagingOptions {
+        exclude 'META-INF/*'
+    }
 }
 
 dependencies {
@@ -60,13 +64,36 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.5.0-alpha05'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
-    implementation 'androidx.preference:preference:1.1.1'
+    implementation 'androidx.preference:preference-ktx:1.1.1'
+    implementation 'androidx.security:security-crypto:1.1.0-alpha02'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.2.0'
 
     // Preferences
-    implementation 'androidx.preference:preference:1.1.1'
     implementation 'com.github.tfcporciuncula:flow-preferences:1.3.2'
+
+    // Blockstack
+    //noinspection GradleDependency
+    implementation "com.github.blockstack:blockstack-android:$blockstack_version"
+
+    implementation "com.github.komputing.kethereum:base58:$kethereum_version"
+    implementation "com.github.komputing.kethereum:hashes:$kethereum_version"
+    implementation "com.github.komputing.kethereum:crypto_api:$kethereum_version"
+    implementation "com.github.komputing.kethereum:model:$kethereum_version"
+
+    implementation ("com.github.komputing.kethereum:bip32:$kethereum_version") {
+        exclude group:'com.github.komputing.KHash'
+    }
+    implementation "com.github.komputing.kethereum:bip44:$kethereum_version"
+    implementation ("com.github.komputing.kethereum:bip39:$kethereum_version") {
+        exclude group:'com.github.komputing.KHash'
+    }
+    implementation "com.github.komputing.kethereum:bip39_wordlist_en:$kethereum_version"
+
+    implementation ("com.github.uport-project.kotlin-did-jwt:jwt:$did_jwt_version") {
+        exclude group:'com.github.komputing.KHash'
+        exclude group: 'com.squareup.okhttp3'
+    }
 
     // Material Design
     implementation 'com.google.android.material:material:1.2.1'
@@ -82,7 +109,8 @@ dependencies {
 
     // Testing
     testImplementation 'junit:junit:4.13.1'
-    testImplementation 'org.mockito:mockito-inline:3.6.0'
+    testImplementation 'org.json:json:20190722'
+    testImplementation 'org.mockito:mockito-inline:3.6.28'
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
     testImplementation 'com.google.dagger:hilt-android-testing:2.29-alpha'
     kaptTest 'com.google.dagger:hilt-android-compiler:2.29-alpha'

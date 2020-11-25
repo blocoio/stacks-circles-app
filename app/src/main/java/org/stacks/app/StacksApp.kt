@@ -21,7 +21,6 @@ open class StacksApp : Application() {
                 StrictMode.ThreadPolicy.Builder()
                     .detectAll()
                     .penaltyLog()
-                    .penaltyDeath()
                     .build()
             )
             StrictMode.setVmPolicy(

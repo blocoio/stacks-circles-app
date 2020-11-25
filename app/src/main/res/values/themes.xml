@@ -25,7 +25,7 @@
         <item name="colorOnError">@color/dark_red</item>
 
         <!-- Custom styles -->
-        <item name="toolbarNavigationButtonStyle">@style/Widget.Bloco.ToolbarNavigationButton</item>
+        <item name="toolbarNavigationButtonStyle">@style/Widget.Stacks.ToolbarNavigationButton</item>
         <item name="titleTextStyle">@style/TextAppearance.Bloco.ToolbarTitle</item>
     </style>
 
