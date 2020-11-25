@@ -6,28 +6,18 @@ class IdentityModel(
     val json: JSONObject
 ) {
     val username: String? by lazy {
-        try {
-            return@lazy json.getString("username")
-        } catch (e: Exception) {
-            return@lazy null
-        }
+        json.optString("username")
     }
 
     val address: String by lazy {
-        json.getString("address")
+        json.optString("address")
     }
 
     val appModels: List<IdentityAppModel> by lazy {
         val apps = json.getJSONObject("apps")
-        val appModels = ArrayList<IdentityAppModel>(apps.length())
-        for (key in apps.keys()) {
-            appModels.add(
-                IdentityAppModel(
-                    apps.getJSONObject(key)
-                )
-            )
-        }
-        appModels
+        apps.keys().asSequence().map {
+            IdentityAppModel(apps.getJSONObject(it))
+        }.toList()
     }
 }
 
@@ -35,44 +25,25 @@ class IdentityAppModel(
     private val json: JSONObject
 ) {
     val appIcon: String? by lazy {
-        try {
-            return@lazy json.getString("appIcon")
-        } catch (e: Exception) {
-            return@lazy null
-        }
+        json.optString("appIcon")
     }
 
     val lastLoginAt: Long? by lazy {
-        try {
-            return@lazy json.getLong("lastLoginAt")
-        } catch (e: Exception) {
-            return@lazy null
-        }
+        json.optLong("lastLoginAt")
     }
 
     val name: String? by lazy {
-        try {
-            return@lazy json.getString("name")
-        } catch (e: Exception) {
-            return@lazy null
-        }
+        json.optString("name")
     }
 
     val origin: String? by lazy {
-        try {
-            return@lazy json.getString("origin")
-        } catch (e: Exception) {
-            return@lazy null
-        }
+        json.optString("origin")
     }
 
     val scopes: List<String> by lazy {
-        try {
-            val scopes = json.getJSONArray("scopes")
-            return@lazy List(scopes.length(), scopes::getString)
-        } catch (e: Exception) {
-            return@lazy emptyList<String>()
-        }
+        json.optJSONArray("scopes")?.let { scopes ->
+            List(scopes.length(), scopes::getString)
+        } ?: emptyList()
     }
 
     override fun toString(): String {
