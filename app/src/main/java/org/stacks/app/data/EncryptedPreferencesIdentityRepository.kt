@@ -6,14 +6,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
-import org.stacks.app.data.interfaces.IIdentityRepository
+import org.stacks.app.data.interfaces.IdentityRepository
 import javax.inject.Inject
 import javax.inject.Provider
 
-class IdentityRepository
+class EncryptedPreferencesIdentityRepository
 @Inject constructor(
     private val preferencesProvider: Provider<FlowSharedPreferences>
-) : IIdentityRepository {
+) : IdentityRepository {
 
     private val flowSharedPreferences: FlowSharedPreferences by lazy { preferencesProvider.get() }
     private val preferences by lazy { flowSharedPreferences.getString(IDENTITY) }

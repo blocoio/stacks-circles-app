@@ -6,9 +6,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import kotlinx.coroutines.flow.Flow
 import org.stacks.app.data.IdentityModel
-import org.stacks.app.data.IdentityRepository
+import org.stacks.app.data.EncryptedPreferencesIdentityRepository
 
-interface IIdentityRepository {
+interface IdentityRepository {
     suspend fun clear(): Boolean
     suspend fun set(model: IdentityModel): Boolean
     suspend fun observe(): Flow<IdentityModel?>
@@ -16,10 +16,10 @@ interface IIdentityRepository {
 
 @Module
 @InstallIn(ApplicationComponent::class)
-abstract class AnalyticsModule {
+abstract class IdentityBinding {
 
     @Binds
-    abstract fun bindIdentityRepository(
-        repository: IdentityRepository
-    ): IIdentityRepository
+    abstract fun bindEncryptedPreferencesIdentityRepository(
+        repositoryEncryptedPreferences: EncryptedPreferencesIdentityRepository
+    ): IdentityRepository
 }

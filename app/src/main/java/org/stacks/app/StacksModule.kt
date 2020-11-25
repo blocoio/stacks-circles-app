@@ -50,7 +50,7 @@ class StacksModule {
     ): MasterKey =
         MasterKey.Builder(appContext)
             .setKeyGenParameterSpec(keyGenParameterSpec)
-            .setUserAuthenticationRequired(true, 5)
+            .setUserAuthenticationRequired(true, AUTH_VALIDITY_SECONDS)
             .build()
 
     @Provides
@@ -70,5 +70,6 @@ class StacksModule {
 
     companion object {
         const val KEY_SIZE = 256
+        const val AUTH_VALIDITY_SECONDS = 5
     }
 }
