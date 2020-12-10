@@ -4,7 +4,7 @@ buildscript {
         kotlin_version = "1.4.20"
         kethereum_version = '0.76.1'
         did_jwt_version = '0.3.2'
-        blockstack_version = '0.6.1'
+        blockstack_version = 'b1cab83'
     }
 
     repositories {
