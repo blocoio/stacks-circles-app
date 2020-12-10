@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Stacks Connect</string>
+    <string name="app_name">Connect</string>
+    <string name="api_url">https://gaia.blockstack.org/</string>
 </resources>
