@@ -37,7 +37,7 @@
                 android:textAppearance="@style/TextAppearance.Stacks.Headline" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/start_here"
+                android:id="@+id/startHere"
                 style="?stacksMainButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -2,6 +2,11 @@
     <!--APP-->
     <string name="app_name">Connect</string>
 
+    <!--ENDPOINTS-->
+    <string name="api_url">https://gaia.blockstack.org/</string>
+    <string name="about_us_url">https://www.blockstack.org/how-blockstack-works</string>
+    <string name="newsletter_url">http://newsletters.blockstack.org/</string>
+
     <!--HOMEPAGE-->
     <string name="connect_info">Connect guarantees your privacy by encrypting everything</string>
     <string name="connect">Connect</string>
@@ -15,8 +20,14 @@
     <string name="stacks_ecosystem_text">Get regular updates from Hiro PBC via email. We usually send two updates a month, as well as bigger quarterly updates covering the Stacks ecosystem.</string>
     <string name="subscribe">Subscribe</string>
 
-    <!--ENDPOINTS-->
-    <string name="about_us_url">https://www.blockstack.org/how-blockstack-works</string>
-    <string name="newsletter_url">http://newsletters.blockstack.org/</string>
-    <string name="api_url">https://gaia.blockstack.org/</string>
+    <!--AUTH SCREENS-->
+    <string name="connect_tracking_message">We won\'t be able to see, access, or track your activity</string>
+    <string name="connect_key_message">You\'ll get a Secret Key that automatically encrypts everything you do</string>
+    <string name="new_to_connect">I\'m new to Connect</string>
+    <string name="continue_key">Continue with Secret Key</string>
+    <string name="how_connect_works"><u>How Connect Works</u></string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_in_message">Enter your Secret Key to sign in to Connect</string>
+    <string name="secret_key_hint">12-word Secret Key</string>
+
 </resources>
