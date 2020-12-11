@@ -39,6 +39,7 @@
                 android:text="@string/stacks_ecosystem_text" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/newsletterSubscribe"
                 style="?stacksSecondaryButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

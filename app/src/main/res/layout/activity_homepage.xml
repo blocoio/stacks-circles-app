@@ -95,7 +95,7 @@
                 app:drawableTint="@color/org_stacks_blue" />
         </LinearLayout>
 
-        <include layout="@layout/partial_learn_about_us" />
+        <include layout="@layout/partial_learn_about_us"/>
 
         <include layout="@layout/partial_newsletter" />
 

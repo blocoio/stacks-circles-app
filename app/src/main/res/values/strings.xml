@@ -1,6 +1,8 @@
 <resources>
+    <!--APP-->
     <string name="app_name">Connect</string>
-    <string name="api_url">https://gaia.blockstack.org/</string>
+
+    <!--HOMEPAGE-->
     <string name="connect_info">Connect guarantees your privacy by encrypting everything</string>
     <string name="connect">Connect</string>
     <string name="start_here">Start here</string>
@@ -12,4 +14,9 @@
     <string name="stacks_ecosystem_title">Stacks Ecosystem Updates</string>
     <string name="stacks_ecosystem_text">Get regular updates from Hiro PBC via email. We usually send two updates a month, as well as bigger quarterly updates covering the Stacks ecosystem.</string>
     <string name="subscribe">Subscribe</string>
+
+    <!--ENDPOINTS-->
+    <string name="about_us_url">https://www.blockstack.org/how-blockstack-works</string>
+    <string name="newsletter_url">http://newsletters.blockstack.org/</string>
+    <string name="api_url">https://gaia.blockstack.org/</string>
 </resources>

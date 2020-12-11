@@ -14,13 +14,16 @@
         android:textAppearance="@style/TextAppearance.Stacks.Subtitle" />
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/aboutUsCard"
+        android:clickable="true"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="8dp"
         app:strokeColor="@color/org_stacks_blue"
         app:strokeWidth="2dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp">
+        android:layout_marginHorizontal="8dp"
+        android:focusable="true">
 
         <TextView
             android:layout_width="wrap_content"
