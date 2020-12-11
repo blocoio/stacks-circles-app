@@ -2,10 +2,11 @@
 <resources>
 
     <!-- Edge-to-edge rendering-->
-    <style name="Base.AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="Base.AppTheme" parent="Theme.MaterialComponents.NoActionBar">
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <!-- Optional, but recommended for full edge-to-edge rendering-->
-        <item name="android:statusBarColor">@color/org_stacks_blue</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
 </resources>

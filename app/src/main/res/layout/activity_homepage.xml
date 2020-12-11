@@ -1,18 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical"
     tools:ignore="UseCompoundDrawables">
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/stacks_logo" />
-</LinearLayout>
+        android:orientation="vertical">
+
+        <include layout="@layout/partial_tool_bar" />
+
+        <LinearLayout
+            android:id="@+id/start_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="46dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_connect_logo" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:gravity="center"
+                android:text="@string/connect_info"
+                android:textAppearance="@style/TextAppearance.Stacks.Headline" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/start_here"
+                style="?stacksMainButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/start_here" />
+
+            <View style="@style/Divider" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/built_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="@string/built_on_stacks"
+                android:textAppearance="@style/TextAppearance.Stacks.Subtitle" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <include
+                    android:id="@+id/built_card_1"
+                    layout="@layout/partial_app_showcase_card" />
+
+                <include
+                    android:id="@+id/built_card_2"
+                    layout="@layout/partial_app_showcase_card" />
+
+                <include
+                    android:id="@+id/built_card_3"
+                    layout="@layout/partial_app_showcase_card" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_margin="8dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:text="@string/find_apps"
+                android:textAppearance="@style/TextAppearance.Stacks.ClicableText"
+                app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_24"
+                app:drawableTint="@color/org_stacks_blue" />
+        </LinearLayout>
+
+        <include layout="@layout/partial_learn_about_us" />
+
+        <include layout="@layout/partial_newsletter" />
+
+    </LinearLayout>
+
+</ScrollView>
