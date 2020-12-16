@@ -5,11 +5,15 @@ import org.json.JSONObject
 class IdentityModel(
     val json: JSONObject
 ) {
-    val username: String? by lazy {
+    val completeUsername: String? by lazy {
         json.optString("username")
     }
 
-    val address: String by lazy {
+    val username: String? by lazy {
+        json.optString("username").replace(".id.blockstack", "")
+    }
+
+    val address: String? by lazy {
         json.optString("address")
     }
 

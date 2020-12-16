@@ -43,7 +43,7 @@
             android:layout_height="80dp"
             android:layout_margin="8dp"
             android:gravity="top"
-            android:hint="@string/secret_key_hint"
+            android:hint="@string/secret_key"
             android:importantForAutofill="no"
             android:inputType="textMultiLine"
             android:padding="12dp"

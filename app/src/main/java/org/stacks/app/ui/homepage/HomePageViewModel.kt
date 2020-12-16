@@ -40,7 +40,7 @@ class HomePageViewModel
             .onEach {
                 userAvatarImageUrl.send(
                     blockstack.lookupProfile(
-                        it.first().username!!,
+                        it.first().completeUsername!!,
                         null
                     ).avatarImage
                 )

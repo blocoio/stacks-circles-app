@@ -32,10 +32,16 @@
     <string name="how_connect_works"><u>How Connect Works</u></string>
     <string name="sign_in">Sign In</string>
     <string name="sign_in_message">Enter your Secret Key to sign in to Connect</string>
-    <string name="secret_key_hint"> Secret Key</string>
+    <string name="secret_key"> Secret Key</string>
     <string name="secret_key_error">The Secret Key you\'ve entered is invalid</string>
     <string name="welcome_back">Welcome Back!</string>
     <string name="welcome_info">Access your account at any time by clicking on the avatar icon, on the top right corner.</string>
     <string name="discover_stacks">Discover Stacks App</string>
+    <string name="connect_settings">Connect Settings</string>
+    <string name="accounts">Accounts</string>
+    <string name="create_account">Create a new account</string>
+    <string name="logout">Log out</string>
+    <string name="view_secret_key">View Secret Key</string>
+    <string name="unknow">unknow</string>
 
 </resources>

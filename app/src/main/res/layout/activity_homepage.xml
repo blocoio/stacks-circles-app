@@ -98,7 +98,7 @@
                     android:background="?android:attr/selectableItemBackground"
                     android:text="@string/find_apps"
                     android:textAppearance="@style/TextAppearance.Stacks.ClickableText"
-                    app:drawableEndCompat="@drawable/ic_baseline_arrow_forward_24"
+                    app:drawableEndCompat="@drawable/ic_arrow_forward"
                     app:drawableTint="@color/org_stacks_blue" />
             </LinearLayout>
 
