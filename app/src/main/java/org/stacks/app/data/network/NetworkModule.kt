@@ -7,13 +7,12 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
-import io.reactivex.schedulers.Schedulers
+import me.sianaki.flowretrofitadapter.FlowCallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.stacks.app.BuildConfig
 import org.stacks.app.R
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Qualifier
 import javax.inject.Singleton
@@ -34,11 +33,6 @@ class NetworkModule {
     fun baseUrl(resources: Resources) = resources.getString(R.string.api_url)
 
     @Provides
-    @Singleton
-    fun provideCallAdapterFactory(): RxJava2CallAdapterFactory =
-        RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io())
-
-    @Provides
     fun provideConverterFactory(gson: Gson): GsonConverterFactory =
         GsonConverterFactory.create(gson)
 
@@ -49,12 +43,19 @@ class NetworkModule {
         }
 
     @Provides
+    fun socketFactory(): DelegatingSocketFactory =
+        DelegatingSocketFactory(javax.net.SocketFactory.getDefault())
+
+
+    @Provides
     @Singleton
     fun httpClient(
         loggingInterceptor: HttpLoggingInterceptor,
+        socketFactory: DelegatingSocketFactory,
         @BaseUrl baseUrl: String
     ) =
         OkHttpClient.Builder()
+            .socketFactory(socketFactory)
             .apply { if (BuildConfig.DEBUG) addInterceptor(loggingInterceptor) }
             .build()
 
@@ -63,12 +64,11 @@ class NetworkModule {
     @GaiaRetrofit
     fun gaiaRetrofit(
         okHttpClient: OkHttpClient,
-        callAdapterFactory: RxJava2CallAdapterFactory,
         converterFactory: GsonConverterFactory,
         @BaseUrl baseUrl: String
     ): Retrofit = Retrofit.Builder()
         .client(okHttpClient)
-        .addCallAdapterFactory(callAdapterFactory)
+        .addCallAdapterFactory(FlowCallAdapterFactory.create())
         .addConverterFactory(converterFactory)
         .baseUrl(baseUrl)
         .build()

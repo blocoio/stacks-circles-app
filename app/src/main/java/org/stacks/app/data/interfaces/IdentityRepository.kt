@@ -5,13 +5,13 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import kotlinx.coroutines.flow.Flow
-import org.stacks.app.data.IdentityModel
 import org.stacks.app.data.EncryptedPreferencesIdentityRepository
+import org.stacks.app.data.IdentityModel
 
 interface IdentityRepository {
     suspend fun clear(): Boolean
-    suspend fun set(model: IdentityModel): Boolean
-    suspend fun observe(): Flow<IdentityModel?>
+    suspend fun set(models: List<IdentityModel>): Boolean
+    fun observe(): Flow<List<IdentityModel>>
 }
 
 @Module

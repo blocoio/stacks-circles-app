@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- ToolBars -->
     <style name="Widget.Stacks.ToolbarNavigationButton" parent="Widget.AppCompat.Toolbar.Button.Navigation">
         <item name="tint">?colorOnSurface</item>
     </style>
@@ -12,6 +13,7 @@
         <item name="titleTextAppearance">@style/TextAppearance.Stacks.ToolbarTitle</item>
     </style>
 
+    <!-- Buttons -->
     <style name="Widget.Stacks.Button" parent="@style/Widget.MaterialComponents.Button">
         <item name="textAllCaps">false</item>
     </style>
@@ -22,6 +24,7 @@
         <item name="android:textColor">@color/org_stacks_blue</item>
     </style>
 
+    <!-- Others-->
     <style name="Divider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>

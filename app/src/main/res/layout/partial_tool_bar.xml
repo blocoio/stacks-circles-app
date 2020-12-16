@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.appbar.MaterialToolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="?android:actionBarSize">
@@ -10,8 +11,21 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:gravity="center"
+        android:text="@string/connect"
         android:textAppearance="@style/TextAppearance.Stacks.ToolbarTitle"
-        android:textIsSelectable="false"
-        android:text="@string/connect" />
+        android:textIsSelectable="false" />
+
+    <ImageView
+        android:clickable="true"
+        android:focusable="true"
+        android:id="@+id/toolbarAvatar"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="end|center_vertical"
+        android:layout_marginHorizontal="16dp"
+        android:contentDescription="@string/avatar_content_description"
+        android:src="@drawable/ic_default_avatar"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
 </com.google.android.material.appbar.MaterialToolbar>

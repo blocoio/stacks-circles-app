@@ -27,7 +27,6 @@ open class StacksApp : Application() {
                 VmPolicy.Builder()
                     .detectAll()
                     .penaltyLog()
-                    .penaltyDeath()
                     .build()
             )
         }

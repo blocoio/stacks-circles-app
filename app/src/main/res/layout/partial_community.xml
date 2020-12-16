@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:text="@string/community"
+        android:textAppearance="@style/TextAppearance.Stacks.Subtitle" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/discordCard"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_margin="8dp"
+        app:cardBackgroundColor="@color/org_stacks_blue">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_stack_transparent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="16dp"
+            android:drawablePadding="12dp"
+            android:gravity="center_vertical"
+            android:text="@string/join_discord"
+            android:textColor="@color/white"
+            android:textSize="26sp"
+            app:drawableStartCompat="@drawable/ic_discord" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>
+

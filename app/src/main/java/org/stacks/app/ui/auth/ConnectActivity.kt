@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.stacks.app.R
 import org.stacks.app.ui.BaseActivity
+import org.stacks.app.ui.auth.login.LoginActivity
 import reactivecircus.flowbinding.android.view.clicks
 
 @AndroidEntryPoint

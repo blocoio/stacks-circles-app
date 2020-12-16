@@ -29,8 +29,6 @@
         <item name="titleTextStyle">@style/TextAppearance.Stacks.ToolbarTitle</item>
         <item name="toolbarStyle">@style/Widget.Stacks.Toolbar</item>
         <item name="materialButtonStyle">@style/Widget.Stacks.Button</item>
-        <item name="stacksMainButtonStyle">@style/Widget.Stacks.Button</item>
-        <item name="stacksSecondaryButtonStyle">@style/Widget.Stacks.ButtonOnPrimaryColor</item>
 
     </style>
 

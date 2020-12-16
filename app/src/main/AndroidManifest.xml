@@ -25,8 +25,11 @@
             android:parentActivityName=".ui.homepage.HomepageActivity" />
 
         <activity
-            android:name=".ui.auth.LoginActivity"
+            android:name=".ui.auth.login.LoginActivity"
             android:parentActivityName=".ui.auth.ConnectActivity" />
+
+        <activity android:name=".ui.auth.WelcomeActivity"
+            android:parentActivityName=".ui.auth.login.LoginActivity"/>
 
     </application>
 

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
 
     <include layout="@layout/partial_tool_bar" />
 
@@ -24,28 +25,36 @@
         android:gravity="center"
         android:text="@string/connect_key_message"
         android:textAppearance="@style/TextAppearance.Stacks.Subtitle"
-        app:layout_constraintBottom_toTopOf="@id/secret_key" />
+        app:layout_constraintBottom_toTopOf="@id/outlinedTextField" />
 
-
-    <EditText
-        android:id="@+id/secret_key"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/outlinedTextField"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_margin="8dp"
-        android:background="@drawable/rounded_corner"
-        android:gravity="top"
-        android:hint="@string/secret_key_hint"
-        android:importantForAutofill="no"
-        android:inputType="textMultiLine"
-        android:padding="12dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/grey_light"
+        android:layout_height="wrap_content"
+        app:hintEnabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/secretKey"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_margin="8dp"
+            android:gravity="top"
+            android:hint="@string/secret_key_hint"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey_light" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/signInButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
