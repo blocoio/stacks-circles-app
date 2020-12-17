@@ -7,12 +7,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_account.*
-import kotlinx.android.synthetic.main.partial_tool_bar.*
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.stacks.app.R
 import org.stacks.app.data.IdentityModel
 import org.stacks.app.ui.BaseActivity
+import org.stacks.app.ui.secret.SecretKeyActivity
+import reactivecircus.flowbinding.android.view.clicks
 
 @AndroidEntryPoint
 class AccountActivity : BaseActivity() {
@@ -22,13 +23,18 @@ class AccountActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account)
-        toolbarTitle.text = getString(R.string.connect_settings)
+        setNavigation()
 
         viewModel = ViewModelProvider(this).get(AccountViewModel::class.java)
 
         viewModel
             .identities()
             .onEach(::setIdentitiesRows)
+            .launchIn(lifecycleScope)
+
+        viewSecretKey
+            .clicks()
+            .onEach { startActivity(SecretKeyActivity.getIntent(this, true)) }
             .launchIn(lifecycleScope)
 
     }

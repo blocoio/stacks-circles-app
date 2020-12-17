@@ -31,7 +31,12 @@
         <activity android:name=".ui.auth.WelcomeActivity"
             android:parentActivityName=".ui.auth.login.LoginActivity"/>
 
+        <activity
+            android:name=".ui.secret.SecretKeyActivity"
+            android:parentActivityName=".ui.auth.ConnectActivity" />
+
         <activity android:name=".ui.account.AccountActivity"
+            android:label="@string/connect_settings"
             android:parentActivityName=".ui.homepage.HomepageActivity"/>
 
     </application>

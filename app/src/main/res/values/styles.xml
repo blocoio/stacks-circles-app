@@ -24,10 +24,16 @@
         <item name="android:textColor">@color/org_stacks_blue</item>
     </style>
 
+    <style name="Widget.Stacks.AlternativeButton" parent="@style/Widget.MaterialComponents.Button">
+        <item name="textAllCaps">false</item>
+        <item name="android:backgroundTint">@color/org_stacks_light1_blue</item>
+        <item name="android:textColor">@color/org_stacks_blue</item>
+    </style>
+
     <!-- Others-->
     <style name="Divider">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_height">1px</item>
         <item name="android:background">@color/black</item>
         <item name="android:alpha">0.2</item>
     </style>
