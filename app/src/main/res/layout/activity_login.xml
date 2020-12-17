@@ -39,6 +39,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/secretKey"
+            android:autofillHints="password"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_margin="8dp"

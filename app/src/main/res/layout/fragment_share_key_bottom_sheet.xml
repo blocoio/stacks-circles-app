@@ -57,11 +57,6 @@
         android:textColor="@color/black"
         android:textSize="16sp" />
 
-
-    <!-- TODO: -->
-    <!-- Size is all wrong!-->
-    <!-- Content descriptions lacking-->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -69,9 +64,8 @@
         android:gravity="start"
         android:orientation="horizontal">
 
-
         <LinearLayout
-            android:id="@+id/androidAutoFill"
+            android:id="@+id/copy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -91,42 +85,7 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:paddingHorizontal="6dp"
-                    android:paddingBottom="6dp"
-                    android:src="@drawable/ic_android"
-                    app:tint="@color/grey" />
-            </FrameLayout>
-
-            <TextView
-                style="@style/TextAppearance.Stacks.Subtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="8dp"
-                android:text="Android" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/copy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:background="?selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
-            android:orientation="vertical">
-
-            <FrameLayout
-                android:layout_width="42dp"
-                android:layout_height="42dp"
-                android:layout_marginVertical="16dp"
-                android:background="@drawable/ic_circle_stroke"
-                tools:ignore="RtlHardcoded">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:importantForAccessibility="no"
                     android:padding="8dp"
                     android:src="@drawable/ic_content_copy"
                     app:tint="@color/grey" />
@@ -138,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="8dp"
-                android:text="Copy" />
+                android:text="@string/copy" />
 
         </LinearLayout>
 
@@ -162,6 +121,7 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:importantForAccessibility="no"
                     android:src="@drawable/ic_more_horiz"
                     app:tint="@color/grey" />
             </FrameLayout>
@@ -172,7 +132,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="8dp"
-                android:text="More" />
+                android:text="@string/more" />
 
         </LinearLayout>
 
