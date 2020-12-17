@@ -19,7 +19,7 @@ class IdentityModelTest {
         // ASSERT
         assertEquals(identityJson, identity.json)
         assertEquals("1MYLnbVQRWP5YscZtAZPFrpAs9kdK62mFJ", identity.address)
-        assertEquals("harfileto.id.blockstack", identity.username)
+        assertEquals("harfileto.id.blockstack", identity.completeUsername)
 
         assertEquals("https://envelop.app/images/manifest-icon.png", identity.appModels.first().appIcon)
         assertEquals(1605715048017L, identity.appModels.first().lastLoginAt)

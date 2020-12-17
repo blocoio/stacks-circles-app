@@ -71,7 +71,6 @@ class ShareKeyBottomSheetFragment : BottomSheetDialogFragment() {
             .putExtra(EXTRA_SUBJECT, getString(R.string.secret_key))
             .putExtra(EXTRA_TITLE, getString(R.string.save))
             .putExtra(EXTRA_TEXT, viewModel.secretKey)
-    
 
     companion object {
         const val TAG = "CustomBottomSheetDialogFragment"
