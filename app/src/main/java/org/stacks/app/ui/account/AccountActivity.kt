@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.onEach
 import org.stacks.app.R
 import org.stacks.app.data.IdentityModel
 import org.stacks.app.ui.BaseActivity
+import org.stacks.app.ui.homepage.HomepageActivity
 import org.stacks.app.ui.secret.SecretKeyActivity
 import reactivecircus.flowbinding.android.view.clicks
 
@@ -29,12 +30,23 @@ class AccountActivity : BaseActivity() {
 
         viewModel
             .identities()
-            .onEach(::setIdentitiesRows)
+            .onEach {
+                if (it.isEmpty()) {
+                    startActivity(HomepageActivity.getIntent(this))
+                } else {
+                    setIdentitiesRows(it)
+                }
+            }
             .launchIn(lifecycleScope)
 
         viewSecretKey
             .clicks()
             .onEach { startActivity(SecretKeyActivity.getIntent(this, true)) }
+            .launchIn(lifecycleScope)
+
+        logout
+            .clicks()
+            .onEach { viewModel.logoutPressed() }
             .launchIn(lifecycleScope)
 
     }

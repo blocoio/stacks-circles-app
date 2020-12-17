@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
     <include layout="@layout/partial_tool_bar" />
 
@@ -97,9 +97,11 @@
                 android:layout_margin="8dp" />
 
             <TextView
+                android:id="@+id/logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
+                android:background="?selectableItemBackground"
                 android:text="@string/logout"
                 android:textColor="@color/red_light" />
 
