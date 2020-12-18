@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.stacks.app.R
@@ -19,16 +18,18 @@ import reactivecircus.flowbinding.android.widget.textChanges
 @AndroidEntryPoint
 class LoginActivity : BaseActivity() {
 
-    private lateinit var viewModel: LoginViewModel
+    private val viewModel: LoginViewModel by lazy {
+        ViewModelProvider(this).get(LoginViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
 
         secretKey
             .textChanges()
             .onEach {
+                outlinedTextField.error = null
                 viewModel.secretKeyUpdated(it)
             }
             .launchIn(lifecycleScope)
@@ -36,24 +37,20 @@ class LoginActivity : BaseActivity() {
         signInButton
             .clicks()
             .onEach {
-                viewModel.submitSecretKey(secretKey.text.toString())
+                viewModel.submitClicked(secretKey.text.toString())
             }
             .launchIn(lifecycleScope)
 
         viewModel
-            .secretKeyState()
+            .showError()
             .onEach {
-                outlinedTextField.error = if (it is LoginViewModel.LoginState.InvalidSecretKey) {
+                outlinedTextField.error =
                     getString(R.string.secret_key_error)
-                } else {
-                    null
-                }
             }
             .launchIn(lifecycleScope)
 
         viewModel
-            .secretKeyState()
-            .filter { it is LoginViewModel.LoginState.ValidSecretKey }
+            .openWelcomeScreen()
             .onEach {
                 startActivity(WelcomeActivity.getIntent(this))
             }
