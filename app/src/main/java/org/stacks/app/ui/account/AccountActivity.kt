@@ -30,16 +30,12 @@ class AccountActivity : BaseActivity() {
 
         viewModel
             .identities()
-            .onEach {
-                setIdentitiesRows(it)
-            }
+            .onEach { setIdentitiesRows(it) }
             .launchIn(lifecycleScope)
 
         viewModel
             .loggedOut()
-            .onEach {
-                startActivity(HomepageActivity.getIntent(this))
-            }
+            .onEach { startActivity(HomepageActivity.getIntent(this)) }
             .launchIn(lifecycleScope)
 
         viewModel
