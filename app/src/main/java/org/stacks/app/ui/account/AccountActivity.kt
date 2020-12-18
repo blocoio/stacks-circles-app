@@ -19,14 +19,14 @@ import reactivecircus.flowbinding.android.view.clicks
 @AndroidEntryPoint
 class AccountActivity : BaseActivity() {
 
-    private lateinit var viewModel: AccountViewModel
+    private val viewModel: AccountViewModel by lazy {
+        ViewModelProvider(this).get(AccountViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account)
         setNavigation()
-
-        viewModel = ViewModelProvider(this).get(AccountViewModel::class.java)
 
         viewModel
             .identities()
@@ -38,6 +38,10 @@ class AccountActivity : BaseActivity() {
                 }
             }
             .launchIn(lifecycleScope)
+
+        viewModel
+            .errors()
+            .onEach { finish() }.launchIn(lifecycleScope)
 
         viewSecretKey
             .clicks()
@@ -52,6 +56,7 @@ class AccountActivity : BaseActivity() {
     }
 
     private fun setIdentitiesRows(identities: List<IdentityModel>) {
+        accounts.removeAllViews()
         identities.forEach {
             accounts.addView(IdentityRowView(this, it))
         }

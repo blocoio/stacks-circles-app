@@ -4,16 +4,13 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.flow.*
-import org.stacks.app.data.interfaces.IdentityRepository
-import org.stacks.app.data.interfaces.SecretKeyRepository
 import org.stacks.app.domain.Login
+import org.stacks.app.shared.foldOnEach
 import org.stacks.app.ui.BaseViewModel
 
 class LoginViewModel
 @ViewModelInject constructor(
     login: Login,
-    identityRepository: IdentityRepository,
-    secretKeyRepository: SecretKeyRepository
 ) : BaseViewModel() {
 
     // Inputs
@@ -21,34 +18,26 @@ class LoginViewModel
     private val submittedSecretKey = BroadcastChannel<String>(1)
 
     // Outputs
-    private val secretKeyState = MutableStateFlow<LoginState>(LoginState.UpdatingSecretKey)
+    private val showError = BroadcastChannel<Unit>(1)
+    private val openWelcomeScreen = BroadcastChannel<Unit>(1)
 
     init {
         secretKeyValues
             .asStateFlow()
+            .filter { it.split(" ").count() > SECRET_KEY_WORDS }
             .onEach {
-                secretKeyState.emit(
-                    if (it.split(" ").count() > SECRET_KEY_WORDS) {
-                        LoginState.InvalidSecretKey
-                    } else {
-                        LoginState.UpdatingSecretKey
-                    }
-                )
+                showError.send(Unit)
             }
             .launchIn(viewModelScope)
 
         submittedSecretKey
             .asFlow()
-            .flatMapConcat { login.identitiesSecretKey(it) }
-            .onEach {
-                it.fold({ list ->
-                    identityRepository.set(list)
-                    secretKeyRepository.set(secretKeyValues.value)
-                    secretKeyState.emit(LoginState.ValidSecretKey)
-                }, {
-                    secretKeyState.emit(LoginState.InvalidSecretKey)
-                })
-            }
+            .flatMapConcat { login.login(it) }
+            .foldOnEach({
+                openWelcomeScreen.send(Unit)
+            }, {
+                showError.send(Unit)
+            })
             .launchIn(ioScope)
     }
 
@@ -56,21 +45,18 @@ class LoginViewModel
     suspend fun secretKeyUpdated(privateKey: CharSequence) =
         secretKeyValues.emit(privateKey.toString())
 
-    suspend fun submitSecretKey(text: String) =
+    suspend fun submitClicked(text: String) =
         submittedSecretKey.send(text)
 
     // Outputs
-    fun secretKeyState(): StateFlow<LoginState> =
-        secretKeyState.asStateFlow()
+    fun showError() =
+        showError.asFlow()
+
+    fun openWelcomeScreen() =
+        openWelcomeScreen.asFlow()
 
     companion object {
         const val SECRET_KEY_WORDS = 12
-    }
-
-    sealed class LoginState {
-        object InvalidSecretKey : LoginState()
-        object UpdatingSecretKey : LoginState()
-        object ValidSecretKey : LoginState()
     }
 
 }

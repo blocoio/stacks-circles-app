@@ -29,15 +29,15 @@ import reactivecircus.flowbinding.android.view.clicks
 @AndroidEntryPoint
 class HomepageActivity : BaseActivity() {
 
-    private lateinit var viewModel: HomePageViewModel
+    private val viewModel: HomePageViewModel by lazy {
+        ViewModelProvider(this).get(HomePageViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_homepage)
         toolbar.addSystemWindowInsetToPadding(top = true)
         scrollView.addSystemWindowInsetToPadding(bottom = true)
-
-        viewModel = ViewModelProvider(this).get(HomePageViewModel::class.java)
 
         toolbarAvatar
             .clicks()
@@ -105,7 +105,7 @@ class HomepageActivity : BaseActivity() {
     }
 
     private fun setViewsVisibilityFromUserAuthState(state: UserAuthState) {
-        start_layout.isVisible = state == Unauthenticated
+        startLayout.isVisible = state == Unauthenticated
         toolbarAvatar.isVisible = state == Authenticated
     }
 

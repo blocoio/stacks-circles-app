@@ -2,10 +2,12 @@ package org.stacks.app.data
 
 import com.tfcporciuncula.flow.FlowSharedPreferences
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import org.stacks.app.data.interfaces.IdentityRepository
+import org.stacks.app.shared.IdentitiesParsingFailed
 import org.stacks.app.shared.PolluteString
 import org.stacks.app.shared.toFlow
 import timber.log.Timber
@@ -35,11 +37,18 @@ class EncryptedPreferencesIdentityRepository
             .toFlow()
             .filter { !PolluteString.isPolluted(it) }
             .map {
-                return@map toListIdentities(it)
+                toListIdentities(it)
             }
 
+    /**
+     * Converts the given string to a list of [IdentityModel]'s
+     *
+     * @param jsonArrayString - string that contains the JSON array with the Identities
+     *
+     * @throws IdentitiesParsingFailed if it fails to convert the identities
+     */
     private fun toListIdentities(jsonArrayString: String): List<IdentityModel> {
-        if (jsonArrayString.isEmpty()) return emptyList<IdentityModel>()
+        if (jsonArrayString.isEmpty()) return emptyList()
 
         val listOfIdentities = mutableListOf<IdentityModel>()
 
@@ -51,6 +60,7 @@ class EncryptedPreferencesIdentityRepository
             }
         } catch (e: Exception) {
             Timber.w(e)
+            throw IdentitiesParsingFailed(e)
         }
 
         return listOfIdentities
