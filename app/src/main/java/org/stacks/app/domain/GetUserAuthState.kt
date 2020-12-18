@@ -1,5 +1,6 @@
 package org.stacks.app.domain
 
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.take
 import org.stacks.app.data.EncryptedPreferencesIdentityRepository
@@ -10,7 +11,6 @@ class GetUserAuthState
 @Inject constructor(
     private val identityRepository: EncryptedPreferencesIdentityRepository
 ) {
-
     // Outputs
     fun state() =
         identityRepository
@@ -23,6 +23,7 @@ class GetUserAuthState
                     UserAuthState.Unauthenticated
                 }
             }
+            .catch { emit(UserAuthState.Unauthenticated) }
 
     // State
     sealed class UserAuthState {

@@ -31,11 +31,14 @@ class AccountActivity : BaseActivity() {
         viewModel
             .identities()
             .onEach {
-                if (it.isEmpty()) {
-                    startActivity(HomepageActivity.getIntent(this))
-                } else {
-                    setIdentitiesRows(it)
-                }
+                setIdentitiesRows(it)
+            }
+            .launchIn(lifecycleScope)
+
+        viewModel
+            .loggedOut()
+            .onEach {
+                startActivity(HomepageActivity.getIntent(this))
             }
             .launchIn(lifecycleScope)
 

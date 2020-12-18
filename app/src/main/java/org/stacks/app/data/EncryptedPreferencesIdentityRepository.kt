@@ -35,7 +35,6 @@ class EncryptedPreferencesIdentityRepository
     override fun observe(): Flow<List<IdentityModel>> =
         { preferences }
             .toFlow()
-            .filter { !PolluteString.isPolluted(it) }
             .map {
                 toListIdentities(it)
             }
