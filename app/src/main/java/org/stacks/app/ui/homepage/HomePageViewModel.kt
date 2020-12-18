@@ -4,7 +4,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.flow.*
 import org.blockstack.android.sdk.Blockstack
-import org.stacks.app.data.interfaces.IdentityRepository
+import org.stacks.app.domain.GetUserAuthState
 import org.stacks.app.ui.BaseViewModel
 import org.stacks.app.ui.homepage.HomePageViewModel.UserAuthState.Authenticated
 import org.stacks.app.ui.homepage.HomePageViewModel.UserAuthState.Unauthenticated
@@ -27,7 +27,7 @@ class HomePageViewModel
                 when(it) {
                     is GetUserAuthState.UserAuthState.Authenticated -> {
                         authenticatedState.emit(Authenticated)
-                        userAvatarImageUrl.send(blockstack.lookupProfile(it.mainIdentity.username!!, null).avatarImage)
+                        userAvatarImageUrl.send(blockstack.lookupProfile(it.mainIdentity.completeUsername!!, null).avatarImage)
                     }
                     GetUserAuthState.UserAuthState.Unauthenticated -> {
                         authenticatedState.emit(Unauthenticated)

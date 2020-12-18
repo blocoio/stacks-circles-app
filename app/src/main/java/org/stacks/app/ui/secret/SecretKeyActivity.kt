@@ -8,7 +8,6 @@ import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_secret_key.*
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import org.stacks.app.R
 import org.stacks.app.ui.BaseActivity
@@ -18,7 +17,9 @@ import reactivecircus.flowbinding.android.view.clicks
 @AndroidEntryPoint
 class SecretKeyActivity : BaseActivity() {
 
-    private lateinit var viewModel: SecretKeyViewModel
+    private val viewModel: SecretKeyViewModel by lazy {
+        ViewModelProvider(this).get(SecretKeyViewModel::class.java)
+    }
 
     private val backButtonEnabled by lazy {
         intent?.getBooleanExtra(BACK_BUTTON, false) ?: false
@@ -31,8 +32,6 @@ class SecretKeyActivity : BaseActivity() {
             setNavigation()
         }
 
-        viewModel = ViewModelProvider(this).get(SecretKeyViewModel::class.java)
-
         viewModel
             .secretKey()
             .onEach {
@@ -42,8 +41,9 @@ class SecretKeyActivity : BaseActivity() {
 
         copyKeyButton
             .clicks()
-            .map { viewModel.copyPressed() }
             .onEach {
+                viewModel.copyPressed()
+
                 ShareKeyBottomSheetFragment().apply {
                     show(supportFragmentManager, ShareKeyBottomSheetFragment.TAG)
                 }

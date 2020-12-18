@@ -46,7 +46,7 @@
     <string name="view_secret_key">View Secret Key</string>
     <string name="back_content_description">back button</string>
     <string name="copy_secret_key">Copy Secret Key</string>
-    <string name="unknow">unknow</string>
+    <string name="unknown">unknown</string>
 
     <!--SECRET SCREEN-->
     <string name="your_secret_key">Your Secret Key</string>

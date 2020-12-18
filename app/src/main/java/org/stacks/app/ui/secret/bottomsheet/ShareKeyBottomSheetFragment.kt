@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_share_key_bottom_sheet.*
+import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.stacks.app.R
@@ -20,7 +21,9 @@ import reactivecircus.flowbinding.android.view.clicks
 @AndroidEntryPoint
 class ShareKeyBottomSheetFragment : BottomSheetDialogFragment() {
 
-    private lateinit var viewModel: ShareKeyBottomSheetViewModel
+    private val viewModel: ShareKeyBottomSheetViewModel by lazy {
+        ViewModelProvider(this).get(ShareKeyBottomSheetViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,7 +34,6 @@ class ShareKeyBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ShareKeyBottomSheetViewModel::class.java)
 
         saved
             .clicks()
@@ -51,26 +53,35 @@ class ShareKeyBottomSheetFragment : BottomSheetDialogFragment() {
         copy
             .clicks()
             .onEach {
-                dismiss()
                 viewModel.copyPressed()
+                // Warning: don't dismiss here, instead wait for copiedSuccessful,
+                // otherwise lifeScope can end before copy was finished
             }
             .launchIn(lifecycleScope)
 
         more
             .clicks()
+            .flatMapConcat { viewModel.secretKey() }
             .onEach {
                 dismiss()
-                startActivity(getShareTextIntent())
+                startActivity(getShareTextIntent(it))
+            }
+            .launchIn(lifecycleScope)
+
+        viewModel
+            .copiedSuccessful()
+            .onEach {
+                dismiss()
             }
             .launchIn(lifecycleScope)
     }
 
-    private fun getShareTextIntent(): Intent =
+    private fun getShareTextIntent(text: String): Intent =
         Intent(ACTION_SEND)
             .setType("text/plain")
             .putExtra(EXTRA_SUBJECT, getString(R.string.secret_key))
             .putExtra(EXTRA_TITLE, getString(R.string.save))
-            .putExtra(EXTRA_TEXT, viewModel.secretKey)
+            .putExtra(EXTRA_TEXT, text)
 
     companion object {
         const val TAG = "CustomBottomSheetDialogFragment"

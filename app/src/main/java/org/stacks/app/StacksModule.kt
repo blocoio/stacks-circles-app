@@ -1,10 +1,12 @@
 package org.stacks.app
 
+import android.content.ClipboardManager
 import android.content.Context
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import android.security.keystore.KeyProperties.PURPOSE_DECRYPT
 import android.security.keystore.KeyProperties.PURPOSE_ENCRYPT
+import androidx.core.content.ContextCompat
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV
 import androidx.security.crypto.EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
@@ -42,7 +44,6 @@ class StacksModule {
         return builder.build()
     }
 
-
     @Provides
     @Singleton
     fun masterKey(
@@ -73,6 +74,11 @@ class StacksModule {
     @Singleton
     fun blockstack() =
         Blockstack()
+
+    @Provides
+    @Singleton
+    fun clipboardManager(@ApplicationContext context: Context) =
+        ContextCompat.getSystemService(context, ClipboardManager::class.java) as ClipboardManager
 
     companion object {
         const val KEY_SIZE = 256
