@@ -1,6 +1,7 @@
 <resources>
     <!--APP-->
     <string name="app_name">Connect</string>
+    <string name="wip">Work In Progress</string>
 
     <!--ENDPOINTS-->
     <string name="api_url">https://gaia.blockstack.org/</string>

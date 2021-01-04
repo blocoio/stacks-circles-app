@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_connect.*
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -18,6 +19,13 @@ class ConnectActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_connect)
+
+        newAccount
+            .clicks()
+            .onEach {
+                Snackbar.make(root, R.string.wip, Snackbar.LENGTH_LONG).show()
+            }
+            .launchIn(lifecycleScope)
 
         login
             .clicks()

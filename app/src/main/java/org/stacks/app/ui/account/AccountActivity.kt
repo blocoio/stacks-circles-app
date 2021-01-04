@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_account.*
 import kotlinx.coroutines.flow.launchIn
@@ -41,6 +42,11 @@ class AccountActivity : BaseActivity() {
         viewModel
             .finish()
             .onEach { finish() }
+            .launchIn(lifecycleScope)
+
+        createAccount
+            .clicks()
+            .onEach { Snackbar.make(root, R.string.wip, Snackbar.LENGTH_LONG).show() }
             .launchIn(lifecycleScope)
 
         viewSecretKey
