@@ -33,8 +33,9 @@ class AccountActivity : BaseActivity() {
             .launchIn(lifecycleScope)
 
         viewModel
-            .errors()
-            .onEach { finish() }.launchIn(lifecycleScope)
+            .finish()
+            .onEach { finish() }
+            .launchIn(lifecycleScope)
 
         viewSecretKey
             .clicks()

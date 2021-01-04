@@ -35,6 +35,6 @@ class AccountViewModel
 
     // Outputs
     fun identities(): Flow<List<IdentityModel>> = identities.asFlow()
-    fun errors(): Flow<Unit> = errors.asFlow()
+    fun finish(): Flow<Unit> = errors.asFlow()
 
 }
