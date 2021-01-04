@@ -1,6 +1,9 @@
 package org.stacks.app.shared
 
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 
 fun <T> Flow<T>.toResult(): Flow<Result<T>> =
     map { Result.success(it) }
@@ -8,9 +11,6 @@ fun <T> Flow<T>.toResult(): Flow<Result<T>> =
 
 fun <T, R> Flow<Result<T>>.mapIfSuccess(mapper: suspend ((T) -> R)): Flow<Result<R>> =
     map { result -> result.map { mapper.invoke(it) } }
-
-fun <T, R> Flow<Result<T>>.flatMapIfSuccess(mapper: suspend ((T) -> R)): Flow<Result<R>> =
-    flatMapConcat { result -> flow { emit(result.map { mapper.invoke(it) }) } }
 
 fun <T, R> Flow<Result<T>>.foldOnEach(
     onSuccess: suspend (value: T) -> R,
