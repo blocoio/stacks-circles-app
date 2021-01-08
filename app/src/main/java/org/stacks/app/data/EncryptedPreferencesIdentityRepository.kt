@@ -8,6 +8,7 @@ import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import org.stacks.app.data.interfaces.IdentityRepository
 import org.stacks.app.shared.IdentitiesParsingFailed
+import org.stacks.app.shared.PolluteString
 import org.stacks.app.shared.toFlow
 import timber.log.Timber
 import javax.inject.Inject
@@ -24,7 +25,7 @@ class EncryptedPreferencesIdentityRepository
     private val preferences by lazy { flowSharedPreferences.getString(IDENTITY) }
 
     override suspend fun clear() = withContext(Dispatchers.IO) {
-        preferences.setAndCommit("") //DELETE does not trigger observe
+        preferences.setAndCommit(PolluteString.pollute(preferences.get().length))
     }
 
     override suspend fun set(models: List<IdentityModel>) = withContext(Dispatchers.IO) {
@@ -67,6 +68,5 @@ class EncryptedPreferencesIdentityRepository
     companion object {
         const val IDENTITY = "identityModel"
     }
-
 
 }
