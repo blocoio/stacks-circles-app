@@ -15,7 +15,7 @@ You can follow the progress being made by accessing this repo [Projects](https:/
 
 ## Work in Progress
 - [Demo video](https://user-images.githubusercontent.com/20781703/103557780-9d474580-4eab-11eb-885b-298fc801241c.mov)
-- [Download APK](https://github.com/blocoio/stacks-app/suites/1793329455/artifacts/34347579)
+- [Download APK](https://github.com/blocoio/stacks-app/releases/download/milestone2/stacks.apk)
 
 ---
 
