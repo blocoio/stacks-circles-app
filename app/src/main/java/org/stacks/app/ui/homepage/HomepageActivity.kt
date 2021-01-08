@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_homepage.*
 import kotlinx.android.synthetic.main.partial_community.*
@@ -102,6 +103,17 @@ class HomepageActivity : BaseActivity() {
                 }
             }
             .launchIn(lifecycleScope)
+
+        Snackbar.make(root,R.string.wip, Snackbar.LENGTH_LONG)
+            .setAction("Know more") {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(getString(R.string.wip_info_url))
+                    )
+                )
+            }
+            .show()
     }
 
     private fun setViewsVisibilityFromUserAuthState(state: UserAuthState) {

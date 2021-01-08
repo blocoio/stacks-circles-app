@@ -1,13 +1,14 @@
 <resources>
     <!--APP-->
     <string name="app_name">Connect</string>
-    <string name="wip">Work In Progress</string>
+    <string name="wip">This is a working process app</string>
 
     <!--ENDPOINTS-->
     <string name="api_url">https://gaia.blockstack.org/</string>
     <string name="about_us_url">https://www.blockstack.org/how-blockstack-works</string>
     <string name="newsletter_url">http://newsletters.blockstack.org/</string>
     <string name="discord_url">https://discord.gg/tR8HjHnb</string>
+    <string name="wip_info_url">https://github.com/stacksgov/Stacks-Grants/issues/22</string>
 
     <!--HOMEPAGE-->
     <string name="connect_info">Connect guarantees your privacy by encrypting everything</string>
