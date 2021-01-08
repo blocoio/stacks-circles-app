@@ -5,11 +5,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
-import org.json.JSONObject
+import org.json.JSONArray
 import org.stacks.app.data.interfaces.IdentityRepository
+import org.stacks.app.shared.IdentitiesParsingFailed
+import org.stacks.app.shared.toFlow
+import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Provider
+import javax.inject.Singleton
 
+@Singleton
 class EncryptedPreferencesIdentityRepository
 @Inject constructor(
     private val preferencesProvider: Provider<FlowSharedPreferences>
@@ -22,21 +27,46 @@ class EncryptedPreferencesIdentityRepository
         preferences.setAndCommit("") //DELETE does not trigger observe
     }
 
-    override suspend fun set(model: IdentityModel) = withContext(Dispatchers.IO) {
-        preferences.setAndCommit(model.json.toString())
+    override suspend fun set(models: List<IdentityModel>) = withContext(Dispatchers.IO) {
+        preferences.setAndCommit(JSONArray(models.map { it.json }).toString())
     }
 
-    override suspend fun observe(): Flow<IdentityModel?> = withContext(Dispatchers.IO) {
-        preferences
-            .asFlow()
+    override fun observe(): Flow<List<IdentityModel>> =
+        { preferences }
+            .toFlow()
             .map {
-                if (it.isEmpty()) return@map null
-                IdentityModel(JSONObject(it))
+                toListIdentities(it)
             }
+
+    /**
+     * Converts the given string to a list of [IdentityModel]'s
+     *
+     * @param jsonArrayString - string that contains the JSON array with the Identities
+     *
+     * @throws IdentitiesParsingFailed if it fails to convert the identities
+     */
+    private fun toListIdentities(jsonArrayString: String): List<IdentityModel> {
+        if (jsonArrayString.isEmpty()) return emptyList()
+
+        val listOfIdentities = mutableListOf<IdentityModel>()
+
+        try {
+            val identities = JSONArray(jsonArrayString)
+
+            for (i in 0 until identities.length()) {
+                listOfIdentities.add(IdentityModel(identities.getJSONObject(i)))
+            }
+        } catch (e: Exception) {
+            Timber.w(e)
+            throw IdentitiesParsingFailed(e)
+        }
+
+        return listOfIdentities
     }
 
     companion object {
         const val IDENTITY = "identityModel"
     }
+
 
 }

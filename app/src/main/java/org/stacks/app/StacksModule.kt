@@ -16,6 +16,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import org.blockstack.android.sdk.Blockstack
 import javax.inject.Singleton
 
 @Module
@@ -67,6 +68,11 @@ class StacksModule {
             AES256_GCM
         )
     )
+
+    @Provides
+    @Singleton
+    fun blockstack() =
+        Blockstack()
 
     companion object {
         const val KEY_SIZE = 256
