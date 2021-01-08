@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/partial_tool_bar" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/accounts"
+                android:textColor="@color/black" />
+
+            <LinearLayout
+                android:id="@+id/accounts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:orientation="vertical">
+
+                <View style="@style/Divider" />
+
+            </LinearLayout>
+
+            <TextView
+                style="@style/TextAppearance.Stacks.ClickableText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/create_account" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/secret_key"
+                android:textColor="@color/black" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/viewSecretKey"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_margin="16dp"
+                android:backgroundTint="@color/org_stacks_light1_blue"
+                app:cardCornerRadius="8dp"
+                app:strokeColor="@color/org_stacks_light2_blue"
+                app:strokeWidth="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <TextView
+                        style="@style/TextAppearance.Stacks.ClickableText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/view_secret_key"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_margin="16dp"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_arrow_forward"
+                        app:tint="@color/org_stacks_blue" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <View
+                style="@style/Divider"
+                android:layout_margin="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/logout"
+                android:textColor="@color/red_light" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

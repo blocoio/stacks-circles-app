@@ -31,11 +31,32 @@
     <string name="continue_key">Continue with Secret Key</string>
     <string name="how_connect_works"><u>How Connect Works</u></string>
     <string name="sign_in">Sign In</string>
-    <string name="sign_in_message">Enter your Secret Key to sign in to Connect</string>
-    <string name="secret_key_hint"> Secret Key</string>
+    <string name="secret_key">Secret Key</string>
+    <string name="save">Save</string>
     <string name="secret_key_error">The Secret Key you\'ve entered is invalid</string>
     <string name="welcome_back">Welcome Back!</string>
     <string name="welcome_info">Access your account at any time by clicking on the avatar icon, on the top right corner.</string>
     <string name="discover_stacks">Discover Stacks App</string>
+
+    <!--ACCOUNT SCREENS-->
+    <string name="connect_settings">Connect Settings</string>
+    <string name="accounts">Accounts</string>
+    <string name="create_account">Create a new account</string>
+    <string name="logout">Log out</string>
+    <string name="view_secret_key">View Secret Key</string>
+    <string name="back_content_description">back button</string>
+    <string name="copy_secret_key">Copy Secret Key</string>
+    <string name="unknown">unknown</string>
+
+    <!--SECRET SCREEN-->
+    <string name="your_secret_key">Your Secret Key</string>
+    <string name="your_secret_key_info">Here’s your Secret Key: 12 words that prove it’s you when you want to use it on a new device. Once lost it’s lost forever, so save it somewhere you won’t forget.</string>
+    <string name="save_your_secret_key">Save your Secret Key</string>
+    <string name="save_your_secret_key_info">Store your secret key somewhere safe, along with other critical, private information such as passwords. Once lost, it’s lost forever. So save it somewhere you won’t forget.</string>
+    <string name="i_have_saved_it">I\'ve saved it</string>
+    <string name="view_secret_key_again">View Secret Key Again</string>
+    <string name="share_to_apps">Share to apps</string>
+    <string name="copy">Copy</string>
+    <string name="more">More</string>
 
 </resources>

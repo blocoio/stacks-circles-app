@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.stacks.app.R
 import org.stacks.app.ui.BaseActivity
+import org.stacks.app.ui.account.AccountActivity
 import org.stacks.app.ui.auth.ConnectActivity
 import org.stacks.app.ui.homepage.HomePageViewModel.UserAuthState
 import org.stacks.app.ui.homepage.HomePageViewModel.UserAuthState.Authenticated
@@ -41,7 +42,7 @@ class HomepageActivity : BaseActivity() {
         toolbarAvatar
             .clicks()
             .onEach {
-
+                startActivity(AccountActivity.getIntent(this))
             }
             .launchIn(lifecycleScope)
 

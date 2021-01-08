@@ -2,9 +2,14 @@
 <resources>
     <color name="org_stacks_blue">#5546FF</color>
 
+    <color name="org_stacks_light1_blue">#F2F2FF</color>
+    <color name="org_stacks_light2_blue">#E3E5FF</color>
+
     <color name="red_dark">#B00020</color>
+    <color name="red_light">#EE6A5F</color>
     <color name="black">#000000</color>
     <color name="grey">#424248</color>
     <color name="grey_light">#747478</color>
+    <color name="grey_light2">#9D9D9F</color>
     <color name="white">#FFFFFF</color>
 </resources>

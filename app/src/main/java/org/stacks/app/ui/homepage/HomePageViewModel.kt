@@ -27,7 +27,7 @@ class HomePageViewModel
                 when(it) {
                     is GetUserAuthState.UserAuthState.Authenticated -> {
                         authenticatedState.emit(Authenticated)
-                        userAvatarImageUrl.send(blockstack.lookupProfile(it.mainIdentity.username!!, null).avatarImage)
+                        userAvatarImageUrl.send(blockstack.lookupProfile(it.mainIdentity.completeUsername!!, null).avatarImage)
                     }
                     GetUserAuthState.UserAuthState.Unauthenticated -> {
                         authenticatedState.emit(Unauthenticated)
