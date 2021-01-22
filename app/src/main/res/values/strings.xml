@@ -3,7 +3,9 @@
     <string name="app_name">Connect</string>
 
     <!--ENDPOINTS-->
-    <string name="api_url">https://gaia.blockstack.org/</string>
+    <string name="gaia_endpoint">https://gaia.blockstack.org/</string>
+    <string name="hub_endpoint">https://hub.blockstack.org/</string>
+    <string name="registrar_endpoint">https://registrar.blockstack.org/</string>
     <string name="about_us_url">https://www.blockstack.org/how-blockstack-works</string>
     <string name="newsletter_url">http://newsletters.blockstack.org/</string>
     <string name="discord_url">https://discord.gg/tR8HjHnb</string>
@@ -58,5 +60,8 @@
     <string name="share_to_apps">Share to apps</string>
     <string name="copy">Copy</string>
     <string name="more">More</string>
+    <string name="continue_btn">Continue</string>
+    <string name="choose_username_info">This is how others will see you on other apps.</string>
+    <string name="choose_username">Choose Username</string>
 
 </resources>

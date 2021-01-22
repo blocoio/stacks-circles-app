@@ -28,6 +28,10 @@
             android:name=".ui.auth.login.LoginActivity"
             android:parentActivityName=".ui.auth.ConnectActivity" />
 
+        <activity
+            android:name=".ui.auth.signup.ChooseUsernameActivity"
+            android:parentActivityName=".ui.auth.ConnectActivity" />
+
         <activity android:name=".ui.auth.WelcomeActivity"
             android:parentActivityName=".ui.auth.login.LoginActivity"/>
 

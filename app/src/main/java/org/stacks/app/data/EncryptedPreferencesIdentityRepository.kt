@@ -47,7 +47,7 @@ class EncryptedPreferencesIdentityRepository
      * @throws IdentitiesParsingFailed if it fails to convert the identities
      */
     private fun toListIdentities(jsonArrayString: String): List<IdentityModel> {
-        if (jsonArrayString.isEmpty()) return emptyList()
+        if (jsonArrayString.isEmpty() || PolluteString.isPolluted(jsonArrayString)) return emptyList()
 
         val listOfIdentities = mutableListOf<IdentityModel>()
 
@@ -57,7 +57,7 @@ class EncryptedPreferencesIdentityRepository
             for (i in 0 until identities.length()) {
                 listOfIdentities.add(IdentityModel(identities.getJSONObject(i)))
             }
-        } catch (e: Exception) {
+        } catch (e: Throwable) {
             Timber.w(e)
             throw IdentitiesParsingFailed(e)
         }

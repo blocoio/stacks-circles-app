@@ -7,8 +7,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_secret_key.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import org.stacks.app.R
 import org.stacks.app.ui.BaseActivity
 import org.stacks.app.ui.secret.bottomsheet.ShareKeyBottomSheetFragment
@@ -21,15 +24,23 @@ class SecretKeyActivity : BaseActivity() {
         ViewModelProvider(this).get(SecretKeyViewModel::class.java)
     }
 
-    private val backButtonEnabled by lazy {
-        intent?.getBooleanExtra(BACK_BUTTON, false) ?: false
+    private val signUp by lazy {
+        intent?.getBooleanExtra(SIGN_UP, false) ?: false
     }
+
+    private val shareBottomSheetFragment = ShareKeyBottomSheetFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_secret_key)
-        if (backButtonEnabled) {
+        if (!signUp) {
             setNavigation()
+        } else {
+            shareBottomSheetFragment.signUp = signUp
+
+            GlobalScope.launch(Dispatchers.Main) {
+                viewModel.generateNewSecretKey()
+            }
         }
 
         viewModel
@@ -43,21 +54,21 @@ class SecretKeyActivity : BaseActivity() {
             .clicks()
             .onEach {
                 viewModel.copyPressed()
-
-                ShareKeyBottomSheetFragment().apply {
-                    show(supportFragmentManager, ShareKeyBottomSheetFragment.TAG)
-                }
+                shareBottomSheetFragment.show(
+                    supportFragmentManager,
+                    ShareKeyBottomSheetFragment.TAG
+                )
             }
             .launchIn(lifecycleScope)
     }
 
     companion object {
 
-        const val BACK_BUTTON = "backButtonEnabled"
+        const val SIGN_UP = "signUp"
 
-        fun getIntent(context: Context, backButtonEnabled: Boolean = false) =
+        fun getIntent(context: Context, signUp: Boolean = false) =
             Intent(context, SecretKeyActivity::class.java)
-                .putExtra(BACK_BUTTON, backButtonEnabled)
+                .putExtra(SIGN_UP, signUp)
     }
 
 }

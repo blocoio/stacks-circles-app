@@ -85,6 +85,9 @@ dependencies {
     implementation 'com.github.MohammadSianaki:Retrofit2-Flow-Call-Adapter:0.2.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
 
+    // JWT
+    implementation 'io.fusionauth:fusionauth-jwt:4.0.1'
+
     // Blockstack
     //noinspection GradleDependency
     implementation "com.github.blocoio:blockstack-android:$blockstack_version"
