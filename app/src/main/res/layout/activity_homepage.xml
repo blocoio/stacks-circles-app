@@ -39,7 +39,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
+                    android:layout_margin="16dp"
                     android:gravity="center"
                     android:text="@string/connect_info"
                     android:textAppearance="@style/TextAppearance.Stacks.Headline" />
@@ -66,7 +66,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
+                    android:layout_margin="16dp"
                     android:text="@string/built_on_stacks"
                     android:textAppearance="@style/TextAppearance.Stacks.Subtitle" />
 

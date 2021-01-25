@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="16dp"
         android:gravity="center"
         android:text="@string/continue_key"
         android:textAppearance="@style/TextAppearance.Stacks.Headline"
@@ -21,7 +21,7 @@
         android:id="@+id/secret_key_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="16dp"
         android:gravity="center"
         android:text="@string/connect_key_message"
         android:textAppearance="@style/TextAppearance.Stacks.Subtitle"
@@ -58,7 +58,7 @@
         android:id="@+id/signInButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="16dp"
         android:text="@string/sign_in"
         app:layout_constraintBottom_toBottomOf="parent" />
 
