@@ -62,7 +62,6 @@ class ChooseUsernameViewModel
                 registrarProfile.register(username, btcAddress)
                 uploadWallet.upload(identities, keys)
                 newAccount.send(Unit)
-
             }
             .catch { e ->
                 Timber.e(e)

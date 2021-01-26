@@ -1,8 +1,18 @@
 package org.stacks.app.data.network.models
 
+import com.google.gson.annotations.SerializedName
+
 data class HubInfo(
-    val challenge_text: String,
-    val latest_auth_version: String,
-    val max_file_upload_size_megabytes: Int,
-    val read_url_prefix: String
+
+    @SerializedName("challenge_text")
+    val challengeText: String,
+
+    @SerializedName("latest_auth_version")
+    val latestAuthVersion: String,
+
+    @SerializedName("max_file_upload_size_megabytes")
+    val maxFileUploadSizeMegabytes: Int,
+
+    @SerializedName("read_url_prefix")
+    val readUrlPrefix: String
 )

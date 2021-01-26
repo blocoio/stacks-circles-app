@@ -22,7 +22,6 @@ import org.kethereum.model.ECKeyPair
 import org.stacks.app.data.ProfileModel
 import org.stacks.app.data.network.services.HubService
 import org.stacks.app.shared.nextYear
-import org.stacks.app.shared.toResult
 import org.stacks.app.shared.toZuluTime
 import java.util.*
 import javax.inject.Inject
@@ -35,30 +34,27 @@ class UploadProfile
     private val gson: Gson
 ) {
 
-    suspend fun upload(profile: ProfileModel, keys: ECKeyPair): Flow<Result<ResponseBody>> =
+    suspend fun upload(profile: ProfileModel, keys: ECKeyPair): ResponseBody =
         withContext(IO) {
             val payload = profilePayload(profile, keys.publicKey.key.toHexString())
             val token = payloadToToken(payload, keys.privateKey.key.toHexString())
 
             val wrappedToken = blockstack.wrapProfileToken(token)
 
-            return@withContext hubService.hubInfo()
-                .map {
-                    hub.makeV1GaiaAuthToken(
-                        JSONObject(gson.toJson(it)),
-                        keys.privateKey.key.toHexString(),
-                        it.read_url_prefix,
-                        null,
-                        emptyArray()
-                    )
-                }
-                .flatMapConcat { authToken ->
-                    hubService.updateProfile(
-                        keys.toBtcAddress(),
-                        "bearer $authToken",
-                        JSONArray().put(wrappedToken.json).toString()
-                    )
-                }.toResult()
+            val hubInfo = hubService.hubInfo()
+            val authToken = hub.makeV1GaiaAuthToken(
+                JSONObject(gson.toJson(hubInfo)),
+                keys.privateKey.key.toHexString(),
+                hubInfo.readUrlPrefix,
+                null,
+                emptyArray()
+            )
+
+            return@withContext hubService.updateProfile(
+                keys.toBtcAddress(),
+                "bearer $authToken",
+                JSONArray().put(wrappedToken.json).toString()
+            )
         }
 
     private fun profilePayload(profile: ProfileModel, publicKey: String) = mapOf(

@@ -31,6 +31,7 @@ class NetworkModule {
     @Provides
     fun resources(application: Application) = application.resources
 
+    @Singleton
     @Provides
     fun gson() =
         GsonBuilder()
@@ -55,20 +56,29 @@ class NetworkModule {
     @RegistrarBaseUrl
     fun registrarBaseUrl(resources: Resources) = resources.getString(R.string.registrar_endpoint)
 
+    @Singleton
     @Provides
     fun provideConverterFactory(gson: Gson): GsonConverterFactory =
         GsonConverterFactory.create(gson)
 
+    @Singleton
     @Provides
-    fun provideSalarsConverterFactory(): ScalarsConverterFactory =
+    fun provideScalarsConverterFactory(): ScalarsConverterFactory =
         ScalarsConverterFactory.create()
 
+    @Singleton
+    @Provides
+    fun provideFlowCallAdapterFactory(): FlowCallAdapterFactory =
+        FlowCallAdapterFactory.create()
+
+    @Singleton
     @Provides
     fun loggingInterceptor() =
         HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
 
+    @Singleton
     @Provides
     fun socketFactory(): DelegatingSocketFactory =
         DelegatingSocketFactory(javax.net.SocketFactory.getDefault())
@@ -87,15 +97,24 @@ class NetworkModule {
 
     @Provides
     @Singleton
+    fun baseRetrofitBuilder(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory,
+        scalarsConverterFactory: ScalarsConverterFactory,
+        flowCallAdapterFactory: FlowCallAdapterFactory,
+    ): Retrofit.Builder = Retrofit.Builder()
+        .client(okHttpClient)
+        .addCallAdapterFactory(flowCallAdapterFactory)
+        .addConverterFactory(scalarsConverterFactory)
+        .addConverterFactory(gsonConverterFactory)
+
+    @Provides
+    @Singleton
     @GaiaRetrofit
     fun gaiaRetrofit(
-        okHttpClient: OkHttpClient,
-        converterFactory: GsonConverterFactory,
+        builder: Retrofit.Builder,
         @GaiaBaseUrl baseUrl: String
-    ): Retrofit = Retrofit.Builder()
-        .client(okHttpClient)
-        .addCallAdapterFactory(FlowCallAdapterFactory.create())
-        .addConverterFactory(converterFactory)
+    ): Retrofit = builder
         .baseUrl(baseUrl)
         .build()
 
@@ -107,14 +126,9 @@ class NetworkModule {
     @Singleton
     @HubRetrofit
     fun hubRetrofit(
-        okHttpClient: OkHttpClient,
-        converterFactory: GsonConverterFactory,
+        builder: Retrofit.Builder,
         @HubBaseUrl baseUrl: String
-    ): Retrofit = Retrofit.Builder()
-        .client(okHttpClient)
-        .addCallAdapterFactory(FlowCallAdapterFactory.create())
-        .addConverterFactory(ScalarsConverterFactory.create())
-        .addConverterFactory(converterFactory)
+    ): Retrofit = builder
         .baseUrl(baseUrl)
         .build()
 
@@ -126,13 +140,9 @@ class NetworkModule {
     @Singleton
     @RegistrarRetrofit
     fun registrarRetrofit(
-        okHttpClient: OkHttpClient,
-        converterFactory: GsonConverterFactory,
+        builder: Retrofit.Builder,
         @RegistrarBaseUrl baseUrl: String
-    ): Retrofit = Retrofit.Builder()
-        .client(okHttpClient)
-        .addCallAdapterFactory(FlowCallAdapterFactory.create())
-        .addConverterFactory(converterFactory)
+    ): Retrofit = builder
         .baseUrl(baseUrl)
         .build()
 
