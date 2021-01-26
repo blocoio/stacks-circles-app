@@ -6,8 +6,7 @@ import javax.inject.Inject
 
 class GenerateIdentity
 @Inject constructor() {
-
-
+    
     fun generate(address: String, username: String): IdentityModel {
         val json = JSONObject().apply {
             put(IdentityModel.USERNAME, "$username.id.blockstack")

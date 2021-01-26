@@ -61,10 +61,13 @@ class ChooseUsernameViewModel
                 uploadProfile.upload(profile, keys)
                 registrarProfile.register(username, btcAddress)
                 uploadWallet.upload(identities, keys)
-
                 newAccount.send(Unit)
+
             }
-            .catch { errors.send(Unit) }
+            .catch { e ->
+                Timber.e(e)
+                errors.send(Unit)
+            }
             .launchIn(ioScope)
     }
 

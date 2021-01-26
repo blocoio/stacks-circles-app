@@ -20,6 +20,7 @@ import org.stacks.app.data.network.services.HubService
 import org.stacks.app.data.network.services.RegistrarService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
@@ -57,6 +58,10 @@ class NetworkModule {
     @Provides
     fun provideConverterFactory(gson: Gson): GsonConverterFactory =
         GsonConverterFactory.create(gson)
+
+    @Provides
+    fun provideSalarsConverterFactory(): ScalarsConverterFactory =
+        ScalarsConverterFactory.create()
 
     @Provides
     fun loggingInterceptor() =
@@ -108,6 +113,7 @@ class NetworkModule {
     ): Retrofit = Retrofit.Builder()
         .client(okHttpClient)
         .addCallAdapterFactory(FlowCallAdapterFactory.create())
+        .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(converterFactory)
         .baseUrl(baseUrl)
         .build()

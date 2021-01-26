@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.stacks.app.R
 import org.stacks.app.ui.BaseActivity
+import org.stacks.app.ui.auth.WelcomeActivity
 import reactivecircus.flowbinding.android.view.clicks
 import reactivecircus.flowbinding.android.widget.textChanges
 
@@ -38,6 +39,13 @@ class ChooseUsernameActivity : BaseActivity() {
             .clicks()
             .onEach {
                 viewModel.submitUsername(username.text.toString())
+            }
+            .launchIn(lifecycleScope)
+
+        viewModel
+            .newAccount()
+            .onEach {
+                startActivity(WelcomeActivity.getIntent(this))
             }
             .launchIn(lifecycleScope)
 

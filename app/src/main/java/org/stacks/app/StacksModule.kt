@@ -19,6 +19,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.blockstack.android.sdk.Blockstack
+import org.blockstack.android.sdk.model.Hub
 import javax.inject.Singleton
 
 @Module
@@ -74,6 +75,11 @@ class StacksModule {
     @Singleton
     fun blockstack() =
         Blockstack()
+
+    @Provides
+    @Singleton
+    fun hub() =
+        Hub()
 
     @Provides
     @Singleton

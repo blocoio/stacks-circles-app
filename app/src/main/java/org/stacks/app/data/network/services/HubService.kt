@@ -2,16 +2,21 @@ package org.stacks.app.data.network.services
 
 import kotlinx.coroutines.flow.Flow
 import okhttp3.ResponseBody
-import retrofit2.http.Body
-import retrofit2.http.POST
+import org.stacks.app.data.network.models.HubInfo
+import retrofit2.http.*
 
 interface HubService {
 
-    //TODO: add auth bearer
-    @POST("store/{btc-address}/profile.json")
-    fun profile(@Body signedProfileToken: String): Flow<ResponseBody>
+
+    @GET("hub_info")
+    fun hubInfo() : Flow<HubInfo>
+
+    @Headers("Content-Type: application/json")
+    @POST("store/{bitcoin_address}/profile.json")
+    fun updateProfile(@Path("bitcoin_address") address: String, @Header("Authorization") authHeader: String, @Body signedProfileToken: String): Flow<ResponseBody>
 
     //TODO: body change && add auth bearer
+    // WIP
     @POST("store/{btc-address}/wallet-config.json")
     fun wallet(@Body signedProfileToken: String): Flow<ResponseBody>
 
