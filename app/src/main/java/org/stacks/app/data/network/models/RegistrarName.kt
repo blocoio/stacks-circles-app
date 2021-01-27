@@ -5,7 +5,7 @@ import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonToken
 import com.google.gson.stream.JsonWriter
 import org.stacks.app.data.network.models.RegistrarName.RegistrarNameStatus
-import org.stacks.app.data.network.models.RegistrarName.RegistrarNameStatus.InvalidName
+import org.stacks.app.data.network.models.RegistrarName.RegistrarNameStatus.*
 
 data class RegistrarName(
     val status: RegistrarNameStatus? = null,
@@ -27,6 +27,8 @@ class RegistrarNameStatusAdapter : TypeAdapter<RegistrarNameStatus>() {
             null
         } else {
             when (input.nextString()) {
+                "available" -> Available
+                "submitted_subdomain" -> SubmittedSubDomain
                 else -> InvalidName
             }
         }

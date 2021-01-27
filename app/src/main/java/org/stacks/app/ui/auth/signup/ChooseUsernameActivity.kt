@@ -38,12 +38,12 @@ class ChooseUsernameActivity : BaseActivity() {
         continueBtn
             .clicks()
             .onEach {
-                viewModel.submitUsername(username.text.toString())
+                viewModel.usernamePicked(username.text.toString())
             }
             .launchIn(lifecycleScope)
 
         viewModel
-            .newAccount()
+            .openNewAccountScreen()
             .onEach {
                 startActivity(WelcomeActivity.getIntent(this))
             }
@@ -52,7 +52,7 @@ class ChooseUsernameActivity : BaseActivity() {
         viewModel
             .errors()
             .onEach {
-                outlinedTextField.error = "Something went wrong"
+                outlinedTextField.error = getString(R.string.error)
             }
             .launchIn(lifecycleScope)
     }

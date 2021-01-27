@@ -77,7 +77,6 @@ class StacksModule {
         Blockstack()
 
     @Provides
-    @Singleton
     fun hub() =
         Hub()
 

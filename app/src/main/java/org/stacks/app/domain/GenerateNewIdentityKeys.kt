@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
 import org.blockstack.android.sdk.model.BlockstackIdentity
 import org.blockstack.android.sdk.toBtcAddress
+import org.blockstack.android.sdk.toHexPublicKey64
 import org.kethereum.bip32.generateChildKey
 import org.kethereum.bip32.toKey
 import org.kethereum.bip39.model.MnemonicWords
@@ -25,13 +26,15 @@ class GenerateNewIdentityKeys
 
     //TODO:
     // test size variants
-    fun generate(): Flow<ECKeyPair> = identityRepository.observe()
-        .take(1)
-        .map { it.size - 1 }
-        .map { if(it < 0) 0 else it }
-        .zip(secretKeyRepository.observe().take(1)) { currentIndex, secretKey ->
-            generateIdentityDataFromMnemonicWords(secretKey, currentIndex)
-        }
+    suspend fun generate(): ECKeyPair {
+        val identities = identityRepository.observe().first()
+        val secretKey = secretKeyRepository.observe().first()
+
+        return generateIdentityDataFromMnemonicWords(
+            secretKey,
+            (identities.size - 1).coerceAtLeast(0)
+        )
+    }
 
     private suspend fun generateIdentityDataFromMnemonicWords(
         seedPhrase: String,
@@ -43,7 +46,7 @@ class GenerateNewIdentityKeys
         val keys = identity.identityKeys.generateChildKey(BIP44Element(true, index))
 
         val privateKey = keys.keyPair.privateKey.key.toHexStringNoPrefix()
-        val publicKey = keys.keyPair.publicKey.key.toHexStringNoPrefix()
+        val publicKey = keys.keyPair.toHexPublicKey64()
 
         Timber.i("New Identity (i$index)")
         Timber.i("Address key: ${keys.keyPair.toBtcAddress()}")
@@ -52,5 +55,4 @@ class GenerateNewIdentityKeys
 
         return@withContext keys.keyPair
     }
-
 }

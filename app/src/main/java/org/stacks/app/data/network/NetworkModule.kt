@@ -21,6 +21,7 @@ import org.stacks.app.data.network.services.RegistrarService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
@@ -93,6 +94,8 @@ class NetworkModule {
         OkHttpClient.Builder()
             .socketFactory(socketFactory)
             .apply { if (BuildConfig.DEBUG) addInterceptor(loggingInterceptor) }
+            .readTimeout(30, TimeUnit.SECONDS)
+            .connectTimeout(30, TimeUnit.SECONDS)
             .build()
 
     @Provides

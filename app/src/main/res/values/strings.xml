@@ -2,14 +2,6 @@
     <!--APP-->
     <string name="app_name">Connect</string>
 
-    <!--ENDPOINTS-->
-    <string name="gaia_endpoint">https://gaia.blockstack.org/</string>
-    <string name="hub_endpoint">https://hub.blockstack.org/</string>
-    <string name="registrar_endpoint">https://registrar.blockstack.org/</string>
-    <string name="about_us_url">https://www.blockstack.org/how-blockstack-works</string>
-    <string name="newsletter_url">http://newsletters.blockstack.org/</string>
-    <string name="discord_url">https://discord.gg/tR8HjHnb</string>
-
     <!--HOMEPAGE-->
     <string name="connect_info">Connect guarantees your privacy by encrypting everything</string>
     <string name="connect">Connect</string>
@@ -39,6 +31,7 @@
     <string name="welcome_back">Welcome Back!</string>
     <string name="welcome_info">Access your account at any time by clicking on the avatar icon, on the top right corner.</string>
     <string name="discover_stacks">Discover Stacks App</string>
+    <string name="error">Something went wrong</string>
 
     <!--ACCOUNT SCREENS-->
     <string name="connect_settings">Connect Settings</string>

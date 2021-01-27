@@ -1,6 +1,5 @@
 package org.stacks.app.domain
 
-import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
@@ -13,10 +12,9 @@ import me.uport.sdk.jwt.model.JwtHeader
 import me.uport.sdk.signer.KPSigner
 import okhttp3.ResponseBody
 import org.blockstack.android.sdk.Blockstack
-import org.blockstack.android.sdk.model.Hub
 import org.blockstack.android.sdk.toBtcAddress
+import org.blockstack.android.sdk.toHexPublicKey64
 import org.json.JSONArray
-import org.json.JSONObject
 import org.kethereum.extensions.toHexString
 import org.kethereum.model.ECKeyPair
 import org.stacks.app.data.ProfileModel
@@ -30,25 +28,15 @@ class UploadProfile
 @Inject constructor(
     private val hubService: HubService,
     private val blockstack: Blockstack,
-    private val hub: Hub,
-    private val gson: Gson
+    private val generateAuthToken: GenerateAuthToken,
 ) {
 
     suspend fun upload(profile: ProfileModel, keys: ECKeyPair): ResponseBody =
         withContext(IO) {
-            val payload = profilePayload(profile, keys.publicKey.key.toHexString())
+            val payload = profilePayload(profile, keys.toHexPublicKey64())
             val token = payloadToToken(payload, keys.privateKey.key.toHexString())
-
             val wrappedToken = blockstack.wrapProfileToken(token)
-
-            val hubInfo = hubService.hubInfo()
-            val authToken = hub.makeV1GaiaAuthToken(
-                JSONObject(gson.toJson(hubInfo)),
-                keys.privateKey.key.toHexString(),
-                hubInfo.readUrlPrefix,
-                null,
-                emptyArray()
-            )
+            val authToken = generateAuthToken.generate(keys)
 
             return@withContext hubService.updateProfile(
                 keys.toBtcAddress(),
