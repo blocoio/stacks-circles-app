@@ -5,6 +5,7 @@ import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.flow.*
 import org.stacks.app.domain.CheckUsernameStatus
 import org.stacks.app.domain.CheckUsernameStatus.UsernameStatus.Available
+import org.stacks.app.domain.NewIdentity
 import org.stacks.app.domain.SignUp
 import org.stacks.app.shared.foldOnEach
 import org.stacks.app.ui.BaseViewModel
@@ -15,11 +16,14 @@ import timber.log.Timber
 class ChooseUsernameViewModel
 @ViewModelInject constructor(
     checkUsernameStatus: CheckUsernameStatus,
-    signUp: SignUp
+    signUp: SignUp,
+    newIdentity: NewIdentity
 ) : BaseViewModel() {
 
+    private var newAccount: Boolean = false
+
     // Inputs
-    private val usernamePicked = MutableStateFlow("")
+    private val usernameSubmitted = MutableStateFlow("")
 
     // Outputs
     private val openNewAccountScreen = BroadcastChannel<Unit>(1)
@@ -27,7 +31,7 @@ class ChooseUsernameViewModel
     private val errors = BroadcastChannel<Errors>(1)
 
     init {
-        usernamePicked
+        usernameSubmitted
             .filter { it.isNotEmpty() }
             .map {
                 loading.emit(true)
@@ -40,7 +44,13 @@ class ChooseUsernameViewModel
                 }
             }
             .filter { it == Available }
-            .map { signUp.newAccount(usernamePicked.value) }
+            .map {
+                if (newAccount) {
+                    signUp.newAccount(usernameSubmitted.value)
+                } else {
+                    newIdentity.create(usernameSubmitted.value)
+                }
+            }
             .foldOnEach(
                 { openNewAccountScreen.send(Unit) }, //Success
                 { e ->
@@ -54,7 +64,10 @@ class ChooseUsernameViewModel
     }
 
     // Inputs
-    suspend fun usernamePicked(username: String) = usernamePicked.emit(username)
+    suspend fun usernamePicked(username: String, signUp: Boolean) {
+        newAccount = signUp
+        usernameSubmitted.emit(username)
+    }
 
     // Outputs
     fun openNewAccountScreen() = openNewAccountScreen.asFlow()

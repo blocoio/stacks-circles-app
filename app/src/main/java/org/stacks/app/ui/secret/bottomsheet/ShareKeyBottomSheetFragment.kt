@@ -48,7 +48,7 @@ class ShareKeyBottomSheetFragment : BottomSheetDialogFragment() {
                 dismiss()
                 activity?.finish()
                 if (signUp) {
-                    startActivity(ChooseUsernameActivity.getIntent(requireContext()))
+                    startActivity(ChooseUsernameActivity.getIntent(requireContext(), signUp))
                 }
             }
             .launchIn(lifecycleScope)

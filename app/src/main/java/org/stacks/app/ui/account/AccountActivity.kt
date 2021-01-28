@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.onEach
 import org.stacks.app.R
 import org.stacks.app.data.IdentityModel
 import org.stacks.app.ui.BaseActivity
+import org.stacks.app.ui.auth.signup.ChooseUsernameActivity
 import org.stacks.app.ui.homepage.HomepageActivity
 import org.stacks.app.ui.secret.SecretKeyActivity
 import reactivecircus.flowbinding.android.view.clicks
@@ -41,6 +42,11 @@ class AccountActivity : BaseActivity() {
         viewModel
             .finish()
             .onEach { finish() }
+            .launchIn(lifecycleScope)
+
+        newIdentity
+            .clicks()
+            .onEach { startActivity(ChooseUsernameActivity.getIntent(this)) }
             .launchIn(lifecycleScope)
 
         viewSecretKey

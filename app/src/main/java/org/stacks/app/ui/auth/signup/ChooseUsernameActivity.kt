@@ -23,9 +23,17 @@ class ChooseUsernameActivity : BaseActivity() {
         ViewModelProvider(this).get(ChooseUsernameViewModel::class.java)
     }
 
+    private val signUp by lazy {
+        intent?.getBooleanExtra(SIGN_UP, false) ?: false
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_username)
+
+        if (!signUp) {
+            setNavigation()
+        }
 
         username
             .textChanges()
@@ -37,7 +45,7 @@ class ChooseUsernameActivity : BaseActivity() {
         continueBtn
             .clicks()
             .onEach {
-                viewModel.usernamePicked(username.text.toString())
+                viewModel.usernamePicked(username.text.toString(), signUp)
             }
             .launchIn(lifecycleScope)
 
@@ -52,6 +60,7 @@ class ChooseUsernameActivity : BaseActivity() {
             .loading()
             .onEach { loading ->
                 loadingSpinner.isVisible = loading
+                continueBtn.isVisible = !loading
                 chooseUsernameLayout.isVisible = !loading
             }
             .launchIn(lifecycleScope)
@@ -69,8 +78,11 @@ class ChooseUsernameActivity : BaseActivity() {
     }
 
     companion object {
-        fun getIntent(context: Context): Intent =
-            Intent(context, ChooseUsernameActivity::class.java)
-    }
 
+        const val SIGN_UP = "signUp"
+
+        fun getIntent(context: Context, signUp: Boolean = false) =
+            Intent(context, ChooseUsernameActivity::class.java)
+                .putExtra(SIGN_UP, signUp)
+    }
 }
