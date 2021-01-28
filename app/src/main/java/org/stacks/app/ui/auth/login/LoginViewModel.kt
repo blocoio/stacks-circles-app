@@ -32,7 +32,7 @@ class LoginViewModel
 
         submittedSecretKey
             .asFlow()
-            .flatMapConcat { login.login(it) }
+            .map { login.login(it) }
             .foldOnEach({
                 openWelcomeScreen.send(Unit)
             }, {

@@ -6,22 +6,28 @@ class IdentityModel(
     val json: JSONObject
 ) {
     val completeUsername: String? by lazy {
-        json.optString("username")
+        json.optString(USERNAME)
     }
 
     val username: String? by lazy {
-        json.optString("username").replace(".id.blockstack", "")
+        json.optString(USERNAME).replace(".id.blockstack", "")
     }
 
     val address: String? by lazy {
-        json.optString("address")
+        json.optString(ADDRESS)
     }
 
     val appModels: List<IdentityAppModel> by lazy {
-        val apps = json.getJSONObject("apps")
+        val apps = json.getJSONObject(APP_MODELS)
         apps.keys().asSequence().map {
             IdentityAppModel(apps.getJSONObject(it))
         }.toList()
+    }
+
+    companion object {
+        const val USERNAME = "username"
+        const val ADDRESS = "address"
+        const val APP_MODELS = "apps"
     }
 }
 
@@ -29,28 +35,36 @@ class IdentityAppModel(
     private val json: JSONObject
 ) {
     val appIcon: String? by lazy {
-        json.optString("appIcon")
+        json.optString(APP_ICON)
     }
 
     val lastLoginAt: Long? by lazy {
-        json.optLong("lastLoginAt")
+        json.optLong(LAST_LOGIN)
     }
 
     val name: String? by lazy {
-        json.optString("name")
+        json.optString(NAME)
     }
 
     val origin: String? by lazy {
-        json.optString("origin")
+        json.optString(ORIGIN)
     }
 
     val scopes: List<String> by lazy {
-        json.optJSONArray("scopes")?.let { scopes ->
+        json.optJSONArray(SCOPES)?.let { scopes ->
             List(scopes.length(), scopes::getString)
         } ?: emptyList()
     }
 
     override fun toString(): String {
         return json.toString()
+    }
+
+    companion object {
+        const val NAME = "name"
+        const val APP_ICON = "appIcon"
+        const val LAST_LOGIN = "lastLoginAt"
+        const val ORIGIN = "origin"
+        const val SCOPES = "scopes"
     }
 }

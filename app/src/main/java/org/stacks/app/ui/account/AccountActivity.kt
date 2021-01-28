@@ -45,7 +45,7 @@ class AccountActivity : BaseActivity() {
 
         viewSecretKey
             .clicks()
-            .onEach { startActivity(SecretKeyActivity.getIntent(this, true)) }
+            .onEach { startActivity(SecretKeyActivity.getIntent(this)) }
             .launchIn(lifecycleScope)
 
         logout

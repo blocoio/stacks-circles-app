@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.onEach
 import org.stacks.app.R
 import org.stacks.app.ui.BaseActivity
 import org.stacks.app.ui.auth.login.LoginActivity
+import org.stacks.app.ui.secret.SecretKeyActivity
 import reactivecircus.flowbinding.android.view.clicks
 
 class ConnectActivity : BaseActivity() {
@@ -17,6 +18,13 @@ class ConnectActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_connect)
+
+        newAccount
+            .clicks()
+            .onEach {
+                startActivity(SecretKeyActivity.getIntent(this, true))
+            }
+            .launchIn(lifecycleScope)
 
         login
             .clicks()
