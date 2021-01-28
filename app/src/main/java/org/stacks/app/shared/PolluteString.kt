@@ -15,7 +15,7 @@ class PolluteString {
         }
 
         fun isPolluted(string: String): Boolean =
-             string.take(INVALID_STRING.length + 1) == INVALID_STRING
+             string.take(INVALID_STRING.length) == INVALID_STRING
 
     }
 }

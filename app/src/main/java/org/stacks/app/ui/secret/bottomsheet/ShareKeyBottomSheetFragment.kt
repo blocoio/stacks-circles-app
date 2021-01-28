@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.stacks.app.R
+import org.stacks.app.ui.auth.signup.ChooseUsernameActivity
 import reactivecircus.flowbinding.android.view.clicks
 
 
@@ -31,6 +32,7 @@ class ShareKeyBottomSheetFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_share_key_bottom_sheet, container, false)
 
+    var signUp : Boolean = false
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -40,6 +42,9 @@ class ShareKeyBottomSheetFragment : BottomSheetDialogFragment() {
             .onEach {
                 dismiss()
                 activity?.finish()
+                if (signUp) {
+                    startActivity(ChooseUsernameActivity.getIntent(requireContext()))
+                }
             }
             .launchIn(lifecycleScope)
 

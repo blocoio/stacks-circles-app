@@ -6,9 +6,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
+import org.json.JSONObject
 import org.stacks.app.data.interfaces.IdentityRepository
 import org.stacks.app.shared.IdentitiesParsingFailed
 import org.stacks.app.shared.PolluteString
+import org.stacks.app.shared.forEach
 import org.stacks.app.shared.toFlow
 import timber.log.Timber
 import javax.inject.Inject
@@ -47,17 +49,18 @@ class EncryptedPreferencesIdentityRepository
      * @throws IdentitiesParsingFailed if it fails to convert the identities
      */
     private fun toListIdentities(jsonArrayString: String): List<IdentityModel> {
-        if (jsonArrayString.isEmpty()) return emptyList()
+        if (jsonArrayString.isEmpty() || PolluteString.isPolluted(jsonArrayString)) return emptyList()
 
         val listOfIdentities = mutableListOf<IdentityModel>()
 
         try {
             val identities = JSONArray(jsonArrayString)
 
-            for (i in 0 until identities.length()) {
-                listOfIdentities.add(IdentityModel(identities.getJSONObject(i)))
+            identities.forEach<JSONObject> {
+                listOfIdentities.add(IdentityModel(it))
             }
-        } catch (e: Exception) {
+
+        } catch (e: Throwable) {
             Timber.w(e)
             throw IdentitiesParsingFailed(e)
         }

@@ -1,4 +1,4 @@
 package org.stacks.app.shared
 
 //Exceptions
-class IdentitiesParsingFailed(e: Exception) : Exception(e)
+class IdentitiesParsingFailed(e: Throwable) : Throwable(e)
