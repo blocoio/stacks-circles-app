@@ -29,10 +29,12 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/choose_username"
-            android:textAppearance="@style/TextAppearance.Stacks.Headline" />
+            android:textAppearance="@style/TextAppearance.Stacks.Headline3"
+            android:textColor="@color/grey"/>
 
         <TextView
-            style="@style/TextAppearance.Stacks.Subtitle"
+            style="@style/TextAppearance.Stacks.Body3"
+            android:textColor="@color/grey"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

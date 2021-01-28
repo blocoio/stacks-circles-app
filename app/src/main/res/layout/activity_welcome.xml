@@ -16,7 +16,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.Stacks.Headline"
+            android:textAppearance="@style/TextAppearance.Stacks.Headline3"
+            android:textColor="@color/grey"
             android:gravity="center"
             android:text="@string/welcome_back"/>
 
@@ -26,11 +27,12 @@
             android:text="@string/welcome_info"
             android:layout_marginHorizontal="16dp"
             android:layout_marginVertical="8dp"
-            style="@style/TextAppearance.Stacks.Subtitle"/>
+            style="@style/TextAppearance.Stacks.Body3"
+            android:textColor="@color/grey"/>
 
         <ImageView
             android:importantForAccessibility="no"
-            android:src="@drawable/ic_welcome"
+            android:src="@drawable/ic_success"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"

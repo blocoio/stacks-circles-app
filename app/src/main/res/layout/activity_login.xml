@@ -14,7 +14,8 @@
         android:layout_margin="16dp"
         android:gravity="center"
         android:text="@string/continue_key"
-        android:textAppearance="@style/TextAppearance.Stacks.Headline"
+        android:textAppearance="@style/TextAppearance.Stacks.Headline3"
+        android:textColor="@color/grey"
         app:layout_constraintBottom_toTopOf="@id/secret_key_message" />
 
     <TextView
@@ -24,7 +25,8 @@
         android:layout_margin="16dp"
         android:gravity="center"
         android:text="@string/connect_key_message"
-        android:textAppearance="@style/TextAppearance.Stacks.Subtitle"
+        android:textAppearance="@style/TextAppearance.Stacks.Body3"
+        android:textColor="@color/grey"
         app:layout_constraintBottom_toTopOf="@id/outlinedTextField" />
 
     <com.google.android.material.textfield.TextInputLayout

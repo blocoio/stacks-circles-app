@@ -23,15 +23,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="8dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:text="@string/stacks_ecosystem_title"
-                android:textAppearance="@style/TextAppearance.Stacks.LargeText"
+                android:textAppearance="@style/TextAppearance.Stacks.Headline2"
                 android:textColor="@color/white" />
 
             <TextView
@@ -39,7 +39,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
                 android:text="@string/stacks_ecosystem_text"
-                android:textColor="@color/white"/>
+                android:textAppearance="@style/TextAppearance.Stacks.Body2"
+                android:textColor="@color/white" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/newsletterSubscribe"

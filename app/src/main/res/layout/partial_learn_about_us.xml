@@ -31,7 +31,8 @@
             android:layout_margin="16dp"
             android:text="@string/how_stacks_works"
             android:textSize="30sp"
-            android:textAppearance="@style/TextAppearance.Stacks.LargeText" />
+            android:textAppearance="@style/TextAppearance.Stacks.Headline2"
+            android:textColor="@color/black"/>
 
         <ImageView
             android:layout_width="140dp"

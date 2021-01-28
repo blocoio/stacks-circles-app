@@ -19,7 +19,7 @@
             android:layout_height="100dp"
             android:importantForAccessibility="no"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_connect_logo" />
+            android:src="@drawable/icon" />
 
         <LinearLayout
             android:layout_width="match_parent"

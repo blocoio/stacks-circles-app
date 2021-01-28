@@ -1,10 +1,10 @@
 <resources>
     <!--APP-->
-    <string name="app_name">Connect</string>
+    <string name="app_name">Circle</string>
 
     <!--HOMEPAGE-->
-    <string name="connect_info">Connect guarantees your privacy by encrypting everything</string>
-    <string name="connect">Connect</string>
+    <string name="connect_info">Circle guarantees your privacy by encrypting everything</string>
+    <string name="circle">Circles</string>
     <string name="start_here">Start here</string>
     <string name="built_on_stacks">Built on Stacks</string>
     <string name="find_apps">Find apps to use</string>
@@ -21,9 +21,9 @@
     <!--AUTH SCREENS-->
     <string name="connect_tracking_message">We won\'t be able to see, access, or track your activity</string>
     <string name="connect_key_message">You\'ll get a Secret Key that automatically encrypts everything you do</string>
-    <string name="new_to_connect">I\'m new to Connect</string>
+    <string name="new_to_stacks">I\'m new to Stacks</string>
     <string name="continue_key">Continue with Secret Key</string>
-    <string name="how_connect_works"><u>How Connect Works</u></string>
+    <string name="how_connect_works"><u>How Stacks Works</u></string>
     <string name="sign_in">Sign In</string>
     <string name="secret_key">Secret Key</string>
     <string name="save">Save</string>
@@ -45,7 +45,7 @@ to learn more.
     <string name="error">Something went wrong</string>>
 
     <!--ACCOUNT SCREENS-->
-    <string name="connect_settings">Connect Settings</string>
+    <string name="circle_settings">Circle Settings</string>
     <string name="accounts">Accounts</string>
     <string name="create_account">Create a new account</string>
     <string name="logout">Log out</string>
