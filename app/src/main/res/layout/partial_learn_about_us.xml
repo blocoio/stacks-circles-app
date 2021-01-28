@@ -30,11 +30,12 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:text="@string/how_stacks_works"
+            android:textSize="30sp"
             android:textAppearance="@style/TextAppearance.Stacks.LargeText" />
 
         <ImageView
-            android:layout_width="160dp"
-            android:layout_height="160dp"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
             android:layout_gravity="end|center_vertical"
             android:src="@drawable/ic_how_it_works"
             android:importantForAccessibility="no" />

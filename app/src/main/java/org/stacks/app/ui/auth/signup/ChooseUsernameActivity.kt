@@ -3,6 +3,7 @@ package org.stacks.app.ui.auth.signup
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,9 +49,21 @@ class ChooseUsernameActivity : BaseActivity() {
             .launchIn(lifecycleScope)
 
         viewModel
+            .loading()
+            .onEach { loading ->
+                loadingSpinner.isVisible = loading
+                chooseUsernameLayout.isVisible = !loading
+            }
+            .launchIn(lifecycleScope)
+
+        viewModel
             .errors()
-            .onEach {
-                outlinedTextField.error = getString(R.string.error)
+            .onEach { error ->
+                outlinedTextField.error = when (error) {
+                    ChooseUsernameViewModel.Errors.UnavailableUsername -> getString(R.string.invalidUsername)
+                    ChooseUsernameViewModel.Errors.SignUpError -> getString(R.string.error)
+                }
+
             }
             .launchIn(lifecycleScope)
     }

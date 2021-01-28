@@ -8,7 +8,7 @@
     <string name="start_here">Start here</string>
     <string name="built_on_stacks">Built on Stacks</string>
     <string name="find_apps">Find apps to use</string>
-    <string name="how_stacks_works">How \nStacks \nWorks</string>
+    <string name="how_stacks_works">How \nstacks \nworks</string>
     <string name="learn_more">Learn more about us</string>
     <string name="newsletter">Newsletter</string>
     <string name="stacks_ecosystem_title">Stacks Ecosystem Updates</string>
@@ -39,7 +39,10 @@ to learn more.
 \n\n<b>What is a Secret Key?</b>\nYour Secret Key unlocks your data. It\'s created independently from the app to make sure that the app doesn\'t have it. An open-source protocol called Blockstack generates your Secret Key when you sign up. Nobody but you will have your Secret Key, to make sure that only you have access to your data.
 \n\n<b>When will I need my Secret Key?</b>\nYou\'ll need your Secret Key to prove it\'s you when you use the app on a new device, such as a new phone or laptop. After that, your Secret Key will stay active to keep you safe and private in the apps you use on that device.
     </string>
-    <string name="error">Something went wrong</string>
+    <string name="choose_username_info">This is how others will see you on other apps.</string>
+    <string name="choose_username">Choose Username</string>
+    <string name="invalidUsername">Username is not available</string>
+    <string name="error">Something went wrong</string>>
 
     <!--ACCOUNT SCREENS-->
     <string name="connect_settings">Connect Settings</string>
@@ -62,7 +65,5 @@ to learn more.
     <string name="copy">Copy</string>
     <string name="more">More</string>
     <string name="continue_btn">Continue</string>
-    <string name="choose_username_info">This is how others will see you on other apps.</string>
-    <string name="choose_username">Choose Username</string>
 
 </resources>
