@@ -1,7 +1,9 @@
 package org.stacks.app.domain
 
 import com.google.gson.Gson
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.withContext
 import org.blockstack.android.sdk.Blockstack
 import org.blockstack.android.sdk.model.BlockstackIdentity
 import org.blockstack.android.sdk.model.CryptoOptions
@@ -32,7 +34,7 @@ class UploadWallet
     suspend fun upload(identityModel: IdentityModel) =
         upload(listOf(identityModel))
 
-    suspend fun upload(identities: List<IdentityModel>) {
+    suspend fun upload(identities: List<IdentityModel>) = withContext(Dispatchers.IO) {
         val secretKey = secretKeyRepository.observe().first()
 
         val words = MnemonicWords(secretKey)

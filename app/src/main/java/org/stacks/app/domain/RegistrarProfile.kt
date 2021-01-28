@@ -16,7 +16,11 @@ class RegistrarProfile
 
     private fun buildRequest(name: String, ownerAddress: String): RegistrarRequest {
         val completeZoneFile =
-            "\$ORIGIN $name.id.blockstack\n\$TTL 3600\n_http._tcp\tIN\tURI\t10\t1\t\"https://gaia.blockstack.org/hub/$ownerAddress/profile.json\"\n\n"
+            "\$ORIGIN $name.id.blockstack\n" +
+                    "\$TTL 3600" +
+                    "\n_http._tcp\tIN\tURI\t10\t1\t" +
+                    "\"https://gaia.blockstack.org/hub/$ownerAddress/profile.json\"\n\n"
+
         return RegistrarRequest(name, ownerAddress, completeZoneFile)
     }
 }

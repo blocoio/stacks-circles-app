@@ -18,7 +18,7 @@ class SecretKeyViewModel
 
     // Inputs
     private val copyPressed = BroadcastChannel<Unit>(1)
-    private val newSecretKey = BroadcastChannel<Unit>(1)
+    private val signUp = BroadcastChannel<Unit>(1)
 
     // Outputs
     private val secretKey = MutableStateFlow("")
@@ -38,7 +38,7 @@ class SecretKeyViewModel
             }
             .launchIn(viewModelScope)
 
-        newSecretKey
+        signUp
             .asFlow()
             .map {
                 generateSecretKey.generate()
@@ -51,7 +51,7 @@ class SecretKeyViewModel
 
     // Inputs
     suspend fun copyPressed() = copyPressed.send(Unit)
-    suspend fun generateNewSecretKey() = newSecretKey.send(Unit)
+    suspend fun signUp() = signUp.send(Unit)
 
     // Output
     fun secretKey() = secretKey.asStateFlow()

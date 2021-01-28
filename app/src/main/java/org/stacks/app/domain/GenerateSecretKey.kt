@@ -9,9 +9,11 @@ import javax.inject.Inject
 class GenerateSecretKey
 @Inject constructor(
     resources: Resources,
-    private  val secretKeyRepository: EncryptedPreferencesSecretKeyRepository
+    private val secretKeyRepository: EncryptedPreferencesSecretKeyRepository
 ) {
-    private val words: Array<String> = resources.getStringArray(R.array.bip_words)
+    private val words: Array<String> by lazy {
+        resources.getStringArray(R.array.bip_words)
+    }
 
     //TODO: add test to check if string is 12 words
     suspend fun generate(): String = generateMnemonic(wordList = words.toList()).also {

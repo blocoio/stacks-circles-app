@@ -10,7 +10,13 @@ fun <T, R> Flow<Result<T>>.mapIfSuccess(mapper: suspend ((T) -> R)): Flow<Result
     map { result -> result.map { mapper.invoke(it) } }
 
 fun <T, R> Flow<Result<T>>.flatMapConcatIfSuccess(transform: suspend (value: T) -> Flow<R>): Flow<Result<R>> =
-    map { transform(it.getOrThrow()) }.flattenConcat().toResult()
+    map { result ->
+        if (result.isSuccess) {
+            transform(result.getOrThrow())
+        } else {
+            throw result.exceptionOrNull()!!
+        }
+    }.flattenConcat().toResult()
 
 fun <T, R> Flow<Result<T>>.foldOnEach(
     onSuccess: suspend (value: T) -> R,

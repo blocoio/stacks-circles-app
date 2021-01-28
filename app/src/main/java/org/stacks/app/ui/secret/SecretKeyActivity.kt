@@ -39,7 +39,7 @@ class SecretKeyActivity : BaseActivity() {
             shareBottomSheetFragment.signUp = signUp
 
             GlobalScope.launch(Dispatchers.Main) {
-                viewModel.generateNewSecretKey()
+                viewModel.signUp()
             }
         }
 

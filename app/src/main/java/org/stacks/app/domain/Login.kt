@@ -22,6 +22,7 @@ import org.stacks.app.data.EncryptedPreferencesSecretKeyRepository
 import org.stacks.app.data.IdentityModel
 import org.stacks.app.data.network.services.GaiaService
 import org.stacks.app.shared.IdentitiesParsingFailed
+import org.stacks.app.shared.forEach
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -83,9 +84,10 @@ class Login
         try {
             val identities = JSONObject(decodedCipher).getJSONArray("identities")
 
-            for (i in 0 until identities.length()) {
-                listOfIdentities.add(IdentityModel(identities.getJSONObject(i)))
+            identities.forEach<JSONObject> {
+                listOfIdentities.add(IdentityModel(it))
             }
+
         } catch (e: JSONException) {
             Timber.w(e)
             throw IdentitiesParsingFailed(e)

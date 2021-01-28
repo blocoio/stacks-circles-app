@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_username.*
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.stacks.app.R
@@ -29,7 +28,6 @@ class ChooseUsernameActivity : BaseActivity() {
 
         username
             .textChanges()
-            .filter { outlinedTextField.error != null }
             .onEach {
                 outlinedTextField.error = null
             }

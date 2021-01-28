@@ -26,8 +26,8 @@ class SignUp
         )
 
         uploadProfile.upload(profile, keys)
-        registrarProfile.register(username, btcAddress)
         uploadWallet.upload(identities)
+        registrarProfile.register(username, btcAddress)
         identityRepository.set(listOf(identities))
 
         Result.success(Unit)

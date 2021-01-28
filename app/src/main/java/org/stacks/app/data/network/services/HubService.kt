@@ -1,6 +1,5 @@
 package org.stacks.app.data.network.services
 
-import okhttp3.ResponseBody
 import org.stacks.app.data.network.models.HubInfo
 import retrofit2.http.*
 
@@ -15,7 +14,7 @@ interface HubService {
         @Path("bitcoin_address") address: String,
         @Header("Authorization") authHeader: String,
         @Body signedProfileToken: String
-    ): ResponseBody
+    ): Unit
 
     @Headers("Content-Type: application/json")
     @POST("store/{bitcoin_address}/wallet-config.json")
@@ -23,6 +22,6 @@ interface HubService {
         @Path("bitcoin_address") address: String,
         @Header("Authorization") authHeader: String,
         @Body signedProfileToken: String
-    ): ResponseBody
+    ): Unit
 
 }
