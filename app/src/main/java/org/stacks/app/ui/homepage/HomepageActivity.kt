@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_homepage.*
 import kotlinx.android.synthetic.main.partial_community.*
@@ -33,11 +34,20 @@ class HomepageActivity : BaseActivity() {
         ViewModelProvider(this).get(HomePageViewModel::class.java)
     }
 
+    private val error by lazy {
+        intent?.getBooleanExtra(ERRORS, false) ?: false
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_homepage)
         toolbar.addSystemWindowInsetToPadding(top = true)
         scrollView.addSystemWindowInsetToPadding(bottom = true)
+
+        if (error) {
+            Snackbar.make(root, getString(R.string.error), Snackbar.LENGTH_LONG)
+                .show()
+        }
 
         toolbarAvatar
             .clicks()
@@ -111,9 +121,13 @@ class HomepageActivity : BaseActivity() {
 
 
     companion object {
-        fun getIntent(context: Context) =
+
+        const val ERRORS = "errors"
+
+        fun getIntent(context: Context, error: Boolean = false) =
             Intent(context, HomepageActivity::class.java)
                 .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                .putExtra(ERRORS, error)
     }
 
 }

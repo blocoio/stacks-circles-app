@@ -1,4 +1,4 @@
-package org.stacks.app.ui.account
+package org.stacks.app.ui.shared
 
 import android.annotation.SuppressLint
 import android.content.Context

@@ -15,6 +15,7 @@ import org.stacks.app.ui.BaseActivity
 import org.stacks.app.ui.auth.signup.ChooseUsernameActivity
 import org.stacks.app.ui.homepage.HomepageActivity
 import org.stacks.app.ui.secret.SecretKeyActivity
+import org.stacks.app.ui.shared.IdentityRowView
 import reactivecircus.flowbinding.android.view.clicks
 
 @AndroidEntryPoint

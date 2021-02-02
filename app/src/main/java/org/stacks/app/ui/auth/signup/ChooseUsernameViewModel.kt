@@ -32,7 +32,7 @@ class ChooseUsernameViewModel
 
     init {
         usernameSubmitted
-            .filter { it.isNotEmpty() && loading.value }
+            .filter { it.isNotEmpty() && !loading.value }
             .map {
                 loading.emit(true)
                 checkUsernameStatus.isAvailable(it)

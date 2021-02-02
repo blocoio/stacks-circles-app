@@ -1,6 +1,5 @@
 package org.stacks.app.domain
 
-import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
@@ -27,8 +26,7 @@ class UploadWallet
     private val secretKeyRepository: SecretKeyRepository,
     private val generateAuthToken: GenerateAuthToken,
     private val hubService: HubService,
-    private val blockstack: Blockstack,
-    private val gson: Gson
+    private val blockstack: Blockstack
 ) {
 
     suspend fun upload(identityModel: IdentityModel) =

@@ -32,7 +32,7 @@ class IdentityModel(
 }
 
 class IdentityAppModel(
-    private val json: JSONObject
+    val json: JSONObject
 ) {
     val appIcon: String? by lazy {
         json.optString(APP_ICON)

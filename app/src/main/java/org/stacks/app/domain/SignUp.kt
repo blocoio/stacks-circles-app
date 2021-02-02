@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class SignUp
 @Inject constructor(
-    private val generateNewIdentityKeys: GenerateNewIdentityKeys,
+    private val identityKeys: IdentityKeys,
     private val identityRepository: IdentityRepository,
     private val generateIdentity: GenerateIdentity,
     private val uploadProfile: UploadProfile,
@@ -15,7 +15,7 @@ class SignUp
     private val uploadWallet: UploadWallet,
 ) {
     suspend fun newAccount(username: String): Result<Unit> = try {
-        val keys = generateNewIdentityKeys.generate()
+        val keys = identityKeys.generate()
 
         val btcAddress = keys.toBtcAddress()
 
@@ -25,9 +25,9 @@ class SignUp
             username
         )
 
+        registrarProfile.register(username, btcAddress)
         uploadProfile.upload(profile, keys)
         uploadWallet.upload(identities)
-        registrarProfile.register(username, btcAddress)
         identityRepository.set(listOf(identities))
 
         Result.success(Unit)

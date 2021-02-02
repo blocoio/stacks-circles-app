@@ -43,17 +43,30 @@ class UploadProfile
             )
         }
 
-    private fun profilePayload(profile: ProfileModel, publicKey: String) = mapOf(
-        "jti" to UUID.randomUUID().toString(),
-        "iat" to Date().toZuluTime(),
-        "exp" to nextYear().toZuluTime(),
-        "subject" to mapOf("public Key" to publicKey),
-        "issuer" to mapOf("publicKey" to publicKey),
-        "claim" to mapOf(
-            "@type" to profile.type,
-            "@context" to profile.context
+    private fun profilePayload(profile: ProfileModel, publicKey: String): Map<String, Any> {
+        val map = mutableMapOf(
+            "jti" to UUID.randomUUID().toString(),
+            "iat" to Date().toZuluTime(),
+            "exp" to nextYear().toZuluTime(),
+            "subject" to mapOf("public Key" to publicKey),
+            "issuer" to mapOf("publicKey" to publicKey),
+            "claim" to mapOf(
+                "@type" to profile.type,
+                "@context" to profile.context
+            )
         )
-    )
+
+        //TODO: evaluate
+        if (profile.apps.isNotEmpty()) {
+            map["apps"] = profile.apps
+        }
+
+        if (profile.appsMeta.isNotEmpty()) {
+            map["appsMeta"] = profile.appsMeta
+        }
+
+        return map
+    }
 
     private suspend fun payloadToToken(payload: Map<String, Any>, privateKey: String): String {
         val header = JwtHeader(alg = JwtHeader.ES256K)

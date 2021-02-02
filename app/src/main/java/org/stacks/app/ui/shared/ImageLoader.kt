@@ -14,10 +14,17 @@ class ImageLoader
         Glide.with(activity)
     }
 
-    fun loadAvatar(imageView: ImageView, url: String?) {
+    fun loadAvatar(imageView: ImageView, url: String?) =
         glide.load(url)
             .circleCrop()
             .placeholder(R.drawable.ic_default_avatar)
             .into(imageView)
-    }
+
+
+    fun loadAppIcon(imageView: ImageView, url: String?) =
+        glide.load(url)
+            .circleCrop()
+            .placeholder(R.drawable.splash_screen)
+            .into(imageView)
+
 }

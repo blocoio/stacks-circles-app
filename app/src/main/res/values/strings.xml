@@ -66,4 +66,8 @@ to learn more.
     <string name="more">More</string>
     <string name="continue_btn">Continue</string>
 
+    <!--IDENTITIES SCREEN-->
+    <string name="choose_an_account">Choose an Account</string>
+    <string name="to_connect_to">To connect to %1$s</string>
+
 </resources>
