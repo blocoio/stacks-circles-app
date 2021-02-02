@@ -48,7 +48,7 @@ class UploadProfile
             "jti" to UUID.randomUUID().toString(),
             "iat" to Date().toZuluTime(),
             "exp" to nextYear().toZuluTime(),
-            "subject" to mapOf("public Key" to publicKey),
+            "subject" to mapOf("publicKey" to publicKey),
             "issuer" to mapOf("publicKey" to publicKey),
             "claim" to mapOf(
                 "@type" to profile.type,

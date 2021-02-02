@@ -1,6 +1,7 @@
 package org.stacks.app.domain
 
 import com.google.gson.Gson
+import kotlinx.coroutines.flow.first
 import org.blockstack.android.sdk.Blockstack
 import org.blockstack.android.sdk.Scope
 import org.blockstack.android.sdk.model.BlockstackAccount
@@ -17,7 +18,9 @@ import org.stacks.app.data.IdentityAppModel.Companion.LAST_LOGIN
 import org.stacks.app.data.IdentityAppModel.Companion.NAME
 import org.stacks.app.data.IdentityAppModel.Companion.ORIGIN
 import org.stacks.app.data.IdentityAppModel.Companion.SCOPES
+import org.stacks.app.data.IdentityModel.Companion.APP_MODELS
 import org.stacks.app.data.interfaces.IdentityRepository
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -39,7 +42,7 @@ class GenerateAuthResponse
         val salt = ByteArray(16) { 0 }.toNoPrefixHexString()
         val account = BlockstackAccount(identity.completeUsername, keys, salt)
 
-        //updateUserWallet(authRequest, identity)
+        updateUserWallet(authRequest, identity)
         //updateUserProfile(authRequest, account)
 
         val payload = JSONObject().apply {
@@ -58,14 +61,19 @@ class GenerateAuthResponse
 
     }
 
-    private suspend fun updateUserWallet(authRequest: AuthRequestModel, account: IdentityModel) {
+    private suspend fun updateUserWallet(authRequest: AuthRequestModel, identity: IdentityModel) {
+        val identities = identityRepository.observe().first().toMutableList()
+
         val appDetails = getAppDetails.get(authRequest)
-        val appModel = account.appModels.find { it.name == appDetails?.name ?: "" }
+        val appModel = identity.appModels.find { it.name == appDetails?.name ?: "" }
+
 
         if (appModel != null) {
+            Timber.i(appModel.json.toString() ?: "")
             appModel.json.put(LAST_LOGIN, Date().time)
+            Timber.i(appModel.json.toString() ?: "")
         } else {
-            val newModel =  JSONObject().apply {
+            val newModel = JSONObject().apply {
                 put(NAME, appDetails?.name ?: authRequest.domainName)
                 put(APP_ICON, appDetails?.icon ?: "")
                 put(LAST_LOGIN, Date().time)
@@ -73,15 +81,28 @@ class GenerateAuthResponse
                 put(SCOPES, authRequest.scopes)
             }
 
-            account.appModels
+            val appModels = JSONObject()
+            val apps = identity.json.getJSONObject(APP_MODELS)
+            apps.keys().asSequence().map {
+                appModels.put(it, apps.get(it))
+            }.toList()
+
+            appModels.put(authRequest.domainName, newModel)
+
+            val identityJson = identity.json
+
+            identityJson.put(APP_MODELS, appModels)
+
+
+            identities[identities.indexOfFirst { it.username == identity.username }] =
+                IdentityModel(
+                    identityJson
+                )
         }
 
-        //TODO: update identity model json with new appModel info
-        //TODO: add updated identity to list of identities
-        //TODO: update identity repository
-        //TODO: update wallet with identities
-
-        TODO("Not yet implemented")
+        Timber.i("New Identities")
+        identityRepository.set(identities)
+        upWallet.upload(identities)
     }
 
     private suspend fun updateUserProfile(
