@@ -16,6 +16,7 @@ import org.stacks.app.ui.BaseViewModel
 
 class IdentitiesViewModel
 @ViewModelInject constructor(
+    authRequestsStore: AuthRequestsStore,
     generateAuthResponse: GenerateAuthResponse,
     identityRepository: IdentityRepository,
     private val store: AuthRequestsStore,
@@ -26,7 +27,7 @@ class IdentitiesViewModel
     private val identitySelected = BroadcastChannel<IdentityModel>(1)
 
     // Outputs
-    private val sendAuthResponse = BroadcastChannel<String>(1)
+    private val sendAuthResponse = BroadcastChannel<AuthResponse>(1)
     private val identities = BroadcastChannel<List<IdentityModel>>(1)
     private val appDetails = BroadcastChannel<AppDetails>(1)
     private val errors = BroadcastChannel<Unit>(1)
@@ -54,9 +55,13 @@ class IdentitiesViewModel
         identitySelected
             .asFlow()
             .onEach {
-                sendAuthResponse.send(generateAuthResponse.generate(it))
+                sendAuthResponse.send(
+                    AuthResponse(
+                        authRequestsStore.get()!!.redirectUri,
+                        generateAuthResponse.generate(it)
+                    )
+                )
             }
-            .catch { errors.send(Unit) }
             .launchIn(ioScope)
     }
 
@@ -64,10 +69,16 @@ class IdentitiesViewModel
     suspend fun identitySelected(identity: IdentityModel) = identitySelected.send(identity)
 
     // Outputs
-    fun sendAuthResponse(): Flow<String> = sendAuthResponse.asFlow()
+    fun sendAuthResponse(): Flow<AuthResponse> = sendAuthResponse.asFlow()
     fun identities(): Flow<List<IdentityModel>> = identities.asFlow()
     fun appDetails(): Flow<AppDetails> = appDetails.asFlow()
     fun appDomain() = store.get()?.domainName ?: ""
     fun errors() = errors.asFlow()
+
+
+    data class AuthResponse(
+        val redirectURL: String,
+        val token: String
+    )
 
 }

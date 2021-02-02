@@ -1,6 +1,5 @@
 package org.stacks.app.ui
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -14,7 +13,6 @@ import org.stacks.app.R
 import org.stacks.app.ui.auth.ConnectActivity
 import org.stacks.app.ui.auth.identities.IdentitiesActivity
 import org.stacks.app.ui.homepage.HomepageActivity
-import timber.log.Timber
 
 @AndroidEntryPoint
 class SplashActivity : BaseActivity() {
@@ -52,16 +50,6 @@ class SplashActivity : BaseActivity() {
             .errors()
             .onEach { startActivity(HomepageActivity.getIntent(this, true)) }
             .launchIn(lifecycleScope)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == IdentitiesActivity.AUTH && resultCode == RESULT_OK) {
-            setResult(RESULT_OK, data)
-        }
-
-        Timber.i("Info")
     }
 
     companion object {

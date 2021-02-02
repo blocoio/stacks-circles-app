@@ -2,6 +2,7 @@ package org.stacks.app.ui.auth.identities
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
@@ -17,7 +18,6 @@ import kotlinx.coroutines.launch
 import org.stacks.app.R
 import org.stacks.app.data.IdentityModel
 import org.stacks.app.ui.BaseActivity
-import org.stacks.app.ui.SplashActivity
 import org.stacks.app.ui.auth.signup.ChooseUsernameActivity
 import org.stacks.app.ui.shared.IdentityRowView
 import reactivecircus.flowbinding.android.view.clicks
@@ -55,9 +55,20 @@ class IdentitiesActivity : BaseActivity() {
         viewModel
             .sendAuthResponse()
             .onEach {
-                intent.putExtra(AUTH_RESPONSE, it)
-                setResult(SplashActivity.RESULT_OK, intent)
-                finish()
+
+                val uri = Uri.parse(it.redirectURL)
+                    .buildUpon()
+                    .appendQueryParameter(AUTH_RESPONSE, it.token)
+                    .build()
+
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        uri
+                    )
+                )
+
+                finishAffinity()
             }
             .launchIn(lifecycleScope)
 

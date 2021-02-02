@@ -1,12 +1,10 @@
 package org.stacks.app.domain
 
+import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonConfiguration
 import me.uport.sdk.core.toBase64UrlSafe
 import me.uport.sdk.jwt.JWTSignerAlgorithm
-import me.uport.sdk.jwt.model.ArbitraryMapSerializer
 import me.uport.sdk.jwt.model.JwtHeader
 import me.uport.sdk.signer.KPSigner
 import org.blockstack.android.sdk.Blockstack
@@ -27,6 +25,7 @@ class UploadProfile
     private val hubService: HubService,
     private val blockstack: Blockstack,
     private val generateAuthToken: GenerateAuthToken,
+    private val gson: Gson
 ) {
 
     suspend fun upload(profile: ProfileModel, keys: ECKeyPair): Unit =
@@ -69,8 +68,7 @@ class UploadProfile
 
     private suspend fun payloadToToken(payload: Map<String, Any>, privateKey: String): String {
         val header = JwtHeader(alg = JwtHeader.ES256K)
-        val serializedPayload = Json(JsonConfiguration.Stable)
-            .stringify(ArbitraryMapSerializer, payload)
+        val serializedPayload = gson.toJson(payload)
         val signingInput =
             listOf(header.toJson(), serializedPayload).joinToString(".") { it.toBase64UrlSafe() }
 

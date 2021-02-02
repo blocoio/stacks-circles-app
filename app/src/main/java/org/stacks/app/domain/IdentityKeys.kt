@@ -39,7 +39,8 @@ class IdentityKeys
 
     suspend fun getFrom(identity: IdentityModel): ExtendedKey {
         val secretKey = secretKeyRepository.observe().first()
-        val index = identityRepository.observe().first().indexOf(identity)
+        val index =
+            identityRepository.observe().first().indexOfFirst { it.username == identity.username }
 
         return generateIdentityDataFromMnemonicWords(secretKey, index)
     }
