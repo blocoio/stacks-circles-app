@@ -91,8 +91,8 @@ class ChooseUsernameActivity : BaseActivity() {
             .errors()
             .onEach { error ->
                 outlinedTextField.error = when (error) {
-                    ChooseUsernameViewModel.Errors.UnavailableUsername -> getString(R.string.invalidUsername)
-                    ChooseUsernameViewModel.Errors.SignUpError -> getString(R.string.error)
+                    ChooseUsernameViewModel.Error.UnavailableUsername -> getString(R.string.invalidUsername)
+                    ChooseUsernameViewModel.Error.SignUpError -> getString(R.string.error)
                 }
 
             }
