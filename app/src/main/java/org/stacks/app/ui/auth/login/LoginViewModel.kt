@@ -20,6 +20,7 @@ class LoginViewModel
     private val submittedSecretKey = BroadcastChannel<String>(1)
 
     // Outputs
+    private val loading = MutableStateFlow(false)
     private val showError = BroadcastChannel<Unit>(1)
     private val openWelcomeScreen = BroadcastChannel<Unit>(1)
     private val openIdentitiesScreen = BroadcastChannel<Unit>(1)
@@ -35,6 +36,7 @@ class LoginViewModel
 
         submittedSecretKey
             .asFlow()
+            .onEach { loading.emit(true) }
             .map { login.login(it) }
             .foldOnEach({
                 if (authRequestsStore.isEmpty()) {
@@ -43,6 +45,7 @@ class LoginViewModel
                     openIdentitiesScreen.send(Unit)
                 }
             }, {
+                loading.emit(false)
                 showError.send(Unit)
             })
             .launchIn(ioScope)
@@ -64,6 +67,8 @@ class LoginViewModel
 
     fun openIdentitiesScreen() =
         openIdentitiesScreen.asFlow()
+
+    fun loading() = loading.asStateFlow()
 
     companion object {
         const val SECRET_KEY_WORDS = 12

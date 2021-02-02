@@ -3,6 +3,7 @@ package org.stacks.app.ui.auth.login
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
@@ -53,6 +54,17 @@ class LoginActivity : BaseActivity() {
         viewModel
             .openWelcomeScreen()
             .onEach { startActivity(WelcomeActivity.getIntent(this)) }
+            .launchIn(lifecycleScope)
+
+        viewModel
+            .loading()
+            .onEach { loading ->
+                loadingSpinner.isVisible = loading
+                signInButton.isVisible = !loading
+                secretKey.isVisible = !loading
+                secretKeyMessage.isVisible = !loading
+                secretKeyTitle.isVisible = !loading
+            }
             .launchIn(lifecycleScope)
     }
 
