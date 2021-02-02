@@ -26,13 +26,18 @@ class ShareKeyBottomSheetFragment : BottomSheetDialogFragment() {
         ViewModelProvider(this).get(ShareKeyBottomSheetViewModel::class.java)
     }
 
+    var signUp: Boolean = false
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_share_key_bottom_sheet, container, false)
 
-    var signUp : Boolean = false
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme);
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -43,7 +48,7 @@ class ShareKeyBottomSheetFragment : BottomSheetDialogFragment() {
                 dismiss()
                 activity?.finish()
                 if (signUp) {
-                    startActivity(ChooseUsernameActivity.getIntent(requireContext()))
+                    startActivity(ChooseUsernameActivity.getIntent(requireContext(), signUp))
                 }
             }
             .launchIn(lifecycleScope)

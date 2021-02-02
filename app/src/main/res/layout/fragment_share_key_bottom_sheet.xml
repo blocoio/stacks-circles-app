@@ -4,23 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@drawable/ic_rounded_bg"
     android:orientation="vertical">
 
     <TextView
-        style="@style/TextAppearance.Stacks.Headline"
+        style="@style/TextAppearance.Stacks.Headline4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="16dp"
-        android:text="@string/save_your_secret_key" />
+        android:text="@string/save_your_secret_key"
+        android:textColor="@color/grey" />
 
     <TextView
-        style="@style/TextAppearance.Stacks.Subtitle"
+        style="@style/TextAppearance.Stacks.Body1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
-        android:text="@string/save_your_secret_key_info" />
+        android:layout_marginHorizontal="16dp"
+        android:text="@string/save_your_secret_key_info"
+        android:textColor="@color/grey" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,9 +32,11 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/saved"
             style="@style/Widget.Stacks.Button"
+            app:backgroundTint="@color/org_stacks_blue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
             android:text="@string/i_have_saved_it" />
 
         <com.google.android.material.button.MaterialButton
@@ -40,27 +44,28 @@
             style="@style/Widget.Stacks.AlternativeButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="8dp"
+            android:layout_marginTop="16dp"
             android:text="@string/view_secret_key_again" />
     </LinearLayout>
 
     <View
         style="@style/Divider"
-        android:layout_marginVertical="8dp" />
+        android:layout_marginVertical="16dp" />
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginHorizontal="16dp"
         android:text="@string/share_to_apps"
+        android:textAppearance="@style/TextAppearance.Stacks.Subtitle"
         android:textColor="@color/black"
         android:textSize="16sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="20dp"
         android:gravity="start"
         android:orientation="horizontal">
 
@@ -68,7 +73,7 @@
             android:id="@+id/copy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:background="?selectableItemBackground"
             android:clickable="true"
@@ -135,7 +140,6 @@
                 android:text="@string/more" />
 
         </LinearLayout>
-
 
     </LinearLayout>
 

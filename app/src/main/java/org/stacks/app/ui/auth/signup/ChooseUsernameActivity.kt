@@ -3,6 +3,7 @@ package org.stacks.app.ui.auth.signup
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,9 +23,17 @@ class ChooseUsernameActivity : BaseActivity() {
         ViewModelProvider(this).get(ChooseUsernameViewModel::class.java)
     }
 
+    private val signUp by lazy {
+        intent?.getBooleanExtra(SIGN_UP, false) ?: false
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_username)
+
+        if (!signUp) {
+            setNavigation()
+        }
 
         username
             .textChanges()
@@ -36,7 +45,7 @@ class ChooseUsernameActivity : BaseActivity() {
         continueBtn
             .clicks()
             .onEach {
-                viewModel.usernamePicked(username.text.toString())
+                viewModel.usernamePicked(username.text.toString(), signUp)
             }
             .launchIn(lifecycleScope)
 
@@ -48,16 +57,32 @@ class ChooseUsernameActivity : BaseActivity() {
             .launchIn(lifecycleScope)
 
         viewModel
+            .loading()
+            .onEach { loading ->
+                loadingSpinner.isVisible = loading
+                continueBtn.isVisible = !loading
+                chooseUsernameLayout.isVisible = !loading
+            }
+            .launchIn(lifecycleScope)
+
+        viewModel
             .errors()
-            .onEach {
-                outlinedTextField.error = getString(R.string.error)
+            .onEach { error ->
+                outlinedTextField.error = when (error) {
+                    ChooseUsernameViewModel.Errors.UnavailableUsername -> getString(R.string.invalidUsername)
+                    ChooseUsernameViewModel.Errors.SignUpError -> getString(R.string.error)
+                }
+
             }
             .launchIn(lifecycleScope)
     }
 
     companion object {
-        fun getIntent(context: Context): Intent =
-            Intent(context, ChooseUsernameActivity::class.java)
-    }
 
+        const val SIGN_UP = "signUp"
+
+        fun getIntent(context: Context, signUp: Boolean = false) =
+            Intent(context, ChooseUsernameActivity::class.java)
+                .putExtra(SIGN_UP, signUp)
+    }
 }

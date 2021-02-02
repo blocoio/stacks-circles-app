@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
     <include layout="@layout/partial_tool_bar" />
 
@@ -15,15 +15,16 @@
         android:layout_gravity="center"
         android:layout_marginTop="46dp"
         android:importantForAccessibility="no"
-        android:src="@drawable/ic_connect_logo" />
+        android:src="@drawable/icon" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="16dp"
         android:gravity="center"
         android:text="@string/connect_info"
-        android:textAppearance="@style/TextAppearance.Stacks.Headline" />
+        android:textAppearance="@style/TextAppearance.Stacks.Headline3"
+        android:textColor="@color/grey" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -52,7 +53,8 @@
             android:layout_marginTop="16dp"
             android:gravity="top"
             android:text="@string/connect_key_message"
-            android:textAppearance="@style/TextAppearance.Stacks.Subtitle"
+            android:textAppearance="@style/TextAppearance.Stacks.Body3"
+            android:textColor="@color/grey_light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/connect_secret_key_desc_icon"
             app:layout_constraintTop_toTopOf="parent" />
@@ -79,7 +81,8 @@
             android:layout_marginTop="16dp"
             android:gravity="top"
             android:text="@string/connect_tracking_message"
-            android:textAppearance="@style/TextAppearance.Stacks.Subtitle"
+            android:textAppearance="@style/TextAppearance.Stacks.Body3"
+            android:textColor="@color/grey_light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/connect_tracking_desc_icon"
             app:layout_constraintTop_toBottomOf="@+id/connect_secret_key_desc_title" />
@@ -90,16 +93,16 @@
         android:id="@+id/newAccount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
-        android:text="@string/new_to_connect" />
+        android:text="@string/new_to_stacks" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/login"
         style="@style/Widget.Stacks.ButtonOnPrimaryColor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginHorizontal="16dp"
         android:text="@string/continue_key" />
 
     <LinearLayout
@@ -110,13 +113,14 @@
         android:orientation="horizontal">
 
         <TextView
-            android:clickable="true"
-            android:focusable="true"
             android:id="@+id/howItWorks"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:clickable="true"
+            android:focusable="true"
             android:text="@string/how_connect_works"
+            android:textAppearance="@style/TextAppearance.Stacks.Body3"
             android:textColor="@color/grey_light" />
 
     </LinearLayout>

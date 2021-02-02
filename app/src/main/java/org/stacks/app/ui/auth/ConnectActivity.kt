@@ -2,7 +2,6 @@ package org.stacks.app.ui.auth
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import kotlinx.android.synthetic.main.activity_connect.*
@@ -37,7 +36,7 @@ class ConnectActivity : BaseActivity() {
         howItWorks
             .clicks()
             .onEach {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.about_us_url))))
+                startActivity(HowItWorksActivity.getIntent(this))
             }
             .launchIn(lifecycleScope)
     }

@@ -16,18 +16,29 @@
     <!-- Buttons -->
     <style name="Widget.Stacks.Button" parent="@style/Widget.MaterialComponents.Button">
         <item name="textAllCaps">false</item>
+        <item name="android:fontFamily">@font/inter</item>
     </style>
 
     <style name="Widget.Stacks.ButtonOnPrimaryColor" parent="@style/Widget.MaterialComponents.Button">
         <item name="textAllCaps">false</item>
         <item name="android:backgroundTint">@color/white</item>
         <item name="android:textColor">@color/org_stacks_blue</item>
+        <item name="android:textAppearance">@style/TextAppearance.Stacks.ButtonText</item>
     </style>
 
     <style name="Widget.Stacks.AlternativeButton" parent="@style/Widget.MaterialComponents.Button">
         <item name="textAllCaps">false</item>
         <item name="android:backgroundTint">@color/org_stacks_light1_blue</item>
         <item name="android:textColor">@color/org_stacks_blue</item>
+    </style>
+
+    <!-- BottomSheet -->
+    <style name="CustomBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheetStyle</item>
+    </style>
+
+    <style name="CustomBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
     </style>
 
     <!-- Others-->

@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="16dp"
         android:text="@string/learn_more"
         android:textAppearance="@style/TextAppearance.Stacks.Subtitle" />
 
@@ -22,7 +22,7 @@
         app:strokeWidth="2dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
+        android:layout_marginHorizontal="16dp"
         android:focusable="true">
 
         <TextView
@@ -30,11 +30,13 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:text="@string/how_stacks_works"
-            android:textAppearance="@style/TextAppearance.Stacks.LargeText" />
+            android:textSize="30sp"
+            android:textAppearance="@style/TextAppearance.Stacks.Headline2"
+            android:textColor="@color/black"/>
 
         <ImageView
-            android:layout_width="160dp"
-            android:layout_height="160dp"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
             android:layout_gravity="end|center_vertical"
             android:src="@drawable/ic_how_it_works"
             android:importantForAccessibility="no" />
