@@ -27,7 +27,7 @@ class IdentityKeys
 ) {
 
     //TODO: test size variants
-    suspend fun generate(): ECKeyPair {
+    suspend fun new(): ECKeyPair {
         val identities = identityRepository.observe().first()
         val secretKey = secretKeyRepository.observe().first()
 
@@ -37,7 +37,7 @@ class IdentityKeys
         ).keyPair
     }
 
-    suspend fun getFrom(identity: IdentityModel): ExtendedKey {
+    suspend fun from(identity: IdentityModel): ExtendedKey {
         val secretKey = secretKeyRepository.observe().first()
         val index =
             identityRepository.observe().first().indexOfFirst { it.username == identity.username }

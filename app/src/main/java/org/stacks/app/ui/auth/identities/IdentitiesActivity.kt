@@ -35,7 +35,7 @@ class IdentitiesActivity : BaseActivity() {
 
         newIdentity
             .clicks()
-            .onEach { startActivity(ChooseUsernameActivity.getIntent(this, true)) }
+            .onEach { startActivity(ChooseUsernameActivity.getIntent(this)) }
             .launchIn(lifecycleScope)
 
         viewModel
@@ -58,7 +58,7 @@ class IdentitiesActivity : BaseActivity() {
 
                 val uri = Uri.parse(it.redirectURL)
                     .buildUpon()
-                    .appendQueryParameter(AUTH_RESPONSE, it.token)
+                    .appendQueryParameter(AUTH_RESPONSE, it.authResponseToken)
                     .build()
 
                 startActivity(

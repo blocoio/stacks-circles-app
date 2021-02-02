@@ -70,4 +70,8 @@ to learn more.
     <string name="choose_an_account">Choose an Account</string>
     <string name="to_connect_to">To connect to %1$s</string>
 
+    <!--WELCOME SCREEN-->
+    <string name="all_set">You’re all set!</string>
+    <string name="go_to">Go to Envelop %1$s</string>
+
 </resources>

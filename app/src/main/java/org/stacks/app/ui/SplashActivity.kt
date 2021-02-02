@@ -10,9 +10,10 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.stacks.app.R
-import org.stacks.app.ui.auth.ConnectActivity
 import org.stacks.app.ui.auth.identities.IdentitiesActivity
+import org.stacks.app.ui.auth.login.LoginActivity
 import org.stacks.app.ui.homepage.HomepageActivity
+import org.stacks.app.ui.secret.SecretKeyActivity
 
 @AndroidEntryPoint
 class SplashActivity : BaseActivity() {
@@ -28,7 +29,7 @@ class SplashActivity : BaseActivity() {
         GlobalScope.launch {
             delay(SPLASH_SCREEN_DELAY_MILLISECONDS)
             viewModel
-                .dataReceived(intent?.data)
+                .dataReceived(intent?.data?.fragment)
         }
 
         viewModel
@@ -37,8 +38,13 @@ class SplashActivity : BaseActivity() {
             .launchIn(lifecycleScope)
 
         viewModel
-            .openConnect()
-            .onEach { startActivity(ConnectActivity.getIntent(this)) }
+            .openSignUp()
+            .onEach { startActivity(SecretKeyActivity.getIntent(this, true)) }
+            .launchIn(lifecycleScope)
+
+        viewModel
+            .openLogin()
+            .onEach { startActivity(LoginActivity.getIntent(this)) }
             .launchIn(lifecycleScope)
 
         viewModel

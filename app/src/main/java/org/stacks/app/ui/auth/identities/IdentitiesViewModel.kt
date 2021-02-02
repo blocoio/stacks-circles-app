@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.stacks.app.data.AppDetails
 import org.stacks.app.data.AuthRequestsStore
+import org.stacks.app.data.AuthResponse
 import org.stacks.app.data.IdentityModel
 import org.stacks.app.data.interfaces.IdentityRepository
 import org.stacks.app.domain.GenerateAuthResponse
@@ -16,10 +17,9 @@ import org.stacks.app.ui.BaseViewModel
 
 class IdentitiesViewModel
 @ViewModelInject constructor(
-    authRequestsStore: AuthRequestsStore,
+    private val authRequestsStore: AuthRequestsStore,
     generateAuthResponse: GenerateAuthResponse,
     identityRepository: IdentityRepository,
-    private val store: AuthRequestsStore,
     getAppDetails: GetAppDetails
 ) : BaseViewModel() {
 
@@ -43,7 +43,7 @@ class IdentitiesViewModel
             .launchIn(ioScope)
 
         GlobalScope.launch(Dispatchers.IO) {
-            val authRequest = store.get()
+            val authRequest = authRequestsStore.get()
 
             if (authRequest != null) {
                 getAppDetails.get(authRequest)?.also {
@@ -55,9 +55,12 @@ class IdentitiesViewModel
         identitySelected
             .asFlow()
             .onEach {
+                val authRequest = authRequestsStore.get()!!
+
                 sendAuthResponse.send(
                     AuthResponse(
-                        authRequestsStore.get()!!.redirectUri,
+                        getAppDetails.get(authRequest)!!.name,
+                        authRequest.redirectUri,
                         generateAuthResponse.generate(it)
                     )
                 )
@@ -72,13 +75,7 @@ class IdentitiesViewModel
     fun sendAuthResponse(): Flow<AuthResponse> = sendAuthResponse.asFlow()
     fun identities(): Flow<List<IdentityModel>> = identities.asFlow()
     fun appDetails(): Flow<AppDetails> = appDetails.asFlow()
-    fun appDomain() = store.get()?.domainName ?: ""
+    fun appDomain() = authRequestsStore.get()?.domainName ?: ""
     fun errors() = errors.asFlow()
-
-
-    data class AuthResponse(
-        val redirectURL: String,
-        val token: String
-    )
 
 }

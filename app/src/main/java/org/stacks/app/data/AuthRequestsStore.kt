@@ -8,5 +8,7 @@ class AuthRequestsStore {
 
     suspend fun set(authRequest: AuthRequestModel) = storeFlow.emit(authRequest)
     fun get() = storeFlow.value
+    fun isEmpty() = storeFlow.value == null
+    fun isNotEmpty() = !isEmpty()
 
 }

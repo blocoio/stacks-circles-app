@@ -1,6 +1,5 @@
 package org.stacks.app.ui
 
-import android.net.Uri
 import androidx.hilt.lifecycle.ViewModelInject
 import com.google.gson.Gson
 import kotlinx.coroutines.channels.BroadcastChannel
@@ -12,21 +11,24 @@ import me.uport.sdk.jwt.JWTUtils
 import org.stacks.app.data.AuthRequestModel
 import org.stacks.app.data.AuthRequestsStore
 import org.stacks.app.domain.GetUserAuthState
-import org.stacks.app.domain.GetUserAuthState.UserAuthState.Unauthenticated
+import org.stacks.app.domain.GetUserAuthState.UserAuthState.Authenticated
+import org.stacks.app.ui.SplashViewModel.Request.*
+import org.stacks.app.ui.SplashViewModel.Request.Nothing
 
 class SplashViewModel
 @ViewModelInject constructor(
+    private val userAuthState: GetUserAuthState,
     private val gson: Gson,
     store: AuthRequestsStore,
-    userAuthState: GetUserAuthState
 ) : BaseViewModel() {
 
     // Inputs
-    private val dataReceived = BroadcastChannel<Uri?>(1)
+    private val dataReceived = BroadcastChannel<String?>(1)
 
     // Outputs
     private val openHomepage = BroadcastChannel<Unit>(1)
-    private val openConnect = BroadcastChannel<Unit>(1)
+    private val openLogin = BroadcastChannel<Unit>(1)
+    private val openSignUp = BroadcastChannel<Unit>(1)
     private val openIdentities = BroadcastChannel<Unit>(1)
     private val errors = BroadcastChannel<Unit>(1)
 
@@ -34,16 +36,17 @@ class SplashViewModel
 
         dataReceived
             .asFlow()
-            .onEach { if (it == null) openHomepage.send(Unit) }
-            .map { it?.fragment?.substringAfter("authRequest=") }
-            .filter { it != null }
-            .onEach { authRequestToken ->
-                store.set(decodeJWT(authRequestToken!!))
+            .map { getDataFromUri(it) }
+            .onEach { (authRequestToken, state) ->
+                if (state != Nothing) {
+                    store.set(decodeJWT(authRequestToken))
+                }
 
-                if (userAuthState.state().first() is Unauthenticated) {
-                    openConnect.send(Unit)
-                } else {
-                    openIdentities.send(Unit)
+                when (state) {
+                    LoggedUser -> openIdentities.send(Unit)
+                    Login -> openLogin.send(Unit)
+                    SignUp -> openSignUp.send(Unit)
+                    Nothing -> openHomepage.send(Unit)
                 }
             }
             .catch { errors.send(Unit) }
@@ -68,13 +71,33 @@ class SplashViewModel
         }
     }
 
+    private suspend fun getDataFromUri(uri: String?): Pair<String, Request> {
+        val authRequest = uri?.substringAfter("authRequest=") ?: return Pair("", Nothing)
+
+        val state = when {
+            userAuthState.state().first() is Authenticated -> LoggedUser
+            uri.contains("/sign-up?") -> SignUp
+            uri.contains("/sign-in?") -> Login
+            else -> throw Exception("failed to get data from URI")
+
+        }
+
+        return Pair(authRequest, state)
+    }
+
     // Inputs
-    suspend fun dataReceived(data: Uri?) = dataReceived.send(data)
+    suspend fun dataReceived(data: String?) = dataReceived.send(data)
 
     // Outputs
     fun openHomepage() = openHomepage.asFlow()
-    fun openConnect() = openConnect.asFlow()
+    fun openLogin() = openLogin.asFlow()
+    fun openSignUp() = openSignUp.asFlow()
     fun openIdentities() = openIdentities.asFlow()
     fun errors() = errors.asFlow()
+
+
+    enum class Request {
+        LoggedUser, Login, SignUp, Nothing
+    }
 
 }

@@ -2,6 +2,7 @@ package org.stacks.app.domain
 
 import kotlinx.coroutines.flow.first
 import org.blockstack.android.sdk.toBtcAddress
+import org.stacks.app.data.IdentityModel
 import org.stacks.app.data.ProfileModel
 import org.stacks.app.data.interfaces.IdentityRepository
 import javax.inject.Inject
@@ -15,12 +16,14 @@ class NewIdentity
     private val uploadProfile: UploadProfile,
     private val uploadWallet: UploadWallet,
 ) {
-    suspend fun create(username: String): Result<Unit> = try {
-        val keys = identityKeys.generate()
+    suspend fun create(username: String): Result<IdentityModel> = try {
+        var identities = identityRepository.observe().first()
+        val keys = identityKeys.new()
         val btcAddress = keys.toBtcAddress()
-        val identities = identityRepository.observe().first().toMutableList()
 
-        identities.add(generateIdentity.generate(btcAddress, username))
+        val newIdentity = generateIdentity.generate(btcAddress, username)
+
+        identities = identities + newIdentity
 
         val profile = ProfileModel()
         registrarProfile.register(username, btcAddress)
@@ -28,7 +31,7 @@ class NewIdentity
         uploadWallet.upload(identities)
         identityRepository.set(identities)
 
-        Result.success(Unit)
+        Result.success(newIdentity)
     } catch (e: Throwable) {
         Result.failure(e)
     }
