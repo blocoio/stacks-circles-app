@@ -56,7 +56,6 @@ class UploadProfile
             )
         )
 
-        //TODO: evaluate
         if (profile.apps.isNotEmpty()) {
             map["apps"] = profile.apps
         }

@@ -34,6 +34,7 @@ class LoginViewModel
             .asFlow()
             .map { login.login(it) }
             .foldOnEach({
+                //TODO: check if theres a authRequest, if there is move to identities screen
                 openWelcomeScreen.send(Unit)
             }, {
                 showError.send(Unit)

@@ -21,6 +21,9 @@ class WelcomeActivity : BaseActivity() {
         discover
             .clicks()
             .onEach {
+                //TODO: see if there's an auth request, if there is set result
+                // also only do this on SIGNUP
+
                 startActivity(HomepageActivity.getIntent(this))
             }
             .launchIn(lifecycleScope)

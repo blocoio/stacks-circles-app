@@ -29,6 +29,7 @@ class IdentitiesViewModel
     private val sendAuthResponse = BroadcastChannel<String>(1)
     private val identities = BroadcastChannel<List<IdentityModel>>(1)
     private val appDetails = BroadcastChannel<AppDetails>(1)
+    private val errors = BroadcastChannel<Unit>(1)
 
 
     init {
@@ -55,6 +56,7 @@ class IdentitiesViewModel
             .onEach {
                 sendAuthResponse.send(generateAuthResponse.generate(it))
             }
+            .catch { errors.send(Unit) }
             .launchIn(ioScope)
     }
 
@@ -66,5 +68,6 @@ class IdentitiesViewModel
     fun identities(): Flow<List<IdentityModel>> = identities.asFlow()
     fun appDetails(): Flow<AppDetails> = appDetails.asFlow()
     fun appDomain() = store.get()?.domainName ?: ""
+    fun errors() = errors.asFlow()
 
 }

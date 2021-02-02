@@ -36,13 +36,15 @@ class GenerateAuthResponse
     private val gson: Gson
 ) {
 
+    //TODO: proper Exception
     suspend fun generate(identity: IdentityModel): String {
         val authRequest = authRequestsStore.get() ?: throw Exception()
         val keys = identityKeys.getFrom(identity)
         val salt = ByteArray(16) { 0 }.toNoPrefixHexString()
         val account = BlockstackAccount(identity.completeUsername, keys, salt)
 
-        updateUserWallet(authRequest, identity)
+        //TODO: consider extraction to domain class's, complexity is high
+        //updateUserWallet(authRequest, identity)
         //updateUserProfile(authRequest, account)
 
         val payload = JSONObject().apply {

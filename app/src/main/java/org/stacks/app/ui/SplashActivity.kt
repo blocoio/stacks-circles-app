@@ -1,5 +1,6 @@
 package org.stacks.app.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -13,6 +14,7 @@ import org.stacks.app.R
 import org.stacks.app.ui.auth.ConnectActivity
 import org.stacks.app.ui.auth.identities.IdentitiesActivity
 import org.stacks.app.ui.homepage.HomepageActivity
+import timber.log.Timber
 
 @AndroidEntryPoint
 class SplashActivity : BaseActivity() {
@@ -43,7 +45,7 @@ class SplashActivity : BaseActivity() {
 
         viewModel
             .openIdentities()
-            .onEach { startActivity(IdentitiesActivity.getIntent(this)) }
+            .onEach { startActivityForResult(IdentitiesActivity.getIntent(this), IdentitiesActivity.AUTH) }
             .launchIn(lifecycleScope)
 
         viewModel
@@ -52,7 +54,20 @@ class SplashActivity : BaseActivity() {
             .launchIn(lifecycleScope)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == IdentitiesActivity.AUTH && resultCode == RESULT_OK) {
+            setResult(RESULT_OK, data)
+        }
+
+        Timber.i("Info")
+    }
+
     companion object {
+        const val RESULT_OK = 0
+        const val RESULT_ERROR = -1
+
         const val SPLASH_SCREEN_DELAY_MILLISECONDS = 1 * 1000L
     }
 

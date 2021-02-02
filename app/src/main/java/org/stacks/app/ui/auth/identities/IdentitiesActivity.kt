@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_account.accounts
 import kotlinx.android.synthetic.main.activity_identities.*
@@ -16,8 +17,10 @@ import kotlinx.coroutines.launch
 import org.stacks.app.R
 import org.stacks.app.data.IdentityModel
 import org.stacks.app.ui.BaseActivity
+import org.stacks.app.ui.SplashActivity
+import org.stacks.app.ui.auth.signup.ChooseUsernameActivity
 import org.stacks.app.ui.shared.IdentityRowView
-import timber.log.Timber
+import reactivecircus.flowbinding.android.view.clicks
 
 @AndroidEntryPoint
 class IdentitiesActivity : BaseActivity() {
@@ -29,6 +32,11 @@ class IdentitiesActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_identities)
+
+        newIdentity
+            .clicks()
+            .onEach { startActivity(ChooseUsernameActivity.getIntent(this, true)) }
+            .launchIn(lifecycleScope)
 
         viewModel
             .identities()
@@ -47,8 +55,15 @@ class IdentitiesActivity : BaseActivity() {
         viewModel
             .sendAuthResponse()
             .onEach {
-                Timber.i(it)
+                intent.putExtra(AUTH_RESPONSE, it)
+                setResult(SplashActivity.RESULT_OK, intent)
+                finish()
             }
+            .launchIn(lifecycleScope)
+
+        viewModel
+            .errors()
+            .onEach { Snackbar.make(root, getString(R.string.error), Snackbar.LENGTH_LONG).show() }
             .launchIn(lifecycleScope)
 
         appConnectionDescription.text = getString(R.string.to_connect_to, viewModel.appDomain())
@@ -71,6 +86,9 @@ class IdentitiesActivity : BaseActivity() {
     }
 
     companion object {
+        const val AUTH = 2
+        const val AUTH_RESPONSE = "authResponse"
+
         fun getIntent(context: Context) = Intent(context, IdentitiesActivity::class.java)
     }
 

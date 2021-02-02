@@ -26,8 +26,7 @@ class IdentityKeys
     private val secretKeyRepository: EncryptedPreferencesSecretKeyRepository
 ) {
 
-    //TODO:
-    // test size variants
+    //TODO: test size variants
     suspend fun generate(): ECKeyPair {
         val identities = identityRepository.observe().first()
         val secretKey = secretKeyRepository.observe().first()
