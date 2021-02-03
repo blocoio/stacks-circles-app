@@ -3,13 +3,13 @@ package org.stacks.app.domain
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.take
-import org.stacks.app.data.EncryptedPreferencesIdentityRepository
 import org.stacks.app.data.IdentityModel
+import org.stacks.app.data.interfaces.IdentityRepository
 import javax.inject.Inject
 
 class GetUserAuthState
 @Inject constructor(
-    private val identityRepository: EncryptedPreferencesIdentityRepository
+    private val identityRepository: IdentityRepository
 ) {
     // Outputs
     fun state() =

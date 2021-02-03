@@ -33,11 +33,19 @@ class HomepageActivity : BaseActivity() {
         ViewModelProvider(this).get(HomePageViewModel::class.java)
     }
 
+    private val error by lazy {
+        intent?.getBooleanExtra(ERRORS, false) ?: false
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_homepage)
         toolbar.addSystemWindowInsetToPadding(top = true)
         scrollView.addSystemWindowInsetToPadding(bottom = true)
+
+        if (error) {
+            messageLoader.show(R.string.error)
+        }
 
         toolbarAvatar
             .clicks()
@@ -111,9 +119,13 @@ class HomepageActivity : BaseActivity() {
 
 
     companion object {
-        fun getIntent(context: Context) =
+
+        const val ERRORS = "errors"
+
+        fun getIntent(context: Context, error: Boolean = false) =
             Intent(context, HomepageActivity::class.java)
                 .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                .putExtra(ERRORS, error)
     }
 
 }

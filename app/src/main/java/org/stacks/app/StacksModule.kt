@@ -20,6 +20,7 @@ import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.blockstack.android.sdk.Blockstack
 import org.blockstack.android.sdk.model.Hub
+import org.stacks.app.data.AuthRequestsStore
 import javax.inject.Singleton
 
 @Module
@@ -79,6 +80,11 @@ class StacksModule {
     @Provides
     fun hub() =
         Hub()
+
+    @Provides
+    @Singleton
+    fun authRequestStore() =
+        AuthRequestsStore()
 
     @Provides
     @Singleton

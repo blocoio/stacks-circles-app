@@ -1,10 +1,10 @@
 <resources>
     <!--APP-->
     <string name="app_name">Circle</string>
+    <string name="app_name_plural">Circles</string>
 
     <!--HOMEPAGE-->
     <string name="connect_info">Circle guarantees your privacy by encrypting everything</string>
-    <string name="circle">Circles</string>
     <string name="start_here">Start here</string>
     <string name="built_on_stacks">Built on Stacks</string>
     <string name="find_apps">Find apps to use</string>
@@ -65,5 +65,13 @@ to learn more.
     <string name="copy">Copy</string>
     <string name="more">More</string>
     <string name="continue_btn">Continue</string>
+
+    <!--IDENTITIES SCREEN-->
+    <string name="choose_an_account">Choose an Account</string>
+    <string name="to_connect_to">To connect to %1$s</string>
+
+    <!--WELCOME SCREEN-->
+    <string name="all_set">You’re all set!</string>
+    <string name="go_to">Go to %1$s</string>
 
 </resources>

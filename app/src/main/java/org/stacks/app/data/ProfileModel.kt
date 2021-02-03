@@ -10,10 +10,11 @@ data class ProfileModel(
     val context: String = "http://schema.org",
 
     val apps: Map<String, String> = emptyMap(),
-    val appsMeta: Map<String, AppMetaData> = emptyMap()
-)
 
-data class AppMetaData(
-    val publicKey: String,
-    val storage: String
-)
+    val appsMeta: Map<String, AppMetaData> = emptyMap()
+) {
+    data class AppMetaData(
+        val publicKey: String,
+        val storage: String
+    )
+}

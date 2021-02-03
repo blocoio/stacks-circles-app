@@ -12,8 +12,7 @@ class CheckUsernameStatus
 ) {
 
     //TODO: this needs test coverage
-    // we we response code and not status itself
-    //TODO: sometimes it gets timed out....
+    // we use response code and not status itself
     suspend fun isAvailable(username: String): UsernameStatus = try {
         when(registrarService.lookupName("$username.id.blockstack").status) {
             RegistrarNameStatus.Available -> Available

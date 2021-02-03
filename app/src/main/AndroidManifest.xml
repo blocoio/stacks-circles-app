@@ -11,21 +11,40 @@
         android:roundIcon="@drawable/splash_screen"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.homepage.HomepageActivity">
+
+        <activity
+            android:name=".ui.SplashActivity"
+            android:theme="@style/Theme.Transparent"
+            android:noHistory="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <intent-filter android:label="appDeepLink">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Accepts URIs that begin with "http://www.example.com/gizmos” -->
+                <data
+                    android:host="app.blockstack.org"
+                    android:scheme="https" />
+                <!-- note that the leading "/" is required for pathPrefix-->
+            </intent-filter>
         </activity>
 
+        <activity android:name=".ui.homepage.HomepageActivity" />
 
         <activity
             android:name=".ui.auth.ConnectActivity"
             android:parentActivityName=".ui.homepage.HomepageActivity" />
 
-        <activity android:name=".ui.auth.HowItWorksActivity"
-            android:parentActivityName=".ui.auth.ConnectActivity"/>
+        <activity
+            android:name=".ui.auth.HowItWorksActivity"
+            android:parentActivityName=".ui.auth.ConnectActivity" />
 
         <activity
             android:name=".ui.auth.login.LoginActivity"
@@ -35,16 +54,20 @@
             android:name=".ui.auth.signup.ChooseUsernameActivity"
             android:parentActivityName=".ui.auth.ConnectActivity" />
 
-        <activity android:name=".ui.auth.WelcomeActivity"
-            android:parentActivityName=".ui.auth.login.LoginActivity"/>
+        <activity
+            android:name=".ui.auth.WelcomeActivity"
+            android:parentActivityName=".ui.auth.login.LoginActivity" />
 
         <activity
             android:name=".ui.secret.SecretKeyActivity"
             android:parentActivityName=".ui.auth.ConnectActivity" />
 
-        <activity android:name=".ui.account.AccountActivity"
+        <activity
+            android:name=".ui.account.AccountActivity"
             android:label="@string/circle_settings"
-            android:parentActivityName=".ui.homepage.HomepageActivity"/>
+            android:parentActivityName=".ui.homepage.HomepageActivity" />
+
+        <activity android:name=".ui.auth.identities.IdentitiesActivity"/>
 
     </application>
 

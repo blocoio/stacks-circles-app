@@ -1,4 +1,4 @@
-package org.stacks.app.ui.account
+package org.stacks.app.ui.shared
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -17,9 +17,11 @@ constructor(
     init {
         inflate(context, R.layout.partial_identity_row, this)
 
-        val name = identityModel.username
-            ?: identityModel.address
-            ?: context.getString(R.string.unknown)
+        val name = if (!identityModel.username.isNullOrEmpty()) {
+            identityModel.username
+        } else {
+            identityModel.address
+        } ?: context.getString(R.string.unknown)
 
         identityInitial.text = name.first().toString()
         identityName.text = name

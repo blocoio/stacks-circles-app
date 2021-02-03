@@ -8,11 +8,13 @@ import kotlinx.android.synthetic.main.partial_tool_bar.*
 import org.stacks.app.R
 import org.stacks.app.StacksApp
 import org.stacks.app.ui.shared.ImageLoader
+import org.stacks.app.ui.shared.MessageLoader
 
 abstract class BaseActivity : AppCompatActivity() {
 
     private val app get() = applicationContext as StacksApp
     protected val imageLoader by lazy { ImageLoader(this) }
+    protected val messageLoader by lazy { MessageLoader(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

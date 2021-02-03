@@ -7,9 +7,10 @@
     </style>
 
     <style name="TextAppearance.Stacks.ToolbarTitle" parent="TextAppearance.MaterialComponents.Headline1">
-        <item name="android:textSize">30sp</item>
+        <item name="android:textSize">20sp</item>
         <item name="fontFamily">@font/open_sauce_sans_medium</item>
         <item name="android:letterSpacing">-0.02</item>
+        <item name="android:textColor">@color/grey</item>
     </style>
 
     <style name="TextAppearance.Stacks.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
