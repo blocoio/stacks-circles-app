@@ -4,7 +4,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.flow.*
 import org.stacks.app.data.AuthRequestsStore
-import org.stacks.app.data.AuthResponse
+import org.stacks.app.data.AuthResponseModel
 import org.stacks.app.domain.*
 import org.stacks.app.domain.CheckUsernameStatus.UsernameStatus.Available
 import org.stacks.app.shared.foldOnEach
@@ -31,7 +31,7 @@ class ChooseUsernameViewModel
     var signUp: Boolean = false
 
     // Outputs
-    private val sendAuthResponse = BroadcastChannel<AuthResponse>(1)
+    private val sendAuthResponse = BroadcastChannel<AuthResponseModel>(1)
     private val openNewAccountScreen = BroadcastChannel<Unit>(1)
     private val loading = MutableStateFlow(false)
     private val errors = BroadcastChannel<Error>(1)
@@ -63,7 +63,7 @@ class ChooseUsernameViewModel
                         val authRequest = authRequestsStore.get()!!
 
                         sendAuthResponse.send(
-                            AuthResponse(
+                            AuthResponseModel(
                                 getAppDetails.get(authRequest)!!.name,
                                 authRequest.redirectUri,
                                 generateAuthResponse.generate(it)
@@ -87,7 +87,7 @@ class ChooseUsernameViewModel
     suspend fun usernamePicked(username: String) = usernameSubmitted.emit(username)
 
     // Outputs
-    fun sendAuthResponse(): Flow<AuthResponse> = sendAuthResponse.asFlow()
+    fun sendAuthResponse(): Flow<AuthResponseModel> = sendAuthResponse.asFlow()
     fun openNewAccountScreen() = openNewAccountScreen.asFlow()
     fun loading() = loading.asStateFlow()
     fun errors() = errors.asFlow()

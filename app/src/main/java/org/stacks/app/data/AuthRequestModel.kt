@@ -37,9 +37,9 @@ data class AuthRequestModel(
     val supportsHubUrl: Boolean,
 
     val version: String
-)
-
-data class AppDetails(
-    val icon: String,
-    val name: String
-)
+) {
+    data class AppDetails(
+        var icon: String,
+        val name: String
+    )
+}

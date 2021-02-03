@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.activity_welcome.*
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.stacks.app.R
+import org.stacks.app.data.AuthResponseModel
 import org.stacks.app.ui.BaseActivity
 import org.stacks.app.ui.auth.identities.IdentitiesActivity
 import org.stacks.app.ui.homepage.HomepageActivity
@@ -81,14 +82,13 @@ class WelcomeActivity : BaseActivity() {
 
         fun getIntent(
             context: Context,
-            appName: String,
-            redirectUrl: String,
-            authResponseToken: String
+            authResponse: AuthResponseModel
         ) =
             Intent(context, WelcomeActivity::class.java)
-                .putExtra(APP_NAME, appName)
-                .putExtra(REDIRECT_URL, redirectUrl)
-                .putExtra(AUTH_RESPONSE, authResponseToken)
+                .putExtra(APP_NAME, authResponse.appName)
+                .putExtra(REDIRECT_URL, authResponse.redirectURL)
+                .putExtra(AUTH_RESPONSE, authResponse.authResponseToken)
+
     }
 
 }

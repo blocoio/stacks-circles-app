@@ -7,7 +7,6 @@ import android.os.Bundle
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_homepage.*
 import kotlinx.android.synthetic.main.partial_community.*
@@ -45,8 +44,7 @@ class HomepageActivity : BaseActivity() {
         scrollView.addSystemWindowInsetToPadding(bottom = true)
 
         if (error) {
-            Snackbar.make(root, getString(R.string.error), Snackbar.LENGTH_LONG)
-                .show()
+            messageLoader.show(R.string.error)
         }
 
         toolbarAvatar

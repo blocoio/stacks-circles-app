@@ -8,8 +8,8 @@ import org.json.JSONArray
 import org.kethereum.crypto.toECKeyPair
 import org.kethereum.model.PrivateKey
 import org.komputing.khex.model.HexString
-import org.stacks.app.data.AppMetaData
 import org.stacks.app.data.ProfileModel
+import org.stacks.app.data.ProfileModel.AppMetaData
 import org.stacks.app.data.network.services.GaiaService
 import javax.inject.Inject
 
@@ -36,7 +36,7 @@ class UpdateProfile
         val appsMeta = profile.appsMeta.toMutableMap()
 
         val appNode = account.getAppsNode().getAppNode(domainName)
-        val appAddress = appNode.toBtcAddress() //1KsvGrRfGcg1zxpgeS1YMqaY9k4oPPkQpW
+        val appAddress = appNode.toBtcAddress()
         val appPublicKey =
             PrivateKey(HexString(appNode.getPrivateKeyHex())).toECKeyPair().toHexPublicKey64()
 

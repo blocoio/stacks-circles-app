@@ -6,9 +6,9 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import org.stacks.app.data.AppDetails
+import org.stacks.app.data.AuthRequestModel.AppDetails
 import org.stacks.app.data.AuthRequestsStore
-import org.stacks.app.data.AuthResponse
+import org.stacks.app.data.AuthResponseModel
 import org.stacks.app.data.IdentityModel
 import org.stacks.app.data.interfaces.IdentityRepository
 import org.stacks.app.domain.GenerateAuthResponse
@@ -27,7 +27,7 @@ class IdentitiesViewModel
     private val identitySelected = BroadcastChannel<IdentityModel>(1)
 
     // Outputs
-    private val sendAuthResponse = BroadcastChannel<AuthResponse>(1)
+    private val sendAuthResponse = BroadcastChannel<AuthResponseModel>(1)
     private val identities = BroadcastChannel<List<IdentityModel>>(1)
     private val appDetails = BroadcastChannel<AppDetails>(1)
     private val errors = BroadcastChannel<Unit>(1)
@@ -58,7 +58,7 @@ class IdentitiesViewModel
                 val authRequest = authRequestsStore.get()!!
 
                 sendAuthResponse.send(
-                    AuthResponse(
+                    AuthResponseModel(
                         getAppDetails.get(authRequest)!!.name,
                         authRequest.redirectUri,
                         generateAuthResponse.generate(it)
@@ -72,7 +72,7 @@ class IdentitiesViewModel
     suspend fun identitySelected(identity: IdentityModel) = identitySelected.send(identity)
 
     // Outputs
-    fun sendAuthResponse(): Flow<AuthResponse> = sendAuthResponse.asFlow()
+    fun sendAuthResponse(): Flow<AuthResponseModel> = sendAuthResponse.asFlow()
     fun identities(): Flow<List<IdentityModel>> = identities.asFlow()
     fun appDetails(): Flow<AppDetails> = appDetails.asFlow()
     fun appDomain() = authRequestsStore.get()?.domainName ?: ""

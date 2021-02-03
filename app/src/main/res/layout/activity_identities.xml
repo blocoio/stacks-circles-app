@@ -24,10 +24,10 @@
 
             <ImageView
                 android:id="@+id/appIcon"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="104dp"
+                android:layout_height="104dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="22dp"
                 android:layout_marginBottom="8dp"
                 android:importantForAccessibility="no"
                 android:src="@drawable/splash_screen" />
@@ -39,8 +39,7 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="8dp"
                 android:textAppearance="@style/TextAppearance.Stacks.Subtitle"
-                android:visibility="gone"
-                tools:text="Envelop" />
+                android:visibility="gone" />
 
             <TextView
                 android:layout_width="wrap_content"

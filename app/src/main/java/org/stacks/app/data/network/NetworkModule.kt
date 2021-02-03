@@ -16,6 +16,7 @@ import org.stacks.app.R
 import org.stacks.app.data.network.models.RegistrarName
 import org.stacks.app.data.network.models.RegistrarNameStatusAdapter
 import org.stacks.app.data.network.services.GaiaService
+import org.stacks.app.data.network.services.GenericService
 import org.stacks.app.data.network.services.HubService
 import org.stacks.app.data.network.services.RegistrarService
 import retrofit2.Retrofit
@@ -110,6 +111,16 @@ class NetworkModule {
         .addCallAdapterFactory(flowCallAdapterFactory)
         .addConverterFactory(scalarsConverterFactory)
         .addConverterFactory(gsonConverterFactory)
+
+    @Provides
+    @Singleton
+    fun nonBaseUrlRetrofit(
+        builder: Retrofit.Builder
+    ): Retrofit = builder.build()
+
+    @Provides
+    fun provideGenericService(retrofit: Retrofit): GenericService =
+        retrofit.create(GenericService::class.java)
 
     @Provides
     @Singleton

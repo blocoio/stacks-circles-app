@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_username.*
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.stacks.app.R
-import org.stacks.app.data.AuthResponse
+import org.stacks.app.data.AuthResponseModel
 import org.stacks.app.ui.BaseActivity
 import org.stacks.app.ui.auth.WelcomeActivity
 import org.stacks.app.ui.auth.identities.IdentitiesActivity
@@ -73,14 +73,7 @@ class ChooseUsernameActivity : BaseActivity() {
             .onEach {
 
                 if (signUp) {
-                    startActivity(
-                        WelcomeActivity.getIntent(
-                            this,
-                            it.appName,
-                            it.redirectURL,
-                            it.authResponseToken
-                        )
-                    )
+                    startActivity(WelcomeActivity.getIntent(this, it))
                 } else {
                     sendAuthResponse(it)
                 }
@@ -99,10 +92,13 @@ class ChooseUsernameActivity : BaseActivity() {
             .launchIn(lifecycleScope)
     }
 
-    private fun sendAuthResponse(authResponse: AuthResponse) {
-        val uri = Uri.parse(authResponse.redirectURL)
+    private fun sendAuthResponse(authResponseModel: AuthResponseModel) {
+        val uri = Uri.parse(authResponseModel.redirectURL)
             .buildUpon()
-            .appendQueryParameter(IdentitiesActivity.AUTH_RESPONSE, authResponse.authResponseToken)
+            .appendQueryParameter(
+                IdentitiesActivity.AUTH_RESPONSE,
+                authResponseModel.authResponseToken
+            )
             .build()
 
         startActivity(

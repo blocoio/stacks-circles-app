@@ -7,7 +7,6 @@ import android.os.Bundle
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_account.accounts
 import kotlinx.android.synthetic.main.activity_identities.*
@@ -74,7 +73,7 @@ class IdentitiesActivity : BaseActivity() {
 
         viewModel
             .errors()
-            .onEach { Snackbar.make(root, getString(R.string.error), Snackbar.LENGTH_LONG).show() }
+            .onEach { messageLoader.show(R.string.error) }
             .launchIn(lifecycleScope)
 
         appConnectionDescription.text = getString(R.string.to_connect_to, viewModel.appDomain())

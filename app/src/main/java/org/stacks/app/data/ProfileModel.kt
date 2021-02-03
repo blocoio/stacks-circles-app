@@ -12,9 +12,9 @@ data class ProfileModel(
     val apps: Map<String, String> = emptyMap(),
 
     val appsMeta: Map<String, AppMetaData> = emptyMap()
-)
-
-data class AppMetaData(
-    val publicKey: String,
-    val storage: String
-)
+) {
+    data class AppMetaData(
+        val publicKey: String,
+        val storage: String
+    )
+}

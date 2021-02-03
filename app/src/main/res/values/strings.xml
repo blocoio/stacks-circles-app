@@ -72,6 +72,6 @@ to learn more.
 
     <!--WELCOME SCREEN-->
     <string name="all_set">You’re all set!</string>
-    <string name="go_to">Go to Envelop %1$s</string>
+    <string name="go_to">Go to %1$s</string>
 
 </resources>

@@ -1,8 +1,10 @@
 package org.stacks.app.data
 
 import kotlinx.coroutines.flow.MutableStateFlow
+import javax.inject.Inject
 
-class AuthRequestsStore {
+class AuthRequestsStore
+@Inject constructor() {
 
     private val storeFlow = MutableStateFlow<AuthRequestModel?>(null)
 

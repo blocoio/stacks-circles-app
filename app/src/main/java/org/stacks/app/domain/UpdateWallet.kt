@@ -3,8 +3,8 @@ package org.stacks.app.domain
 import kotlinx.coroutines.flow.first
 import org.json.JSONObject
 import org.stacks.app.data.AuthRequestModel
-import org.stacks.app.data.IdentityAppModel
 import org.stacks.app.data.IdentityModel
+import org.stacks.app.data.IdentityModel.IdentityAppModel
 import org.stacks.app.data.interfaces.IdentityRepository
 import timber.log.Timber
 import java.util.*
