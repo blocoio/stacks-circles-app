@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_username.*
+import kotlinx.android.synthetic.main.partial_tool_bar.*
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.stacks.app.R
@@ -16,6 +17,7 @@ import org.stacks.app.data.AuthResponseModel
 import org.stacks.app.ui.BaseActivity
 import org.stacks.app.ui.auth.WelcomeActivity
 import org.stacks.app.ui.auth.identities.IdentitiesActivity
+import org.stacks.app.ui.shared.Insets.addSystemWindowInsetToPadding
 import reactivecircus.flowbinding.android.view.clicks
 import reactivecircus.flowbinding.android.widget.textChanges
 
@@ -33,6 +35,7 @@ class ChooseUsernameActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_username)
+        toolbar.addSystemWindowInsetToPadding(top = true)
 
         if (!signUp) {
             setNavigation()
@@ -56,7 +59,7 @@ class ChooseUsernameActivity : BaseActivity() {
 
         viewModel
             .openNewAccountScreen()
-            .onEach { startActivity(WelcomeActivity.getIntent(this)) }
+            .onEach { startActivity(WelcomeActivity.getIntent(this, signUp)) }
             .launchIn(lifecycleScope)
 
         viewModel
@@ -84,8 +87,9 @@ class ChooseUsernameActivity : BaseActivity() {
             .errors()
             .onEach { error ->
                 outlinedTextField.error = when (error) {
-                    ChooseUsernameViewModel.Error.UnavailableUsername -> getString(R.string.invalidUsername)
+                    ChooseUsernameViewModel.Error.UnavailableUsername -> getString(R.string.username_not_available)
                     ChooseUsernameViewModel.Error.SignUpError -> getString(R.string.error)
+                    ChooseUsernameViewModel.Error.InvalidUsername -> getString(R.string.invalid_username)
                 }
 
             }

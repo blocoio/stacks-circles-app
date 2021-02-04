@@ -1,10 +1,9 @@
 <resources>
     <!--APP-->
-    <string name="app_name">Circle</string>
-    <string name="app_name_plural">Circles</string>
+    <string name="app_name">Circles</string>
 
     <!--HOMEPAGE-->
-    <string name="connect_info">Circle guarantees your privacy by encrypting everything</string>
+    <string name="connect_info">Circles guarantees your privacy by encrypting everything</string>
     <string name="start_here">Start here</string>
     <string name="built_on_stacks">Built on Stacks</string>
     <string name="find_apps">Find apps to use</string>
@@ -41,7 +40,7 @@ to learn more.
     </string>
     <string name="choose_username_info">This is how others will see you on other apps.</string>
     <string name="choose_username">Choose Username</string>
-    <string name="invalidUsername">Username is not available</string>
+    <string name="username_not_available">Username is not available</string>
     <string name="error">Something went wrong</string>>
 
     <!--ACCOUNT SCREENS-->
@@ -74,5 +73,6 @@ to learn more.
     <!--WELCOME SCREEN-->
     <string name="all_set">You’re all set!</string>
     <string name="go_to">Go to %1$s</string>
+    <string name="invalid_username">Invalid Username</string>
 
 </resources>

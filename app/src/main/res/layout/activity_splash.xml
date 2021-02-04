@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:ignore="UseCompoundDrawables">
+    tools:ignore="UseCompoundDrawables"
+    android:fitsSystemWindows="true">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -16,8 +17,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:drawable="@drawable/icon"
         android:text="@string/app_name"
+        android:textStyle="bold"
         android:textAppearance="@style/TextAppearance.Stacks.Headline1"
-        android:textColor="@color/black" />
+        android:textColor="@color/org_stacks_blue" />
 
 </LinearLayout>

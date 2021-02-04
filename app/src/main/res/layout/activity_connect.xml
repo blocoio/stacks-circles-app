@@ -121,7 +121,8 @@
             android:focusable="true"
             android:text="@string/how_connect_works"
             android:textAppearance="@style/TextAppearance.Stacks.Body3"
-            android:textColor="@color/grey_light2" />
+            android:textColor="@color/grey_light2"
+            android:background="?selectableItemBackground"/>
 
     </LinearLayout>
 </LinearLayout>

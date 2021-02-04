@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_secret_key.*
+import kotlinx.android.synthetic.main.partial_tool_bar.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.launchIn
@@ -15,6 +16,7 @@ import kotlinx.coroutines.launch
 import org.stacks.app.R
 import org.stacks.app.ui.BaseActivity
 import org.stacks.app.ui.secret.bottomsheet.ShareKeyBottomSheetFragment
+import org.stacks.app.ui.shared.Insets.addSystemWindowInsetToPadding
 import reactivecircus.flowbinding.android.view.clicks
 
 @AndroidEntryPoint
@@ -33,6 +35,7 @@ class SecretKeyActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_secret_key)
+        toolbar.addSystemWindowInsetToPadding(top = true)
         setNavigation()
 
         if (signUp) {
