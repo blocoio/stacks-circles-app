@@ -64,6 +64,7 @@ class LoginActivity : BaseActivity() {
                 secretKey.isVisible = !loading
                 secretKeyMessage.isVisible = !loading
                 secretKeyTitle.isVisible = !loading
+                outlinedTextField.error = null
             }
             .launchIn(lifecycleScope)
     }
