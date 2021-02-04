@@ -32,6 +32,7 @@
             android:text="@string/how_stacks_works"
             android:textSize="30sp"
             android:textAppearance="@style/TextAppearance.Stacks.Headline2"
+            android:textStyle="bold"
             android:textColor="@color/black"/>
 
         <ImageView

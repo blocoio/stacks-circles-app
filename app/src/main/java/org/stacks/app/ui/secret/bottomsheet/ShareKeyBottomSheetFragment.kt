@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.stacks.app.R
 import org.stacks.app.ui.auth.signup.ChooseUsernameActivity
+import org.stacks.app.ui.shared.MessageLoader
 import reactivecircus.flowbinding.android.view.clicks
 
 
@@ -25,6 +26,8 @@ class ShareKeyBottomSheetFragment : BottomSheetDialogFragment() {
     private val viewModel: ShareKeyBottomSheetViewModel by lazy {
         ViewModelProvider(this).get(ShareKeyBottomSheetViewModel::class.java)
     }
+
+    private val messageLoader by lazy { MessageLoader(requireActivity()) }
 
     var signUp: Boolean = false
 
@@ -64,6 +67,7 @@ class ShareKeyBottomSheetFragment : BottomSheetDialogFragment() {
             .clicks()
             .onEach {
                 viewModel.copyPressed()
+                messageLoader.show(R.string.copied)
                 // Warning: don't dismiss here, instead wait for copiedSuccessful,
                 // otherwise lifeScope can end before copy was finished
             }

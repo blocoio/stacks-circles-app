@@ -65,7 +65,7 @@
             android:inputType="textMultiLine"
             android:padding="12dp"
             android:textColor="@color/black"
-            android:textColorHint="@color/grey_light" />
+            android:textColorHint="@color/grey_light2" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

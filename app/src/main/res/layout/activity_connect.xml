@@ -54,7 +54,7 @@
             android:gravity="top"
             android:text="@string/connect_key_message"
             android:textAppearance="@style/TextAppearance.Stacks.Body3"
-            android:textColor="@color/grey_light"
+            android:textColor="@color/grey_light2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/connect_secret_key_desc_icon"
             app:layout_constraintTop_toTopOf="parent" />
@@ -82,7 +82,7 @@
             android:gravity="top"
             android:text="@string/connect_tracking_message"
             android:textAppearance="@style/TextAppearance.Stacks.Body3"
-            android:textColor="@color/grey_light"
+            android:textColor="@color/grey_light2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/connect_tracking_desc_icon"
             app:layout_constraintTop_toBottomOf="@+id/connect_secret_key_desc_title" />
@@ -121,7 +121,7 @@
             android:focusable="true"
             android:text="@string/how_connect_works"
             android:textAppearance="@style/TextAppearance.Stacks.Body3"
-            android:textColor="@color/grey_light" />
+            android:textColor="@color/grey_light2" />
 
     </LinearLayout>
 </LinearLayout>

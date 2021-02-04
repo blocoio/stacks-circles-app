@@ -45,7 +45,7 @@ to learn more.
     <string name="error">Something went wrong</string>>
 
     <!--ACCOUNT SCREENS-->
-    <string name="circle_settings">Circle Settings</string>
+    <string name="profile">Profile</string>
     <string name="accounts">Accounts</string>
     <string name="create_account">Create a new account</string>
     <string name="logout">Log out</string>
@@ -63,6 +63,7 @@ to learn more.
     <string name="view_secret_key_again">View Secret Key Again</string>
     <string name="share_to_apps">Share to apps</string>
     <string name="copy">Copy</string>
+    <string name="copied">Copied</string>
     <string name="more">More</string>
     <string name="continue_btn">Continue</string>
 

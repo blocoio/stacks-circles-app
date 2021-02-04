@@ -33,9 +33,9 @@ class SecretKeyActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_secret_key)
-        if (!signUp) {
-            setNavigation()
-        } else {
+        setNavigation()
+
+        if (signUp) {
             shareBottomSheetFragment.signUp = signUp
 
             GlobalScope.launch(Dispatchers.Main) {

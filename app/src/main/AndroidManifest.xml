@@ -64,7 +64,7 @@
 
         <activity
             android:name=".ui.account.AccountActivity"
-            android:label="@string/circle_settings"
+            android:label="@string/profile"
             android:parentActivityName=".ui.homepage.HomepageActivity" />
 
         <activity android:name=".ui.auth.identities.IdentitiesActivity"/>
