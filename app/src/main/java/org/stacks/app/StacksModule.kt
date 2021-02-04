@@ -11,7 +11,6 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV
 import androidx.security.crypto.EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
 import androidx.security.crypto.MasterKey
-import androidx.security.crypto.MasterKey.DEFAULT_MASTER_KEY_ALIAS
 import com.tfcporciuncula.flow.FlowSharedPreferences
 import dagger.Module
 import dagger.Provides
@@ -31,13 +30,9 @@ class StacksModule {
     @Singleton
     fun keyGenParameterSpec(): KeyGenParameterSpec {
         val builder = KeyGenParameterSpec.Builder(
-            DEFAULT_MASTER_KEY_ALIAS,
+            CIRCLE_MASTER_KEY_ALIAS,
             PURPOSE_ENCRYPT or PURPOSE_DECRYPT
         )
-
-        if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.P) {
-            builder.setUserPresenceRequired(true)
-        }
 
         builder.setBlockModes(KeyProperties.BLOCK_MODE_GCM)
             .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
@@ -52,9 +47,8 @@ class StacksModule {
         @ApplicationContext appContext: Context,
         keyGenParameterSpec: KeyGenParameterSpec
     ): MasterKey =
-        MasterKey.Builder(appContext)
+        MasterKey.Builder(appContext, CIRCLE_MASTER_KEY_ALIAS)
             .setKeyGenParameterSpec(keyGenParameterSpec)
-            .setUserAuthenticationRequired(true, AUTH_VALIDITY_SECONDS)
             .build()
 
     @Provides
@@ -65,7 +59,7 @@ class StacksModule {
     ): FlowSharedPreferences = FlowSharedPreferences(
         EncryptedSharedPreferences.create(
             appContext,
-            "encrypted_preferences",
+            PREFERENCES_FILE_NAME,
             masterKey,
             AES256_SIV,
             AES256_GCM
@@ -94,5 +88,7 @@ class StacksModule {
     companion object {
         const val KEY_SIZE = 256
         const val AUTH_VALIDITY_SECONDS = 5
+        const val CIRCLE_MASTER_KEY_ALIAS = "_circle_security_master_key_"
+        const val PREFERENCES_FILE_NAME = "encrypted_preferences"
     }
 }
