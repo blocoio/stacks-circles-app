@@ -5,13 +5,13 @@
     <!--HOMEPAGE-->
     <string name="connect_info">Circles guarantees your privacy by encrypting everything</string>
     <string name="start_here">Start here</string>
-    <string name="built_on_stacks">Built on Stacks</string>
+    <string name="built_on_circles">Built on circles</string>
     <string name="find_apps">Find apps to use</string>
     <string name="how_stacks_works">How \nstacks \nworks</string>
     <string name="learn_more">Learn more about us</string>
     <string name="newsletter">Newsletter</string>
     <string name="stacks_ecosystem_title">Stacks Ecosystem Updates</string>
-    <string name="stacks_ecosystem_text">Get regular updates from Hiro PBC via email. We usually send two updates a month, as well as bigger quarterly updates covering the Stacks ecosystem.</string>
+    <string name="stacks_ecosystem_text">Get regular updates from Hiro PBC via email. We usually send two updates a month, as well as bigger quarterly updates covering the stacks ecosystem.</string>
     <string name="subscribe">Subscribe</string>
     <string name="community">Community</string>
     <string name="join_discord">Join us on discord</string>

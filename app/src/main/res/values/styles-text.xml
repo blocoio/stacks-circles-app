@@ -77,7 +77,7 @@
     <style name="TextAppearance.Stacks.ClickableText" parent="TextAppearance.MaterialComponents.Body1">
         <item name="fontFamily">@font/inter</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/org_stacks_blue</item>
+        <item name="android:textColor">@color/org_circles_blue</item>
         <item name="android:lineSpacingExtra">7sp</item>
         <item name="android:letterSpacing">0.01</item>
     </style>

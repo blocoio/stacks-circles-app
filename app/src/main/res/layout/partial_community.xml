@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_margin="16dp"
-        app:cardBackgroundColor="@color/org_stacks_blue">
+        app:cardBackgroundColor="@color/org_circles_blue">
 
         <ImageView
             android:layout_width="match_parent"

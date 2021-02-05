@@ -18,7 +18,7 @@
         android:clickable="true"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="8dp"
-        app:strokeColor="@color/org_stacks_blue"
+        app:strokeColor="@color/org_circles_blue"
         app:strokeWidth="2dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

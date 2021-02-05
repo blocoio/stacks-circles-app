@@ -23,14 +23,14 @@
         <item name="textAllCaps">false</item>
         <item name="android:elevation">2dp</item>
         <item name="android:backgroundTint">@color/white</item>
-        <item name="android:textColor">@color/org_stacks_blue</item>
+        <item name="android:textColor">@color/org_circles_blue</item>
         <item name="android:textAppearance">@style/TextAppearance.Stacks.ButtonText</item>
     </style>
 
     <style name="Widget.Stacks.AlternativeButton" parent="@style/Widget.MaterialComponents.Button">
         <item name="textAllCaps">false</item>
-        <item name="android:backgroundTint">@color/org_stacks_light1_blue</item>
-        <item name="android:textColor">@color/org_stacks_blue</item>
+        <item name="android:backgroundTint">@color/org_circles_light1_blue</item>
+        <item name="android:textColor">@color/org_circles_blue</item>
         <item name="android:textAppearance">@style/TextAppearance.Stacks.ButtonText</item>
     </style>
 

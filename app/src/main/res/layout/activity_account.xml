@@ -62,9 +62,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_margin="16dp"
-                android:backgroundTint="@color/org_stacks_light1_blue"
+                android:backgroundTint="@color/org_circles_light1_blue"
                 app:cardCornerRadius="8dp"
-                app:strokeColor="@color/org_stacks_light2_blue"
+                app:strokeColor="@color/org_circles_light2_blue"
                 app:strokeWidth="2dp">
 
                 <LinearLayout
@@ -88,7 +88,7 @@
                         android:layout_margin="16dp"
                         android:importantForAccessibility="no"
                         android:src="@drawable/ic_arrow_forward"
-                        app:tint="@color/org_stacks_blue" />
+                        app:tint="@color/org_circles_blue" />
 
                 </LinearLayout>
 

@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="22dp"
                 android:layout_gravity="center"
-                android:indeterminateTint="@color/org_stacks_blue"
+                android:indeterminateTint="@color/org_circles_blue"
                 android:indeterminateTintMode="src_atop"
                 android:visibility="gone" />
 
@@ -77,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:orientation="vertical"
-                tools:background="@color/org_stacks_blue"
+                tools:background="@color/org_circles_blue"
                 tools:layout_height="80dp"
                 tools:layout_width="match_parent">
 

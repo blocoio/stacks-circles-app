@@ -33,7 +33,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/saved"
             style="@style/Widget.Stacks.Button"
-            app:backgroundTint="@color/org_stacks_blue"
+            app:backgroundTint="@color/org_circles_blue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"

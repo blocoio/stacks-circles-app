@@ -73,7 +73,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:text="@string/built_on_stacks"
+                    android:text="@string/built_on_circles"
                     android:textAppearance="@style/TextAppearance.Stacks.Subtitle" />
 
                 <LinearLayout
@@ -105,7 +105,7 @@
                     android:text="@string/find_apps"
                     android:textAppearance="@style/TextAppearance.Stacks.ClickableText"
                     app:drawableEndCompat="@drawable/ic_arrow_forward"
-                    app:drawableTint="@color/org_stacks_blue" />
+                    app:drawableTint="@color/org_circles_blue" />
             </LinearLayout>
 
             <include layout="@layout/partial_learn_about_us" />

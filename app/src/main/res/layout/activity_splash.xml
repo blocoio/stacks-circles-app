@@ -21,6 +21,6 @@
         android:text="@string/app_name"
         android:textStyle="bold"
         android:textAppearance="@style/TextAppearance.Stacks.Headline1"
-        android:textColor="@color/org_stacks_blue" />
+        android:textColor="@color/org_circles_blue" />
 
 </LinearLayout>

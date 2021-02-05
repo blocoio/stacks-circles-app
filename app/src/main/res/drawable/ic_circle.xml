@@ -10,14 +10,14 @@
                 android:topLeftRadius="100dp"
                 android:topRightRadius="100dp"/>
 
-            <solid android:color="@color/org_stacks_blue" />
+            <solid android:color="@color/org_circles_blue" />
 
         </shape>
     </item>
     <item android:bottom="3dp">
         <shape android:shape="oval"
             android:dither="true">
-            <solid android:color="@color/org_stacks_blue"/>
+            <solid android:color="@color/org_circles_blue"/>
             <corners
                 android:bottomRightRadius="100dp"
                 android:bottomLeftRadius="100dp"

@@ -15,13 +15,13 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "org.stacks.app"
+        applicationId "io.bloco.circles"
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "org.stacks.app.utils.TestRunner"
+        testInstrumentationRunner "io.bloco.circles.utils.TestRunner"
     }
 
     kapt {
