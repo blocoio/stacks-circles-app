@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 import org.stacks.app.R
 import org.stacks.app.ui.BaseActivity
 import org.stacks.app.ui.secret.bottomsheet.ShareKeyBottomSheetFragment
+import org.stacks.app.ui.shared.Insets.addSystemWindowInsetToMargin
 import org.stacks.app.ui.shared.Insets.addSystemWindowInsetToPadding
 import reactivecircus.flowbinding.android.view.clicks
 
@@ -36,6 +37,7 @@ class SecretKeyActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_secret_key)
         toolbar.addSystemWindowInsetToPadding(top = true)
+        copyKeyButton.addSystemWindowInsetToMargin(bottom = true)
         setNavigation()
 
         if (signUp) {

@@ -17,6 +17,7 @@ import org.stacks.app.data.AuthResponseModel
 import org.stacks.app.ui.BaseActivity
 import org.stacks.app.ui.auth.WelcomeActivity
 import org.stacks.app.ui.auth.identities.IdentitiesActivity
+import org.stacks.app.ui.shared.Insets.addSystemWindowInsetToMargin
 import org.stacks.app.ui.shared.Insets.addSystemWindowInsetToPadding
 import reactivecircus.flowbinding.android.view.clicks
 import reactivecircus.flowbinding.android.widget.textChanges
@@ -36,6 +37,7 @@ class ChooseUsernameActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_username)
         toolbar.addSystemWindowInsetToPadding(top = true)
+        continueBtn.addSystemWindowInsetToMargin(bottom = true)
 
         if (!signUp) {
             setNavigation()
