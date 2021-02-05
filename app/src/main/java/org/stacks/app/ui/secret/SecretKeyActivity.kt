@@ -36,8 +36,8 @@ class SecretKeyActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_secret_key)
-        toolbar.addSystemWindowInsetToPadding(top = true)
         copyKeyButton.addSystemWindowInsetToMargin(bottom = true)
+        toolbar.addSystemWindowInsetToPadding(top = true)
         setNavigation()
 
         if (signUp) {
