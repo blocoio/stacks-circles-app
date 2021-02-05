@@ -8,9 +8,9 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_account.accounts
 import kotlinx.android.synthetic.main.activity_identities.*
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -44,8 +44,9 @@ class IdentitiesActivity : BaseActivity() {
 
         viewModel
             .appDetails()
+            .filter { it != null }
             .onEach {
-                imageLoader.loadAppIcon(appIcon, it.icon)
+                imageLoader.loadAppIcon(appIcon, it!!.icon)
                 appName.isVisible = true
                 appName.text = it.name
             }
@@ -68,6 +69,15 @@ class IdentitiesActivity : BaseActivity() {
                 )
 
                 finishAffinity()
+            }
+            .launchIn(lifecycleScope)
+
+        viewModel
+            .loading()
+            .onEach { loading ->
+                loadingSpinner.isVisible = loading
+                accounts.isVisible = !loading
+                newIdentity.isVisible = !loading
             }
             .launchIn(lifecycleScope)
 

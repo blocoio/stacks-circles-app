@@ -41,6 +41,7 @@
             </LinearLayout>
 
             <TextView
+                android:background="?selectableItemBackground"
                 android:id="@+id/newIdentity"
                 style="@style/TextAppearance.Stacks.ClickableText"
                 android:layout_width="wrap_content"

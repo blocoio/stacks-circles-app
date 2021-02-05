@@ -60,6 +60,16 @@
                 android:textAppearance="@style/TextAppearance.Stacks.Body1"
                 android:textColor="@color/black" />
 
+            <ProgressBar
+                android:id="@+id/loadingSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:layout_gravity="center"
+                android:indeterminateTint="@color/org_stacks_blue"
+                android:indeterminateTintMode="src_atop"
+                android:visibility="gone" />
+
 
             <LinearLayout
                 android:id="@+id/accounts"

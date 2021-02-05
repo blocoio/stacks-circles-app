@@ -6,6 +6,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 import org.stacks.app.data.AuthRequestModel.AppDetails
 import org.stacks.app.data.AuthRequestsStore
 import org.stacks.app.data.AuthResponseModel
@@ -29,7 +30,8 @@ class IdentitiesViewModel
     // Outputs
     private val sendAuthResponse = BroadcastChannel<AuthResponseModel>(1)
     private val identities = BroadcastChannel<List<IdentityModel>>(1)
-    private val appDetails = BroadcastChannel<AppDetails>(1)
+    private val appDetails = MutableStateFlow<AppDetails?>( null)
+    private val loading = BroadcastChannel<Boolean>(1)
     private val errors = BroadcastChannel<Unit>(1)
 
 
@@ -47,7 +49,7 @@ class IdentitiesViewModel
 
             if (authRequest != null) {
                 getAppDetails.get(authRequest)?.also {
-                    appDetails.send(it)
+                    appDetails.emit(it)
                 }
             }
         }
@@ -55,15 +57,21 @@ class IdentitiesViewModel
         identitySelected
             .asFlow()
             .onEach {
+                loading.send(true)
                 val authRequest = authRequestsStore.get()!!
 
                 sendAuthResponse.send(
                     AuthResponseModel(
-                        getAppDetails.get(authRequest)!!.name,
+                        appDetails.value?.name ?: "",
                         authRequest.redirectUri,
                         generateAuthResponse.generate(it)
                     )
                 )
+            }
+            .catch {
+                loading.send(false)
+                errors.send(Unit)
+                emitAll(flow { IdentityModel(JSONObject("")) })
             }
             .launchIn(ioScope)
     }
@@ -74,8 +82,10 @@ class IdentitiesViewModel
     // Outputs
     fun sendAuthResponse(): Flow<AuthResponseModel> = sendAuthResponse.asFlow()
     fun identities(): Flow<List<IdentityModel>> = identities.asFlow()
-    fun appDetails(): Flow<AppDetails> = appDetails.asFlow()
+    fun appDetails(): Flow<AppDetails?> = appDetails.asStateFlow()
     fun appDomain() = authRequestsStore.get()?.domainName ?: ""
+    fun loading() = loading.asFlow()
     fun errors() = errors.asFlow()
+
 
 }

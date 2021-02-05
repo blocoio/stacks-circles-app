@@ -8,22 +8,23 @@
     <TextView
         android:id="@+id/toolbarTitle"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|center_vertical"
         android:gravity="center"
-        android:text="@string/app_name_plural"
+        android:text="@string/app_name"
         android:textAppearance="@style/TextAppearance.Stacks.ToolbarTitle"
         android:textIsSelectable="false" />
 
     <ImageView
-        android:clickable="true"
-        android:focusable="true"
         android:id="@+id/toolbarAvatar"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_gravity="end|center_vertical"
         android:layout_marginHorizontal="16dp"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
         android:contentDescription="@string/avatar_content_description"
+        android:focusable="true"
         android:src="@drawable/ic_default_avatar"
         android:visibility="gone"
         tools:visibility="visible" />

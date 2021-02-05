@@ -1,6 +1,7 @@
 package org.stacks.app.ui.auth.signup
 
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.flow.*
 import org.stacks.app.data.AuthRequestsStore
@@ -9,8 +10,7 @@ import org.stacks.app.domain.*
 import org.stacks.app.domain.CheckUsernameStatus.UsernameStatus.Available
 import org.stacks.app.shared.foldOnEach
 import org.stacks.app.ui.BaseViewModel
-import org.stacks.app.ui.auth.signup.ChooseUsernameViewModel.Error.SignUpError
-import org.stacks.app.ui.auth.signup.ChooseUsernameViewModel.Error.UnavailableUsername
+import org.stacks.app.ui.auth.signup.ChooseUsernameViewModel.Error.*
 import timber.log.Timber
 
 class ChooseUsernameViewModel
@@ -37,8 +37,14 @@ class ChooseUsernameViewModel
     private val errors = BroadcastChannel<Error>(1)
 
     init {
+
         usernameSubmitted
-            .filter { it.isNotEmpty() && !loading.value }
+            .filter { it.isEmpty() || it.contains(" ") }
+            .onEach { errors.send(InvalidUsername) }
+            .launchIn(viewModelScope)
+
+        usernameSubmitted
+            .filter { it.isNotEmpty() && !it.contains(" ") && !loading.value }
             .map {
                 loading.emit(true)
                 checkUsernameStatus.isAvailable(it)
@@ -93,7 +99,7 @@ class ChooseUsernameViewModel
     fun errors() = errors.asFlow()
 
     enum class Error {
-        UnavailableUsername, SignUpError
+        UnavailableUsername, SignUpError, InvalidUsername
     }
 
 }

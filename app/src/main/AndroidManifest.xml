@@ -6,9 +6,9 @@
         android:name=".StacksApp"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup"
-        android:icon="@drawable/splash_screen"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/splash_screen"
+        android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
@@ -64,7 +64,7 @@
 
         <activity
             android:name=".ui.account.AccountActivity"
-            android:label="@string/circle_settings"
+            android:label="@string/profile"
             android:parentActivityName=".ui.homepage.HomepageActivity" />
 
         <activity android:name=".ui.auth.identities.IdentitiesActivity"/>

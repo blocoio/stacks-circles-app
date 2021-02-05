@@ -34,7 +34,7 @@ class GetAppDetails
                 appManifest.name
             )
         } else {
-            null
+            authRequest.appDetails
         }
     }
 
