@@ -31,7 +31,7 @@ The Stacks Circles App provides a native Android experience to the [Stacks ecosy
 - Manage your account identities
 - Safely sign in into web and Android apps using your Stacks account
 
-This app is open sourced. The project was made possible by the [Stacks Grants program](https://github.com/circlesgov/Stacks-Grants/issues/22) and is currently maintained by [Bloco](http://bloco.io/).
+This app is open sourced. The project was made possible by the [Stacks Grants program](https://github.com/stacksgov/Stacks-Grants/issues/22) and is currently maintained by [Bloco](http://bloco.io/).
 
 ## Design
 
