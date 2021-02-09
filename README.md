@@ -40,9 +40,8 @@ open source, for future improvements and feedback. You can see the design projec
 
 # Screenshots
 
- <table style="width:100%">
+ <table style="width:80%">
   <tr>
-    <td><img src="images/1.png" alt="Normal Flow pic1"></td>
     <td><img src="images/2.png" alt="Normal Flow pic2"></td>
     <td><img src="images/3.png" alt="Normal Flow pic3"></td>
     <td><img src="images/4.png" alt="Normal Flow pic4"></td>
@@ -51,17 +50,14 @@ open source, for future improvements and feedback. You can see the design projec
     <td><img src="images/signup1.png" alt="New Account pic1"></td>
     <td><img src="images/signup2.png" alt="New Account pic2"></td>
     <td></td>
-    <td></td>
   </tr>
   <tr>
     <td><img src="images/login1.png" alt="Login pic1"></td>
     <td><img src="images/login2.png" alt="Login pic2"></td>
     <td></td>
-    <td></td>
   </tr>
   <tr>
     <td><img src="images/5.png" alt="Normal Flow pic5"></td>
-    <td></td>
     <td></td>
     <td></td>
   </tr>
