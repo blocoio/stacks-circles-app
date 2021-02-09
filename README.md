@@ -1,6 +1,6 @@
 
 <p align="center">
-<img src="images/circlesLogo.png" height="100" alt="Circles" />
+<img src="images/circlesLogo.png" height="200" alt="Circles" />
 </p>
 
 <p align="center">
@@ -9,11 +9,10 @@
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-purple.svg" alt="License: MIT"></a>
 <a href="https://github.com/blocoio/stacks-circles-app/releases"><img src="https://img.shields.io/github/v/release/blocoio/stacks-circles-app.svg?style=flat" alt="Latest release"></a>
 <a href="https://github.com/blocoio/stacks-circles-app/blob/main/CHANGELOG.md"><img src="https://img.shields.io/badge/Changelog-%20-yellow" alt="Changelog"></a>
-
 </p>
 
 <p align="center">
-<a href='https://play.google.com/store/apps/details?id=io.bloco.circles'><img  height='120' src='images/google_play_badge.png'></a>
+<a href='https://play.google.com/store/apps/details?id=io.bloco.circles'><img  height='55' src='images/google_play_badge.png'></a>
 </p>
 
 # BETA
@@ -70,8 +69,11 @@ open source, for future improvements and feedback. You can see the design projec
 
 # Demo Video
 
-<img src="images/loginDemo.gif" alt="Login Video Demo">
-<img src="images/newAccountDemo.gif" alt="New Account Video Demo">
+
+<p align="center">
+<img src="images/loginDemo.gif" height='500' alt="Login Video Demo">
+<img src="images/newAccountDemo.gif" height='500' alt="New Account Video Demo">
+</p>
 
 # Usage
 
