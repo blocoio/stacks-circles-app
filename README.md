@@ -12,7 +12,7 @@
 
 </p>
 
-<a href='https://play.google.com/store/apps/details?id=io.bloco.circles'><img align='center' height='55' src='./docs/images/google_play_badge.png'></a>
+<a href='https://play.google.com/store/apps/details?id=io.bloco.circles'><img align='center' height='55' src='images/google_play_badge.png'></a>
 
 # BETA
 
