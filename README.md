@@ -12,7 +12,9 @@
 
 </p>
 
-<a href='https://play.google.com/store/apps/details?id=io.bloco.circles'><img align='center' height='55' src='images/google_play_badge.png'></a>
+<p align="center">
+<a href='https://play.google.com/store/apps/details?id=io.bloco.circles'><img  height='120' src='images/google_play_badge.png'></a>
+</p>
 
 # BETA
 
@@ -41,25 +43,25 @@ open source, for future improvements and feedback. You can see the design projec
 
  <table style="width:100%">
   <tr>
-    <td><img src="images/1.png" alt="Lint Badge"></td>
-    <td><img src="images/2.png" alt="Lint Badge"></td>
-    <td><img src="images/3.png" alt="Lint Badge"></td>
-    <td><img src="images/4.png" alt="Lint Badge"></td>
+    <td><img src="images/1.png" alt="Normal Flow pic1"></td>
+    <td><img src="images/2.png" alt="Normal Flow pic2"></td>
+    <td><img src="images/3.png" alt="Normal Flow pic3"></td>
+    <td><img src="images/4.png" alt="Normal Flow pic4"></td>
   </tr>
   <tr>
-    <td><img src="images/signup1.png" alt="Lint Badge"></td>
-    <td><img src="images/signup2.png" alt="Lint Badge"></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td><img src="images/login1.png" alt="Lint Badge"></td>
-    <td><img src="images/login2.png" alt="Lint Badge"></td>
+    <td><img src="images/signup1.png" alt="New Account pic1"></td>
+    <td><img src="images/signup2.png" alt="New Account pic2"></td>
     <td></td>
     <td></td>
   </tr>
   <tr>
-    <td><img src="images/5.png" alt="Lint Badge"></td>
+    <td><img src="images/login1.png" alt="Login pic1"></td>
+    <td><img src="images/login2.png" alt="Login pic2"></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><img src="images/5.png" alt="Normal Flow pic5"></td>
     <td></td>
     <td></td>
     <td></td>
@@ -68,8 +70,8 @@ open source, for future improvements and feedback. You can see the design projec
 
 # Demo Video
 
-https://user-images.githubusercontent.com/20781703/107364458-5f08fb80-6ad3-11eb-8416-9f68eebfa216.mov
-https://user-images.githubusercontent.com/20781703/107364468-616b5580-6ad3-11eb-85c8-abec388cb20a.mov
+<img src="images/loginDemo.gif" alt="Login Video Demo">
+<img src="images/newAccountDemo.gif" alt="New Account Video Demo">
 
 # Usage
 
