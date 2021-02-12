@@ -13,6 +13,15 @@
         <item name="titleTextAppearance">@style/TextAppearance.Circles.ToolbarTitle</item>
     </style>
 
+    <!-- Snackbar -->
+    <style name="Widget.Circles.Button.TextButton.Snackbar" parent="Widget.MaterialComponents.Button.TextButton.Snackbar">
+        <item name="android:textAppearance">@style/TextAppearance.Circles.ButtonText</item>
+    </style>
+
+    <style name="Widget.Circles.Snackbar.TextView" parent="Widget.MaterialComponents.Snackbar.TextView">
+        <item name="android:textAppearance">@style/TextAppearance.Circles.Body2</item>
+    </style>
+
     <!-- Buttons -->
     <style name="Widget.Circles.Button" parent="@style/Widget.MaterialComponents.Button">
         <item name="textAllCaps">false</item>
