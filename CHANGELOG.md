@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.0.2] - 2021-02-12
 ### Added
 - Ability to Skip Username while creating a new Account/Identity
+- Actions with Message Loader
 
 ### Fixed
 - Title and Subtitles not according to mocks (issue #29)

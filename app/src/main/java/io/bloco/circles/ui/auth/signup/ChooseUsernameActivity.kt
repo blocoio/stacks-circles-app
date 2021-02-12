@@ -7,7 +7,6 @@ import android.os.Bundle
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import io.bloco.circles.R
 import io.bloco.circles.data.AuthResponseModel
@@ -100,11 +99,10 @@ class ChooseUsernameActivity : BaseActivity() {
             .launchIn(lifecycleScope)
     }
 
-    private fun showSkipSnackbar() = Snackbar
-        .make(root, R.string.continue_no_username_info, Snackbar.LENGTH_LONG)
-        .setAction(R.string.continue_btn) {
+    private fun showSkipSnackbar() =
+        messageLoader.show(R.string.continue_no_username_info, R.string.continue_btn) {
             viewModel.skipUsername()
-        }.show()
+        }
 
     private fun sendAuthResponse(authResponseModel: AuthResponseModel) {
         val uri = Uri.parse(authResponseModel.redirectURL)
