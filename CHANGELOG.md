@@ -9,7 +9,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Ability to Skip Username while creating a new Account/Identity
 
-
 ### Fixed
 - Title and Subtitles not according to mocks (issue #29)
 - Style naming from Stacks to Circles
