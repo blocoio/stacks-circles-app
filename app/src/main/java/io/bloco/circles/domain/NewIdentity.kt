@@ -21,7 +21,7 @@ class NewIdentity
         val keys = identityKeys.new()
         val btcAddress = keys.toBtcAddress()
 
-        val newIdentity = generateIdentity.generate(btcAddress, username ?: btcAddress)
+        val newIdentity = generateIdentity.generate(btcAddress, username)
 
         identities = identities + newIdentity
 

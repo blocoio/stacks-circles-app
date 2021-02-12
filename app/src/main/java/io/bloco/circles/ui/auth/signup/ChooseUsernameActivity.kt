@@ -18,10 +18,8 @@ import io.bloco.circles.ui.shared.Insets.addSystemWindowInsetToMargin
 import io.bloco.circles.ui.shared.Insets.addSystemWindowInsetToPadding
 import kotlinx.android.synthetic.main.activity_username.*
 import kotlinx.android.synthetic.main.partial_tool_bar.*
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 import reactivecircus.flowbinding.android.view.clicks
 import reactivecircus.flowbinding.android.widget.textChanges
 
@@ -104,8 +102,8 @@ class ChooseUsernameActivity : BaseActivity() {
 
     private fun showSkipSnackbar() = Snackbar
         .make(root, R.string.continue_no_username_info, Snackbar.LENGTH_LONG)
-        .setAction(android.R.string.ok) {
-            GlobalScope.launch { viewModel.skipUsername() }
+        .setAction(R.string.continue_btn) {
+            viewModel.skipUsername()
         }.show()
 
     private fun sendAuthResponse(authResponseModel: AuthResponseModel) {

@@ -23,7 +23,7 @@ class SignUp
         val profile = ProfileModel()
         val newIdentity = generateIdentity.generate(
             btcAddress,
-            username ?: btcAddress
+            username
         )
 
         username?.also {  registrarProfile.register(username, btcAddress) }

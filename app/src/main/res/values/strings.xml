@@ -43,7 +43,7 @@ to learn more.
     <string name="choose_username">Choose Username</string>
     <string name="username_not_available">Username is not available</string>
     <string name="continue_no_username"><u>Continue without username</u></string>
-    <string name="continue_no_username_info">Identities with no username may have problems with some applications …</string>
+    <string name="continue_no_username_info">Some applications might require username</string>
     <string name="error">Something went wrong</string>>
 
     <!--ACCOUNT SCREENS-->

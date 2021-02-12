@@ -10,6 +10,7 @@ import io.bloco.circles.shared.foldOnEach
 import io.bloco.circles.ui.BaseViewModel
 import io.bloco.circles.ui.auth.signup.ChooseUsernameViewModel.Error.*
 import kotlinx.coroutines.channels.BroadcastChannel
+import kotlinx.coroutines.channels.sendBlocking
 import kotlinx.coroutines.flow.*
 import timber.log.Timber
 
@@ -101,7 +102,7 @@ class ChooseUsernameViewModel
 
     // Inputs
     suspend fun usernamePicked(username: String) = usernameSubmitted.emit(username)
-    suspend fun skipUsername() = newAccount.send(Unit)
+    fun skipUsername() = newAccount.sendBlocking(Unit)
 
     // Outputs
     fun sendAuthResponse(): Flow<AuthResponseModel> = sendAuthResponse.asFlow()
