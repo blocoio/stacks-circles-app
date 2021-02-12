@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:text="@string/newsletter"
-        android:textAppearance="@style/TextAppearance.Stacks.Subtitle" />
+        android:textAppearance="@style/TextAppearance.Circles.Subtitle" />
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:text="@string/stacks_ecosystem_title"
-                android:textAppearance="@style/TextAppearance.Stacks.Headline2"
+                android:textAppearance="@style/TextAppearance.Circles.Headline2"
                 android:textColor="@color/white" />
 
             <TextView
@@ -39,12 +39,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
                 android:text="@string/stacks_ecosystem_text"
-                android:textAppearance="@style/TextAppearance.Stacks.Body2"
+                android:textAppearance="@style/TextAppearance.Circles.Body2"
                 android:textColor="@color/white" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/newsletterSubscribe"
-                style="@style/Widget.Stacks.ButtonOnPrimaryColor"
+                style="@style/Widget.Circles.ButtonOnPrimaryColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"

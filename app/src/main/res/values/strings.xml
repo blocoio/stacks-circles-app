@@ -20,6 +20,7 @@
     <!--AUTH SCREENS-->
     <string name="connect_tracking_message">We won\'t be able to see, access, or track your activity</string>
     <string name="connect_key_message">You\'ll get a Secret Key that automatically encrypts everything you do</string>
+    <string name="login_message">Enter your Secret Key to sign in</string>
     <string name="new_to_stacks">I\'m new to Stacks</string>
     <string name="continue_key">Continue with Secret Key</string>
     <string name="how_connect_works"><u>How Stacks Works</u></string>
@@ -41,6 +42,8 @@ to learn more.
     <string name="choose_username_info">This is how others will see you on other apps.</string>
     <string name="choose_username">Choose Username</string>
     <string name="username_not_available">Username is not available</string>
+    <string name="continue_no_username"><u>Continue without username</u></string>
+    <string name="continue_no_username_info">Accounts with no username may have problems with some apps</string>
     <string name="error">Something went wrong</string>>
 
     <!--ACCOUNT SCREENS-->

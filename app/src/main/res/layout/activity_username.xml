@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -16,10 +17,10 @@
         android:indeterminateTint="@color/org_circles_blue"
         android:indeterminateTintMode="src_atop"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/chooseUsernameLayout"
@@ -27,27 +28,27 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/choose_username"
-            android:textAppearance="@style/TextAppearance.Stacks.Headline3"
-            android:textColor="@color/grey"/>
+            android:textAppearance="@style/TextAppearance.Circles.Headline3"
+            android:textColor="@color/grey" />
 
         <TextView
-            style="@style/TextAppearance.Stacks.Body3"
-            android:textColor="@color/grey"
+            style="@style/TextAppearance.Circles.Body3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginHorizontal="16dp"
             android:layout_marginVertical="8dp"
-            android:text="@string/choose_username_info" />
+            android:text="@string/choose_username_info"
+            android:textColor="@color/grey" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/outlinedTextField"
@@ -83,6 +84,21 @@
         android:layout_gravity="bottom"
         android:layout_margin="16dp"
         android:text="@string/continue_btn"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toTopOf="@id/skip" />
+
+
+    <TextView
+        android:id="@+id/skip"
+        style="@style/TextAppearance.Circles.ClickableText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        android:background="?selectableItemBackground"
+        android:text="@string/continue_no_username"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

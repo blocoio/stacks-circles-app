@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <TextView
-        style="@style/TextAppearance.Stacks.Headline4"
+        style="@style/TextAppearance.Circles.Headline4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -17,7 +17,7 @@
         android:textColor="@color/grey" />
 
     <TextView
-        style="@style/TextAppearance.Stacks.Body1"
+        style="@style/TextAppearance.Circles.Body1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -32,7 +32,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/saved"
-            style="@style/Widget.Stacks.Button"
+            style="@style/Widget.Circles.Button"
             app:backgroundTint="@color/org_circles_blue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/viewAgain"
-            style="@style/Widget.Stacks.AlternativeButton"
+            style="@style/Widget.Circles.AlternativeButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:text="@string/share_to_apps"
-        android:textAppearance="@style/TextAppearance.Stacks.Subtitle"
+        android:textAppearance="@style/TextAppearance.Circles.Subtitle"
         android:textColor="@color/black"
         android:textSize="16sp" />
 
@@ -97,7 +97,7 @@
             </FrameLayout>
 
             <TextView
-                style="@style/TextAppearance.Stacks.Subtitle"
+                style="@style/TextAppearance.Circles.Subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -131,7 +131,7 @@
             </FrameLayout>
 
             <TextView
-                style="@style/TextAppearance.Stacks.Subtitle"
+                style="@style/TextAppearance.Circles.Subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

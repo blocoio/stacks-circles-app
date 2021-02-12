@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:text="@string/learn_more"
-        android:textAppearance="@style/TextAppearance.Stacks.Subtitle" />
+        android:textAppearance="@style/TextAppearance.Circles.Subtitle" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/aboutUsCard"
@@ -31,7 +31,7 @@
             android:layout_margin="16dp"
             android:text="@string/how_stacks_works"
             android:textSize="30sp"
-            android:textAppearance="@style/TextAppearance.Stacks.Headline2"
+            android:textAppearance="@style/TextAppearance.Circles.Headline2"
             android:textStyle="bold"
             android:textColor="@color/black"/>
 

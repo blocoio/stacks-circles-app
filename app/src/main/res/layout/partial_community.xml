@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:text="@string/community"
-        android:textAppearance="@style/TextAppearance.Stacks.Subtitle" />
+        android:textAppearance="@style/TextAppearance.Circles.Subtitle" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/discordCard"

@@ -6,10 +6,6 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import kotlinx.android.synthetic.main.activity_welcome.*
-import kotlinx.android.synthetic.main.partial_tool_bar.*
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import io.bloco.circles.R
 import io.bloco.circles.data.AuthResponseModel
 import io.bloco.circles.ui.BaseActivity
@@ -17,6 +13,10 @@ import io.bloco.circles.ui.auth.identities.IdentitiesActivity
 import io.bloco.circles.ui.homepage.HomepageActivity
 import io.bloco.circles.ui.shared.Insets.addSystemWindowInsetToMargin
 import io.bloco.circles.ui.shared.Insets.addSystemWindowInsetToPadding
+import kotlinx.android.synthetic.main.activity_welcome.*
+import kotlinx.android.synthetic.main.partial_tool_bar.*
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import reactivecircus.flowbinding.android.view.clicks
 
 class WelcomeActivity : BaseActivity() {
@@ -44,7 +44,7 @@ class WelcomeActivity : BaseActivity() {
         discover.addSystemWindowInsetToMargin(bottom = true)
 
         if(signUp) {
-            discover.text = getString(R.string.all_set)
+            welcomeTitle.text = getString(R.string.all_set)
         }
 
         if (isAuthResponse()) {
@@ -97,9 +97,11 @@ class WelcomeActivity : BaseActivity() {
 
         fun getIntent(
             context: Context,
-            authResponse: AuthResponseModel
+            authResponse: AuthResponseModel,
+            signUp: Boolean = false
         ) =
             Intent(context, WelcomeActivity::class.java)
+                .putExtra(SIGNUP, signUp)
                 .putExtra(APP_NAME, authResponse.appName)
                 .putExtra(REDIRECT_URL, authResponse.redirectURL)
                 .putExtra(AUTH_RESPONSE, authResponse.authResponseToken)

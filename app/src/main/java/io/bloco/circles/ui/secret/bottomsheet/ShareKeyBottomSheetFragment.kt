@@ -10,13 +10,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+import io.bloco.circles.R
+import io.bloco.circles.ui.auth.signup.ChooseUsernameActivity
+import io.bloco.circles.ui.shared.MessageLoader
 import kotlinx.android.synthetic.main.fragment_share_key_bottom_sheet.*
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import io.bloco.circles.R
-import io.bloco.circles.ui.auth.signup.ChooseUsernameActivity
-import io.bloco.circles.ui.shared.MessageLoader
 import reactivecircus.flowbinding.android.view.clicks
 
 
@@ -39,7 +39,7 @@ class ShareKeyBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme);
+        setStyle(STYLE_NORMAL, R.style.CirclesBottomSheetDialogTheme);
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

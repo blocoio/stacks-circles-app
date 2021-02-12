@@ -46,7 +46,7 @@
                     android:layout_marginVertical="20dp"
                     android:gravity="center"
                     android:text="@string/connect_info"
-                    android:textAppearance="@style/TextAppearance.Stacks.Headline4"
+                    android:textAppearance="@style/TextAppearance.Circles.Headline4"
                     android:textColor="@color/grey" />
 
                 <com.google.android.material.button.MaterialButton
@@ -74,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:text="@string/built_on_circles"
-                    android:textAppearance="@style/TextAppearance.Stacks.Subtitle" />
+                    android:textAppearance="@style/TextAppearance.Circles.Subtitle" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -103,7 +103,7 @@
                     android:layout_margin="8dp"
                     android:background="?android:attr/selectableItemBackground"
                     android:text="@string/find_apps"
-                    android:textAppearance="@style/TextAppearance.Stacks.ClickableText"
+                    android:textAppearance="@style/TextAppearance.Circles.ClickableText"
                     app:drawableEndCompat="@drawable/ic_arrow_forward"
                     app:drawableTint="@color/org_circles_blue" />
             </LinearLayout>

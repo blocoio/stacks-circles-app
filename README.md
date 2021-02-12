@@ -54,7 +54,7 @@ open source, for future improvements and feedback. You can see the design projec
   <tr>
     <td><img src="images/login1.png" alt="Login pic1"></td>
     <td><img src="images/login2.png" alt="Login pic2"></td>
-    <td></td>
+    <td><img src="images/login3.png" alt="Login pic2"></td>
   </tr>
   <tr>
     <td><img src="images/5.png" alt="Normal Flow pic5"></td>

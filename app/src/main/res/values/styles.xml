@@ -2,44 +2,44 @@
 <resources>
 
     <!-- ToolBars -->
-    <style name="Widget.Stacks.ToolbarNavigationButton" parent="Widget.AppCompat.Toolbar.Button.Navigation">
+    <style name="Widget.Circles.ToolbarNavigationButton" parent="Widget.AppCompat.Toolbar.Button.Navigation">
         <item name="tint">?colorOnSurface</item>
     </style>
 
-    <style name="Widget.Stacks.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
+    <style name="Widget.Circles.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
         <item name="android:background">@null</item>
         <item name="android:elevation">0dp</item>
         <item name="elevation">0dp</item>
-        <item name="titleTextAppearance">@style/TextAppearance.Stacks.ToolbarTitle</item>
+        <item name="titleTextAppearance">@style/TextAppearance.Circles.ToolbarTitle</item>
     </style>
 
     <!-- Buttons -->
-    <style name="Widget.Stacks.Button" parent="@style/Widget.MaterialComponents.Button">
+    <style name="Widget.Circles.Button" parent="@style/Widget.MaterialComponents.Button">
         <item name="textAllCaps">false</item>
-        <item name="android:textAppearance">@style/TextAppearance.Stacks.ButtonText</item>
+        <item name="android:textAppearance">@style/TextAppearance.Circles.ButtonText</item>
     </style>
 
-    <style name="Widget.Stacks.ButtonOnPrimaryColor" parent="@style/Widget.MaterialComponents.Button">
+    <style name="Widget.Circles.ButtonOnPrimaryColor" parent="@style/Widget.MaterialComponents.Button">
         <item name="textAllCaps">false</item>
         <item name="android:elevation">2dp</item>
         <item name="android:backgroundTint">@color/white</item>
         <item name="android:textColor">@color/org_circles_blue</item>
-        <item name="android:textAppearance">@style/TextAppearance.Stacks.ButtonText</item>
+        <item name="android:textAppearance">@style/TextAppearance.Circles.ButtonText</item>
     </style>
 
-    <style name="Widget.Stacks.AlternativeButton" parent="@style/Widget.MaterialComponents.Button">
+    <style name="Widget.Circles.AlternativeButton" parent="@style/Widget.MaterialComponents.Button">
         <item name="textAllCaps">false</item>
         <item name="android:backgroundTint">@color/org_circles_light1_blue</item>
         <item name="android:textColor">@color/org_circles_blue</item>
-        <item name="android:textAppearance">@style/TextAppearance.Stacks.ButtonText</item>
+        <item name="android:textAppearance">@style/TextAppearance.Circles.ButtonText</item>
     </style>
 
     <!-- BottomSheet -->
-    <style name="CustomBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/CustomBottomSheetStyle</item>
+    <style name="CirclesBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CirclesBottomSheetStyle</item>
     </style>
 
-    <style name="CustomBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+    <style name="CirclesBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@android:color/transparent</item>
     </style>
 

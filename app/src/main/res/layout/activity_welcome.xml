@@ -18,16 +18,16 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/welcomeTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/welcome_back"
-            android:textAppearance="@style/TextAppearance.Stacks.Headline3"
+            android:textAppearance="@style/TextAppearance.Circles.Headline3"
             android:textColor="@color/grey" />
 
         <TextView
-            style="@style/TextAppearance.Stacks.Body3"
+            style="@style/TextAppearance.Circles.Body3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
