@@ -84,7 +84,7 @@ The current [Milestones](https://github.com/blocoio/stacks-circles-app/milestone
 
 ## Future Goals:
 
-- Skip "Choose Username" to create new Accounts/Identities
+- Support legacy recovery keys
 - Dark Theme Support
 
 # **Notes**
