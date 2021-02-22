@@ -100,7 +100,7 @@ class ChooseUsernameActivity : BaseActivity() {
     }
 
     private fun showSkipSnackbar() =
-        messageLoader.show(R.string.continue_no_username_info, R.string.continue_btn) {
+        messageLoader.show(skip, R.string.continue_no_username_info, R.string.continue_btn) {
             viewModel.skipUsername()
         }
 
