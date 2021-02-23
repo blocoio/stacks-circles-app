@@ -2,8 +2,6 @@ package io.bloco.circles.ui.auth.signup
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.channels.BroadcastChannel
-import kotlinx.coroutines.flow.*
 import io.bloco.circles.data.AuthRequestsStore
 import io.bloco.circles.data.AuthResponseModel
 import io.bloco.circles.domain.*
@@ -11,6 +9,9 @@ import io.bloco.circles.domain.CheckUsernameStatus.UsernameStatus.Available
 import io.bloco.circles.shared.foldOnEach
 import io.bloco.circles.ui.BaseViewModel
 import io.bloco.circles.ui.auth.signup.ChooseUsernameViewModel.Error.*
+import kotlinx.coroutines.channels.BroadcastChannel
+import kotlinx.coroutines.channels.sendBlocking
+import kotlinx.coroutines.flow.*
 import timber.log.Timber
 
 class ChooseUsernameViewModel
@@ -25,9 +26,11 @@ class ChooseUsernameViewModel
 
     // Variables
     private var isAuthRequest: Boolean = authRequestsStore.get() != null
+    private var username: String? = null
 
     // Inputs
     private val usernameSubmitted = MutableStateFlow("")
+    private val newAccount = BroadcastChannel<Unit>(1)
     var signUp: Boolean = false
 
     // Outputs
@@ -51,16 +54,24 @@ class ChooseUsernameViewModel
             }
             .onEach {
                 if (it != Available) {
+                    username = null
                     loading.emit(false)
                     errors.send(UnavailableUsername)
+                } else {
+                    username = usernameSubmitted.value
+                    newAccount.send(Unit)
                 }
             }
-            .filter { it == Available }
+            .launchIn(ioScope)
+
+        newAccount
+            .asFlow()
             .map {
+                loading.emit(true)
                 if (this.signUp) {
-                    signUp.newAccount(usernameSubmitted.value)
+                    signUp.newAccount(username)
                 } else {
-                    newIdentity.create(usernameSubmitted.value)
+                    newIdentity.create(username)
                 }
             }
             .foldOnEach(
@@ -91,6 +102,7 @@ class ChooseUsernameViewModel
 
     // Inputs
     suspend fun usernamePicked(username: String) = usernameSubmitted.emit(username)
+    fun skipUsername() = newAccount.sendBlocking(Unit)
 
     // Outputs
     fun sendAuthResponse(): Flow<AuthResponseModel> = sendAuthResponse.asFlow()

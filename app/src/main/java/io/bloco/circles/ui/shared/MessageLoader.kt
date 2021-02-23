@@ -17,9 +17,30 @@ class MessageLoader
         Snackbar.make(rootView, activity.getString(resString), Snackbar.LENGTH_LONG)
             .show()
 
-
     fun show(string: String) =
         Snackbar.make(rootView, string, Snackbar.LENGTH_LONG)
-        .show()
+            .show()
+
+    fun show(@StringRes message: Int, @StringRes action: Int, listener: View.OnClickListener,) =
+        Snackbar.make(rootView, message, Snackbar.LENGTH_LONG)
+            .setAction(action, listener)
+            .show()
+
+    fun show(anchorView: View, @StringRes message: Int, @StringRes action: Int, listener: View.OnClickListener,) =
+        Snackbar.make(rootView, message, Snackbar.LENGTH_LONG)
+            .setAnchorView(anchorView)
+            .setAction(action, listener)
+            .show()
+
+    fun show(message: String, action: String, listener: View.OnClickListener, ) =
+        Snackbar.make(rootView, message, Snackbar.LENGTH_LONG)
+            .setAction(action, listener)
+            .show()
+
+    fun show(anchorView: View, message: String, action: String, listener: View.OnClickListener, ) =
+        Snackbar.make(rootView, message, Snackbar.LENGTH_LONG)
+            .setAnchorView(anchorView)
+            .setAction(action, listener)
+            .show()
 
 }

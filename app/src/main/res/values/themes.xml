@@ -26,10 +26,12 @@
         <item name="colorOnError">@color/red_dark</item>
 
         <!-- Custom styles -->
-        <item name="toolbarNavigationButtonStyle">@style/Widget.Stacks.ToolbarNavigationButton</item>
-        <item name="titleTextStyle">@style/TextAppearance.Stacks.ToolbarTitle</item>
-        <item name="toolbarStyle">@style/Widget.Stacks.Toolbar</item>
-        <item name="materialButtonStyle">@style/Widget.Stacks.Button</item>
+        <item name="toolbarNavigationButtonStyle">@style/Widget.Circles.ToolbarNavigationButton</item>
+        <item name="titleTextStyle">@style/TextAppearance.Circles.ToolbarTitle</item>
+        <item name="toolbarStyle">@style/Widget.Circles.Toolbar</item>
+        <item name="materialButtonStyle">@style/Widget.Circles.Button</item>
+        <item name="snackbarButtonStyle">@style/Widget.Circles.Button.TextButton.Snackbar</item>
+        <item name="snackbarTextViewStyle">@style/Widget.Circles.Snackbar.TextView</item>
 
     </style>
 

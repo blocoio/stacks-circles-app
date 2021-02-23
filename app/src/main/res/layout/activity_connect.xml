@@ -23,7 +23,7 @@
         android:layout_margin="16dp"
         android:gravity="center"
         android:text="@string/connect_info"
-        android:textAppearance="@style/TextAppearance.Stacks.Headline3"
+        android:textAppearance="@style/TextAppearance.Circles.Headline3"
         android:textColor="@color/grey" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -53,7 +53,7 @@
             android:layout_marginTop="16dp"
             android:gravity="top"
             android:text="@string/connect_key_message"
-            android:textAppearance="@style/TextAppearance.Stacks.Body3"
+            android:textAppearance="@style/TextAppearance.Circles.Body3"
             android:textColor="@color/grey_light2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/connect_secret_key_desc_icon"
@@ -81,7 +81,7 @@
             android:layout_marginTop="16dp"
             android:gravity="top"
             android:text="@string/connect_tracking_message"
-            android:textAppearance="@style/TextAppearance.Stacks.Body3"
+            android:textAppearance="@style/TextAppearance.Circles.Body3"
             android:textColor="@color/grey_light2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/connect_tracking_desc_icon"
@@ -99,7 +99,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/login"
-        style="@style/Widget.Stacks.ButtonOnPrimaryColor"
+        style="@style/Widget.Circles.ButtonOnPrimaryColor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -120,7 +120,7 @@
             android:clickable="true"
             android:focusable="true"
             android:text="@string/how_connect_works"
-            android:textAppearance="@style/TextAppearance.Stacks.Body3"
+            android:textAppearance="@style/TextAppearance.Circles.Body3"
             android:textColor="@color/grey_light2"
             android:background="?selectableItemBackground"/>
 

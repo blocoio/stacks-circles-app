@@ -43,7 +43,7 @@
             <TextView
                 android:background="?selectableItemBackground"
                 android:id="@+id/newIdentity"
-                style="@style/TextAppearance.Stacks.ClickableText"
+                style="@style/TextAppearance.Circles.ClickableText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
@@ -75,7 +75,7 @@
                     tools:ignore="UseCompoundDrawables">
 
                     <TextView
-                        style="@style/TextAppearance.Stacks.ClickableText"
+                        style="@style/TextAppearance.Circles.ClickableText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"

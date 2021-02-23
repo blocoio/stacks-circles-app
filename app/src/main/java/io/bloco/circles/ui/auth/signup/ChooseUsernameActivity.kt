@@ -8,10 +8,6 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_username.*
-import kotlinx.android.synthetic.main.partial_tool_bar.*
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import io.bloco.circles.R
 import io.bloco.circles.data.AuthResponseModel
 import io.bloco.circles.ui.BaseActivity
@@ -19,8 +15,13 @@ import io.bloco.circles.ui.auth.WelcomeActivity
 import io.bloco.circles.ui.auth.identities.IdentitiesActivity
 import io.bloco.circles.ui.shared.Insets.addSystemWindowInsetToMargin
 import io.bloco.circles.ui.shared.Insets.addSystemWindowInsetToPadding
+import kotlinx.android.synthetic.main.activity_username.*
+import kotlinx.android.synthetic.main.partial_tool_bar.*
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import reactivecircus.flowbinding.android.view.clicks
 import reactivecircus.flowbinding.android.widget.textChanges
+
 
 @AndroidEntryPoint
 class ChooseUsernameActivity : BaseActivity() {
@@ -47,16 +48,17 @@ class ChooseUsernameActivity : BaseActivity() {
 
         username
             .textChanges()
-            .onEach {
-                outlinedTextField.error = null
-            }
+            .onEach { outlinedTextField.error = null }
+            .launchIn(lifecycleScope)
+
+        skip
+            .clicks()
+            .onEach { showSkipSnackbar() }
             .launchIn(lifecycleScope)
 
         continueBtn
             .clicks()
-            .onEach {
-                viewModel.usernamePicked(username.text.toString())
-            }
+            .onEach { viewModel.usernamePicked(username.text.toString()) }
             .launchIn(lifecycleScope)
 
         viewModel
@@ -67,8 +69,9 @@ class ChooseUsernameActivity : BaseActivity() {
         viewModel
             .loading()
             .onEach { loading ->
-                loadingSpinner.isVisible = loading
+                skip.isVisible = !loading
                 continueBtn.isVisible = !loading
+                loadingSpinner.isVisible = loading
                 chooseUsernameLayout.isVisible = !loading
             }
             .launchIn(lifecycleScope)
@@ -76,9 +79,8 @@ class ChooseUsernameActivity : BaseActivity() {
         viewModel
             .sendAuthResponse()
             .onEach {
-
                 if (signUp) {
-                    startActivity(WelcomeActivity.getIntent(this, it))
+                    startActivity(WelcomeActivity.getIntent(this, it, signUp))
                 } else {
                     sendAuthResponse(it)
                 }
@@ -93,10 +95,14 @@ class ChooseUsernameActivity : BaseActivity() {
                     ChooseUsernameViewModel.Error.SignUpError -> getString(R.string.error)
                     ChooseUsernameViewModel.Error.InvalidUsername -> getString(R.string.invalid_username)
                 }
-
             }
             .launchIn(lifecycleScope)
     }
+
+    private fun showSkipSnackbar() =
+        messageLoader.show(skip, R.string.continue_no_username_info, R.string.continue_btn) {
+            viewModel.skipUsername()
+        }
 
     private fun sendAuthResponse(authResponseModel: AuthResponseModel) {
         val uri = Uri.parse(authResponseModel.redirectURL)
@@ -118,7 +124,6 @@ class ChooseUsernameActivity : BaseActivity() {
     }
 
     companion object {
-
         const val SIGN_UP = "signUp"
 
         fun getIntent(context: Context, signUp: Boolean = false) =
