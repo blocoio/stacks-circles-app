@@ -28,7 +28,6 @@ class MessageLoader
             .setAction(action, listener)
             .show()
 
-
     fun show(anchorView: View, @StringRes message: Int, @StringRes action: Int, listener: View.OnClickListener,) =
         Snackbar.make(rootView, message, Snackbar.LENGTH_LONG)
             .setAnchorView(anchorView)
