@@ -14,7 +14,7 @@ class CheckUsernameStatus
     //TODO: this needs test coverage
     // we use response code and not status itself
     suspend fun isAvailable(username: String): UsernameStatus = try {
-        when(lookupService.lookupName(username).status) {
+        when(lookupService.lookupName("$username.id.stx").status) {
             RegistrarNameStatus.Available -> Available
             RegistrarNameStatus.InvalidName -> Invalid
             RegistrarNameStatus.SubmittedSubDomain -> Unavailable
