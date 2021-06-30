@@ -1,5 +1,8 @@
-package io.bloco.circles.domain
+ package io.bloco.circles.domain
 
+import io.bloco.circles.data.EncryptedPreferencesIdentityRepository
+import io.bloco.circles.data.EncryptedPreferencesSecretKeyRepository
+import io.bloco.circles.data.IdentityModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
@@ -14,13 +17,10 @@ import org.kethereum.bip39.toSeed
 import org.kethereum.extensions.toHexStringNoPrefix
 import org.kethereum.model.ECKeyPair
 import org.komputing.kbip44.BIP44Element
-import io.bloco.circles.data.EncryptedPreferencesIdentityRepository
-import io.bloco.circles.data.EncryptedPreferencesSecretKeyRepository
-import io.bloco.circles.data.IdentityModel
 import timber.log.Timber
 import javax.inject.Inject
 
-class IdentityKeys
+ class IdentityKeys
 @Inject constructor(
     private val identityRepository: EncryptedPreferencesIdentityRepository,
     private val secretKeyRepository: EncryptedPreferencesSecretKeyRepository
