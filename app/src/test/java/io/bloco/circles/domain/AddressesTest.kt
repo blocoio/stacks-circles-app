@@ -48,7 +48,7 @@ class AddressesTest {
 
     private fun checksum(extended: String): String {
         val checksum = extended.hexToByteArray().sha256().sha256()
-        val shortPrefix = checksum.slice(0..3)
+        val shortPrefix = checksum.slice(0..4)
         return shortPrefix.toNoPrefixHexString()
     }
 
