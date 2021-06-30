@@ -1,6 +1,5 @@
 package io.bloco.circles.domain
 
-import io.bloco.circles.shared.decodeCockford32
 import io.bloco.circles.shared.encodeCrockford32
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
@@ -40,24 +39,23 @@ class AddressesTest {
         val sha256 = keys.keyPair.toHexPublicKey64().hexToByteArray().sha256()
         val hash160 = sha256.digestRipemd160()
         val extended = "00${hash160.toNoPrefixHexString()}"
-        val noChecksum = extended.hexToByteArray()
-        val address = noChecksum.encodeCrockford32()
+        val checksum = checksum(extended)
+        val address = (extended + checksum).hexToByteArray().encodeCrockford32()
 
-        Assert.assertEquals(STX_ADDRESS_MAINNET, "S$address")
         Assert.assertEquals(keys.keyPair.toBtcAddress(), BTC_ADDRESS_MAINNET)
+        Assert.assertEquals(STX_ADDRESS_MAINNET, "S$address")
     }
 
-    @Test
-    fun decodeTest() {
-        Assert.assertEquals("something", "EDQPTSBMD1MPWSR".decodeCockford32().toNoPrefixHexString())
+    private fun checksum(extended: String): String {
+        val checksum = extended.hexToByteArray().sha256().sha256()
+        val shortPrefix = checksum.slice(0..3)
+        return shortPrefix.toNoPrefixHexString()
     }
 
     private suspend fun generateWalletKeysFromMnemonicWords(seedPhrase: String)= withContext(Dispatchers.IO) {
         val words = MnemonicWords(seedPhrase)
 
         val stxKeys = BlockstackIdentity(words.toSeed().toKey("m/44'/5757'/0'/0"))
-        //val identity = BlockstackIdentity(words.toSeed().toKey("m/888'/0'"))
-
         val keys = stxKeys.identityKeys.generateChildKey(BIP44Element(false, 0))
 
         val privateKey = keys.keyPair.privateKey.key.toHexStringNoPrefix()
