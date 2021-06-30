@@ -23,7 +23,8 @@ import org.komputing.khex.extensions.toNoPrefixHexString
 class AddressesTest {
 
     private val SEED_PHRASE = "float myth tuna chuckle estate recipe canoe equal sport matter zebra vanish pyramid this veteran oppose festival lava economy uniform open zoo shrug fade"
-    private val PRIVATE_KEY = "9f6da87aa7a214d484517394ca0689a38faa8b3497bb9bf491bd82c31b5af79601"
+    private val PRIVATE_KEY = "9f6da87aa7a214d484517394ca0689a38faa8b3497bb9bf491bd82c31b5af796" //01
+    private val PUBLIC_KEY = "023064b1fa3c279cd7c8eca2f41c3aa33dc48741819f38b740975af1e8fef61fe4"
     private val BTC_ADDRESS_MAINNET = "1Hu5PUAGWqaokbusF7ZUTpfnejwKbAeGUd"
     private val STX_ADDRESS_MAINNET = "SP2WNPKGHNM1PKE1D95KGADR1X5MWXTJHD8EJ1HHK"
 
@@ -43,7 +44,9 @@ class AddressesTest {
         val cs = checksum("16${hash160.toNoPrefixHexString()}")
         val address = (extended + cs).hexToByteArray().encodeCrockford32()
 
-        assertEquals(keys.keyPair.toBtcAddress(), BTC_ADDRESS_MAINNET)
+        assertEquals(PUBLIC_KEY, keys.keyPair.toHexPublicKey64())
+        assertEquals(PRIVATE_KEY, keys.keyPair.privateKey.key.toHexStringNoPrefix())
+        assertEquals(BTC_ADDRESS_MAINNET, keys.keyPair.toBtcAddress())
         assertEquals(STX_ADDRESS_MAINNET, "S$address")
     }
 
@@ -55,17 +58,7 @@ class AddressesTest {
 
     private suspend fun generateWalletKeysFromMnemonicWords(seedPhrase: String)= withContext(Dispatchers.IO) {
         val words = MnemonicWords(seedPhrase)
-
         val stxKeys = BlockstackIdentity(words.toSeed().toKey("m/44'/5757'/0'/0"))
-        val keys = stxKeys.identityKeys.generateChildKey(BIP44Element(false, 0))
-
-        val privateKey = keys.keyPair.privateKey.key.toHexStringNoPrefix()
-        val publicKey = keys.keyPair.toHexPublicKey64()
-
-        println("Address key: ${keys.keyPair.toBtcAddress()}")
-        println("Private key: $privateKey")
-        println("Public key: $publicKey")
-
-        return@withContext keys
+        return@withContext stxKeys.identityKeys.generateChildKey(BIP44Element(false, 0))
     }
 }
