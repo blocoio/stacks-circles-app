@@ -37,13 +37,14 @@ class AddressesTest {
         // Act
         val keys = generateWalletKeysFromMnemonicWords(SEED_PHRASE)
 
-        // Assert
+        // Arrange
         val sha256 = keys.keyPair.toHexPublicKey64().hexToByteArray().sha256()
         val hash160 = sha256.digestRipemd160()
         val extended = "b0${hash160.toNoPrefixHexString()}"
         val cs = checksum("16${hash160.toNoPrefixHexString()}")
         val address = (extended + cs).hexToByteArray().encodeCrockford32()
 
+        // Assert
         assertEquals(PUBLIC_KEY, keys.keyPair.toHexPublicKey64())
         assertEquals(PRIVATE_KEY, keys.keyPair.privateKey.key.toHexStringNoPrefix())
         assertEquals(BTC_ADDRESS_MAINNET, keys.keyPair.toBtcAddress())
