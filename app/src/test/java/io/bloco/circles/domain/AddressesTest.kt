@@ -38,7 +38,7 @@ class AddressesTest {
         // Assert
         val sha256 = keys.keyPair.toHexPublicKey64().hexToByteArray().sha256()
         val hash160 = sha256.digestRipemd160()
-        val extended = "00${hash160.toNoPrefixHexString()}"
+        val extended = "b0${hash160.toNoPrefixHexString()}"
         val checksum = checksum(extended)
         val address = (extended + checksum).hexToByteArray().encodeCrockford32()
 
