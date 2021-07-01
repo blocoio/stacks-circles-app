@@ -30,11 +30,11 @@ class AddressesTest {
     private val STX_ADDRESS_MAINNET = "SP2WNPKGHNM1PKE1D95KGADR1X5MWXTJHD8EJ1HHK"
 
     // Test environment
-    // private val STX_ADDRESS_TESTNET = "ST2WNPKGHNM1PKE1D95KGADR1X5MWXTJHDAYBBZPG"
+    private val STX_ADDRESS_TESTNET = "ST2WNPKGHNM1PKE1D95KGADR1X5MWXTJHDAYBBZPG"
     // private val BTC_ADDRESS_TESTNET = "mxR2gXFFKs24XiPUxgXrHjt7WjY2Xir3Yn"
 
     @Test
-    fun stxAddressTest() = runBlocking {
+    fun stxAddressMainnetTest() = runBlocking {
         // Act
         val keys = generateWalletKeysFromMnemonicWords(SEED_PHRASE)
 
@@ -53,9 +53,25 @@ class AddressesTest {
     }
 
     @Test
+    fun stxAddressTestnetTest() = runBlocking {
+        // Act
+        val keys = generateWalletKeysFromMnemonicWords(SEED_PHRASE)
+
+        // Arrange
+        val sha256 = keys.keyPair.toHexPublicKey64().hexToByteArray().sha256()
+        val hash160 = sha256.digestRipemd160()
+        val extended = "d0${hash160.toNoPrefixHexString()}"
+        val cs = checksum("1a${hash160.toNoPrefixHexString()}")
+        val address = (extended + cs).hexToByteArray().encodeCrockford32()
+
+        // Assert
+        assertEquals(STX_ADDRESS_TESTNET, "S$address")
+    }
+
+    @Test
     fun crockford32Test() {
         val encoded = "something".encodeCrockford32()
-        assertEquals("something", String(CrockfordBase32().decode(encoded) ?: ByteArray(5), Charsets.UTF_8))
+        assertEquals("something", String(CrockfordBase32().decode(encoded), Charsets.UTF_8))
     }
 
     private fun checksum(extended: String): String {

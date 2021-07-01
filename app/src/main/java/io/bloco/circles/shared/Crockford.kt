@@ -52,7 +52,7 @@ class CrockfordBase32 {
      * @param pArray A String containing Base-N character data
      * @return a byte array containing binary data
      */
-    fun decode(pArray: String): ByteArray? {
+    fun decode(pArray: String): ByteArray {
         return decode(pArray.toByteArray(Charsets.UTF_8))
     }
 
@@ -62,11 +62,11 @@ class CrockfordBase32 {
      * @param pArray A byte array containing Base-N character data
      * @return a byte array containing binary data
      */
-    fun decode(pArray: ByteArray?): ByteArray? {
+    fun decode(pArray: ByteArray): ByteArray {
         val buffer = CrockfordBuffer()
         eof = false
-        if (pArray == null || pArray.size == 0) {
-            return pArray
+        if (pArray.isEmpty()) {
+            return ByteArray(0)
         }
         decode(buffer, pArray, 0, pArray.size)
         val result = ByteArray(buffer.pos)
@@ -74,7 +74,6 @@ class CrockfordBase32 {
         if (buffer.bytes != null) {
             val len = if (buffer.bytes != null) buffer.pos else 0
             System.arraycopy(buffer.bytes!!, 0, result, 0, len)
-            buffer.bytes = null // so hasData() will return false, and this method can return -1
         }
         return result
     }
