@@ -17,57 +17,34 @@
  *
  */
 class CrockfordBase32 {
-    /**
-     * Convenience variable to help us determine when our buffer is going to run out of room and needs resizing.
-     * `decodeSize = [.BYTES_PER_ENCODED_BLOCK] - 1 + lineSeparator.length;`
-     */
-    private val decodeSize: Int = BYTES_PER_ENCODED_BLOCK -1
 
-    /**
-     * Buffer for streaming.
-     */
-    private var buffer: ByteArray? = null
+    class CrockfordBuffer(
+        var bytes: ByteArray? = null,
+        var pos: Int = 0,
+        var modulus: Int = 0,
+        var bitWorkArea: Long = 0
+    ) {
+        private val decodeSize: Int = BYTES_PER_ENCODED_BLOCK -1
 
-    /**
-     * Position where next character should be written in the buffer.
-     */
-    private var pos = 0
+        fun ensureBufferSize() {
+            if (bytes == null) {
+                val defaultSize = 8192
+                bytes = ByteArray(defaultSize)
+                pos = 0
+            } else if(bytes != null && bytes!!.size < pos + decodeSize){
+                val bufferResizeFactor = 2
+                val b = ByteArray(bytes!!.size * bufferResizeFactor)
+                System.arraycopy(bytes!!, 0, b, 0, bytes!!.size)
+                bytes = b
+            }
+        }
+    }
 
     /**
      * Boolean flag to indicate the EOF has been reached. Once EOF has been reached, this object becomes useless,
      * and must be thrown away.
      */
     private var eof = false
-
-    /**
-     * Writes to the buffer only occur after every 3/5 reads when encoding, and every 4/8 reads when decoding.
-     * This variable helps track that.
-     */
-    private var modulus = 0
-
-    /**
-     * Place holder for the bytes we're dealing with for our based logic.
-     * Bitwise operations store and extract the encoding or decoding from this variable.
-     */
-    private var bitWorkArea: Long = 0
-
-    /**
-     * Ensure that the buffer has room for `size` bytes
-     *
-     * @param size minimum spare space required
-     */
-    private fun ensureBufferSize() {
-        if (buffer == null) {
-            val defaultSize = 8192
-            buffer = ByteArray(defaultSize)
-            pos = 0
-        } else if(buffer != null && buffer!!.size < pos + decodeSize){
-            val bufferResizeFactor = 2
-            val b = ByteArray(buffer!!.size * bufferResizeFactor)
-            System.arraycopy(buffer!!, 0, b, 0, buffer!!.size)
-            buffer = b
-        }
-    }
 
     /**
      * Decodes a String containing characters in the Base-N alphabet.
@@ -86,27 +63,23 @@ class CrockfordBase32 {
      * @return a byte array containing binary data
      */
     fun decode(pArray: ByteArray?): ByteArray? {
-        buffer = null
-        pos = 0
-        modulus = 0
+        val buffer = CrockfordBuffer()
         eof = false
         if (pArray == null || pArray.size == 0) {
             return pArray
         }
-        decode(pArray, 0, pArray.size)
-        val result = ByteArray(pos)
+        decode(buffer, pArray, 0, pArray.size)
+        val result = ByteArray(buffer.pos)
 
-        if (buffer != null) {
-            val len = if (buffer != null) pos else 0
-            System.arraycopy(buffer!!, 0, result, 0, len)
-            buffer = null // so hasData() will return false, and this method can return -1
+        if (buffer.bytes != null) {
+            val len = if (buffer.bytes != null) buffer.pos else 0
+            System.arraycopy(buffer.bytes!!, 0, result, 0, len)
+            buffer.bytes = null // so hasData() will return false, and this method can return -1
         }
         return result
     }
 
     /**
-     *
-     *
      * Decodes all of the provided data, starting at inPos, for inAvail bytes. Should be called at least twice: once
      * with the data to decode, and once with inAvail set to "-1" to alert decoder that EOF has been reached. The "-1"
      * call is not necessary when decoding, but it doesn't hurt, either.
@@ -126,6 +99,7 @@ class CrockfordBase32 {
      * Output is written to [.buffer] as 8-bit octets, using [.pos] as the buffer position
      */
     fun decode(
+        buffer: CrockfordBuffer,
         input: ByteArray,
         inPosition: Int,
         inAvail: Int
@@ -144,52 +118,52 @@ class CrockfordBase32 {
                 eof = true
                 break
             } else {
-                ensureBufferSize()
+                buffer.ensureBufferSize()
                 if (isInAlphabet(b)) {
                     val result = decode(b).toInt()
-                    modulus = (modulus + 1) % BYTES_PER_ENCODED_BLOCK
-                    bitWorkArea =
-                        (bitWorkArea shl BITS_PER_ENCODED_BYTE) + result // collect decoded bytes
-                    if (modulus == 0) { // we can output the 5 bytes
-                        buffer!![pos++] = (bitWorkArea shr 32 and MASK_8BITS.toLong()).toByte()
-                        buffer!![pos++] = (bitWorkArea shr 24 and MASK_8BITS.toLong()).toByte()
-                        buffer!![pos++] = (bitWorkArea shr 16 and MASK_8BITS.toLong()).toByte()
-                        buffer!![pos++] = (bitWorkArea shr 8 and MASK_8BITS.toLong()).toByte()
-                        buffer!![pos++] = (bitWorkArea and MASK_8BITS.toLong()).toByte()
+                   buffer.modulus = (buffer.modulus + 1) % BYTES_PER_ENCODED_BLOCK
+                    buffer.bitWorkArea =
+                        (buffer.bitWorkArea shl BITS_PER_ENCODED_BYTE) + result // collect decoded bytes
+                    if (buffer.modulus == 0) { // we can output the 5 bytes
+                        buffer.bytes!![buffer.pos++] = (buffer.bitWorkArea shr 32 and MASK_8BITS.toLong()).toByte()
+                        buffer.bytes!![buffer.pos++] = (buffer.bitWorkArea shr 24 and MASK_8BITS.toLong()).toByte()
+                        buffer.bytes!![buffer.pos++] = (buffer.bitWorkArea shr 16 and MASK_8BITS.toLong()).toByte()
+                        buffer.bytes!![buffer.pos++] = (buffer.bitWorkArea shr 8 and MASK_8BITS.toLong()).toByte()
+                        buffer.bytes!![buffer.pos++] = (buffer.bitWorkArea and MASK_8BITS.toLong()).toByte()
                     }
                 }
             }
         }
 
         // This approach makes the '=' padding characters completely optional.
-        if (modulus >= 2) { // if modulus < 2, nothing to do
-            ensureBufferSize()
-            when (modulus) {
-                2 -> buffer!![pos++] = (bitWorkArea shr 2 and MASK_8BITS.toLong()).toByte()
-                3 -> buffer!![pos++] = (bitWorkArea shr 7 and MASK_8BITS.toLong()).toByte()
+        if (buffer.modulus >= 2) { // if modulus < 2, nothing to do
+            buffer.ensureBufferSize()
+            when (buffer.modulus) {
+                2 -> buffer.bytes!![buffer.pos++] = (buffer.bitWorkArea shr 2 and MASK_8BITS.toLong()).toByte()
+                3 -> buffer.bytes!![buffer.pos++] = (buffer.bitWorkArea shr 7 and MASK_8BITS.toLong()).toByte()
                 4 -> {
-                    bitWorkArea = bitWorkArea shr 4 // drop 4 bits
-                    buffer!![pos++] = (bitWorkArea shr 8 and MASK_8BITS.toLong()).toByte()
-                    buffer!![pos++] = (bitWorkArea and MASK_8BITS.toLong()).toByte()
+                    buffer.bitWorkArea = buffer.bitWorkArea shr 4 // drop 4 bits
+                    buffer.bytes!![buffer.pos++] = (buffer.bitWorkArea shr 8 and MASK_8BITS.toLong()).toByte()
+                    buffer.bytes!![buffer.pos++] = (buffer.bitWorkArea and MASK_8BITS.toLong()).toByte()
                 }
                 5 -> {
-                    bitWorkArea = bitWorkArea shr 1
-                    buffer!![pos++] = (bitWorkArea shr 16 and MASK_8BITS.toLong()).toByte()
-                    buffer!![pos++] = (bitWorkArea shr 8 and MASK_8BITS.toLong()).toByte()
-                    buffer!![pos++] = (bitWorkArea and MASK_8BITS.toLong()).toByte()
+                    buffer.bitWorkArea = buffer.bitWorkArea shr 1
+                    buffer.bytes!![buffer.pos++] = (buffer.bitWorkArea shr 16 and MASK_8BITS.toLong()).toByte()
+                    buffer.bytes!![buffer.pos++] = (buffer.bitWorkArea shr 8 and MASK_8BITS.toLong()).toByte()
+                    buffer.bytes!![buffer.pos++] = (buffer.bitWorkArea and MASK_8BITS.toLong()).toByte()
                 }
                 6 -> {
-                    bitWorkArea = bitWorkArea shr 6
-                    buffer!![pos++] = (bitWorkArea shr 16 and MASK_8BITS.toLong()).toByte()
-                    buffer!![pos++] = (bitWorkArea shr 8 and MASK_8BITS.toLong()).toByte()
-                    buffer!![pos++] = (bitWorkArea and MASK_8BITS.toLong()).toByte()
+                    buffer.bitWorkArea = buffer.bitWorkArea shr 6
+                    buffer.bytes!![buffer.pos++] = (buffer.bitWorkArea shr 16 and MASK_8BITS.toLong()).toByte()
+                    buffer.bytes!![buffer.pos++] = (buffer.bitWorkArea shr 8 and MASK_8BITS.toLong()).toByte()
+                    buffer.bytes!![buffer.pos++] = (buffer.bitWorkArea and MASK_8BITS.toLong()).toByte()
                 }
                 7 -> {
-                    bitWorkArea = bitWorkArea shr 3
-                    buffer!![pos++] = (bitWorkArea shr 24 and MASK_8BITS.toLong()).toByte()
-                    buffer!![pos++] = (bitWorkArea shr 16 and MASK_8BITS.toLong()).toByte()
-                    buffer!![pos++] = (bitWorkArea shr 8 and MASK_8BITS.toLong()).toByte()
-                    buffer!![pos++] = (bitWorkArea and MASK_8BITS.toLong()).toByte()
+                    buffer.bitWorkArea = buffer.bitWorkArea shr 3
+                    buffer.bytes!![buffer.pos++] = (buffer.bitWorkArea shr 24 and MASK_8BITS.toLong()).toByte()
+                    buffer.bytes!![buffer.pos++] = (buffer.bitWorkArea shr 16 and MASK_8BITS.toLong()).toByte()
+                    buffer.bytes!![buffer.pos++] = (buffer.bitWorkArea shr 8 and MASK_8BITS.toLong()).toByte()
+                    buffer.bytes!![buffer.pos++] = (buffer.bitWorkArea and MASK_8BITS.toLong()).toByte()
                 }
             }
         }
