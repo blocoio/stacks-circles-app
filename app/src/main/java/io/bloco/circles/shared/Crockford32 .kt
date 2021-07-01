@@ -70,8 +70,7 @@ fun ByteArray.decodeCrockford32ToByteArray(): ByteArray {
         if (b == PAD) {
             // We're done.
             break
-        } else {
-            if (b.isInCrockfordAlphabet()) {
+        } else if (b.isInCrockfordAlphabet()) {
                 val result = b.decodeToCrockford32().toInt()
                 modulus = (modulus + 1) % BYTES_PER_ENCODED_BLOCK
                 bitWorkArea =
@@ -83,7 +82,6 @@ fun ByteArray.decodeCrockford32ToByteArray(): ByteArray {
                     buffer[pos++] = (bitWorkArea shr 8 and MASK_8BITS.toLong()).toByte()
                     buffer[pos++] = (bitWorkArea and MASK_8BITS.toLong()).toByte()
                 }
-            }
         }
     }
 
