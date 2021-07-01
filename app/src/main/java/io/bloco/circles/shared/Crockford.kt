@@ -1,5 +1,3 @@
-import java.nio.charset.Charset
-
 /**
  *
  * Provides Base32 encoding and decoding as defined by [RFC 4648](http://www.ietf.org/rfc/rfc4648.txt).
@@ -60,10 +58,12 @@ class CrockfordBase32 {
      */
     private fun ensureBufferSize() {
         if (buffer == null) {
-            buffer = ByteArray(DEFAULT_BUFFER_SIZE)
+            val defaultSize = 8192
+            buffer = ByteArray(defaultSize)
             pos = 0
         } else if(buffer != null && buffer!!.size < pos + decodeSize){
-            val b = ByteArray(buffer!!.size * DEFAULT_BUFFER_RESIZE_FACTOR)
+            val bufferResizeFactor = 2
+            val b = ByteArray(buffer!!.size * bufferResizeFactor)
             System.arraycopy(buffer!!, 0, b, 0, buffer!!.size)
             buffer = b
         }
@@ -76,7 +76,7 @@ class CrockfordBase32 {
      * @return a byte array containing binary data
      */
     fun decode(pArray: String): ByteArray? {
-        return decode(pArray.toByteArray(UTF8))
+        return decode(pArray.toByteArray(Charsets.UTF_8))
     }
 
     /**
@@ -94,12 +94,11 @@ class CrockfordBase32 {
             return pArray
         }
         decode(pArray, 0, pArray.size)
-        decode(pArray, 0, -1) // Notify decoder of EOF.
         val result = ByteArray(pos)
 
         if (buffer != null) {
             val len = if (buffer != null) pos else 0
-            System.arraycopy(buffer, 0, result, 0, len)
+            System.arraycopy(buffer!!, 0, result, 0, len)
             buffer = null // so hasData() will return false, and this method can return -1
         }
         return result
@@ -128,10 +127,10 @@ class CrockfordBase32 {
      */
     fun decode(
         input: ByteArray,
-        inPos: Int,
+        inPosition: Int,
         inAvail: Int
     ) { // package protected for access from I/O streams
-        var inPos = inPos
+        var inPos = inPosition
         if (eof) {
             return
         }
@@ -162,10 +161,8 @@ class CrockfordBase32 {
             }
         }
 
-        // Two forms of EOF as far as Base32 decoder is concerned: actual
-        // EOF (-1) and first time '=' character is encountered in stream.
         // This approach makes the '=' padding characters completely optional.
-        if (eof && modulus >= 2) { // if modulus < 2, nothing to do
+        if (modulus >= 2) { // if modulus < 2, nothing to do
             ensureBufferSize()
             when (modulus) {
                 2 -> buffer!![pos++] = (bitWorkArea shr 2 and MASK_8BITS.toLong()).toByte()
@@ -203,14 +200,6 @@ class CrockfordBase32 {
          * Mask used to extract 8 bits, used in decoding bytes
          */
         private const val MASK_8BITS = 0xff
-        private val UTF8 = Charset.forName("UTF-8")
-        private const val DEFAULT_BUFFER_RESIZE_FACTOR = 2
-
-        /**
-         * Defines the default buffer size - currently {@value}
-         * - must be large enough for at least one encoded block+separator
-         */
-        private const val DEFAULT_BUFFER_SIZE = 8192
 
         /**
          * BASE32 characters are 5 bits in length.
