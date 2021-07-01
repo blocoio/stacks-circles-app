@@ -1,5 +1,6 @@
 package io.bloco.circles.domain
 
+import CrockfordBase32
 import io.bloco.circles.shared.encodeCrockford32
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
@@ -15,9 +16,9 @@ import org.kethereum.bip32.toKey
 import org.kethereum.bip39.model.MnemonicWords
 import org.kethereum.bip39.toSeed
 import org.kethereum.extensions.toHexStringNoPrefix
+import org.kethereum.hashes.sha256
 import org.komputing.kbip44.BIP44Element
 import org.komputing.khash.ripemd160.extensions.digestRipemd160
-import org.komputing.khash.sha256.extensions.sha256
 import org.komputing.khex.extensions.toNoPrefixHexString
 
 class AddressesTest {
@@ -49,6 +50,12 @@ class AddressesTest {
         assertEquals(PRIVATE_KEY, keys.keyPair.privateKey.key.toHexStringNoPrefix())
         assertEquals(BTC_ADDRESS_MAINNET, keys.keyPair.toBtcAddress())
         assertEquals(STX_ADDRESS_MAINNET, "S$address")
+    }
+
+    @Test
+    fun crockford32Test() {
+        val encoded = "something".encodeCrockford32()
+        assertEquals("something", String(CrockfordBase32().decode(encoded) ?: ByteArray(5), Charsets.UTF_8))
     }
 
     private fun checksum(extended: String): String {
