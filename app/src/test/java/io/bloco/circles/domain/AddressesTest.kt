@@ -1,6 +1,6 @@
 package io.bloco.circles.domain
 
-import CrockfordBase32
+import io.bloco.circles.shared.decodeCrockford32
 import io.bloco.circles.shared.encodeCrockford32
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
@@ -70,8 +70,8 @@ class AddressesTest {
 
     @Test
     fun crockford32Test() {
-        val encoded = "something".encodeCrockford32()
-        assertEquals("something", String(CrockfordBase32().decode(encoded), Charsets.UTF_8))
+        val encoded = "something very very big and complex".encodeCrockford32()
+        assertEquals("something very very big and complex", encoded.decodeCrockford32())
     }
 
     private fun checksum(extended: String): String {
