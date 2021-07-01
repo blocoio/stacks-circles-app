@@ -2,10 +2,11 @@ package io.bloco.circles.domain
 
 import io.bloco.circles.shared.decodeCrockford32
 import io.bloco.circles.shared.encodeCrockford32
+import io.bloco.circles.shared.toStxAddress
+import io.bloco.circles.shared.toTestNetStxAddress
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
-import me.uport.sdk.core.hexToByteArray
 import org.blockstack.android.sdk.model.BlockstackIdentity
 import org.blockstack.android.sdk.toBtcAddress
 import org.blockstack.android.sdk.toHexPublicKey64
@@ -16,10 +17,7 @@ import org.kethereum.bip32.toKey
 import org.kethereum.bip39.model.MnemonicWords
 import org.kethereum.bip39.toSeed
 import org.kethereum.extensions.toHexStringNoPrefix
-import org.kethereum.hashes.sha256
 import org.komputing.kbip44.BIP44Element
-import org.komputing.khash.ripemd160.extensions.digestRipemd160
-import org.komputing.khex.extensions.toNoPrefixHexString
 
 class AddressesTest {
 
@@ -35,37 +33,23 @@ class AddressesTest {
 
     @Test
     fun stxAddressMainnetTest() = runBlocking {
-        // Act
+        // Arrange
         val keys = generateWalletKeysFromMnemonicWords(SEED_PHRASE)
 
-        // Arrange
-        val sha256 = keys.keyPair.toHexPublicKey64().hexToByteArray().sha256()
-        val hash160 = sha256.digestRipemd160()
-        val extended = "b0${hash160.toNoPrefixHexString()}"
-        val cs = checksum("16${hash160.toNoPrefixHexString()}")
-        val address = (extended + cs).hexToByteArray().encodeCrockford32()
-
-        // Assert
+        // Act / Assert
         assertEquals(PUBLIC_KEY, keys.keyPair.toHexPublicKey64())
         assertEquals(PRIVATE_KEY, keys.keyPair.privateKey.key.toHexStringNoPrefix())
         assertEquals(BTC_ADDRESS_MAINNET, keys.keyPair.toBtcAddress())
-        assertEquals(STX_ADDRESS_MAINNET, "S$address")
+        assertEquals(STX_ADDRESS_MAINNET, "S${keys.keyPair.toStxAddress()}")
     }
 
     @Test
     fun stxAddressTestnetTest() = runBlocking {
-        // Act
+        // Arrange
         val keys = generateWalletKeysFromMnemonicWords(SEED_PHRASE)
 
-        // Arrange
-        val sha256 = keys.keyPair.toHexPublicKey64().hexToByteArray().sha256()
-        val hash160 = sha256.digestRipemd160()
-        val extended = "d0${hash160.toNoPrefixHexString()}"
-        val cs = checksum("1a${hash160.toNoPrefixHexString()}")
-        val address = (extended + cs).hexToByteArray().encodeCrockford32()
-
-        // Assert
-        assertEquals(STX_ADDRESS_TESTNET, "S$address")
+        // Act Assert
+        assertEquals(STX_ADDRESS_TESTNET, "S${keys.keyPair.toTestNetStxAddress()}")
     }
 
     @Test
@@ -74,11 +58,6 @@ class AddressesTest {
         assertEquals("something very very big and complex", encoded.decodeCrockford32())
     }
 
-    private fun checksum(extended: String): String {
-        val checksum = extended.hexToByteArray().sha256().sha256()
-        val shortPrefix = checksum.slice(0..3)
-        return shortPrefix.toNoPrefixHexString()
-    }
 
     private suspend fun generateWalletKeysFromMnemonicWords(seedPhrase: String)= withContext(Dispatchers.IO) {
         val words = MnemonicWords(seedPhrase)
