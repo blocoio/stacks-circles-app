@@ -1,23 +1,19 @@
 package io.bloco.circles.domain
 
+import io.bloco.circles.data.EncryptedPreferencesIdentityRepository
+import io.bloco.circles.data.EncryptedPreferencesSecretKeyRepository
+import io.bloco.circles.data.IdentityModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
 import org.blockstack.android.sdk.model.BlockstackIdentity
-import org.blockstack.android.sdk.toBtcAddress
-import org.blockstack.android.sdk.toHexPublicKey64
 import org.kethereum.bip32.generateChildKey
 import org.kethereum.bip32.model.ExtendedKey
 import org.kethereum.bip32.toKey
 import org.kethereum.bip39.model.MnemonicWords
 import org.kethereum.bip39.toSeed
-import org.kethereum.extensions.toHexStringNoPrefix
 import org.kethereum.model.ECKeyPair
 import org.komputing.kbip44.BIP44Element
-import io.bloco.circles.data.EncryptedPreferencesIdentityRepository
-import io.bloco.circles.data.EncryptedPreferencesSecretKeyRepository
-import io.bloco.circles.data.IdentityModel
-import timber.log.Timber
 import javax.inject.Inject
 
 class IdentityKeys
@@ -31,7 +27,7 @@ class IdentityKeys
         val identities = identityRepository.observe().first()
         val secretKey = secretKeyRepository.observe().first()
 
-        return generateIdentityDataFromMnemonicWords(
+        return generateIdentityKeysFromMnemonicWords(
             secretKey,
             (identities.size - 1).coerceAtLeast(0)
         ).keyPair
@@ -41,27 +37,37 @@ class IdentityKeys
         val secretKey = secretKeyRepository.observe().first()
         val index =
             identityRepository.observe().first().indexOfFirst { it.username == identity.username }
-
-        return generateIdentityDataFromMnemonicWords(secretKey, index)
+        return generateIdentityKeysFromMnemonicWords(secretKey, index)
     }
 
-    private suspend fun generateIdentityDataFromMnemonicWords(
+    suspend fun forStxAddresses() : ECKeyPair {
+        val identities = identityRepository.observe().first()
+        val secretKey = secretKeyRepository.observe().first()
+
+        return generateKeysForStxAddressesFromMnemonicWords(
+            secretKey,
+            (identities.size - 1).coerceAtLeast(0)
+        ).keyPair
+    }
+
+    private suspend fun generateIdentityKeysFromMnemonicWords(
         seedPhrase: String,
         index: Int = 0
     ): ExtendedKey = withContext(Dispatchers.IO) {
         val words = MnemonicWords(seedPhrase)
         val identity = BlockstackIdentity(words.toSeed().toKey("m/888'/0'"))
 
-        val keys = identity.identityKeys.generateChildKey(BIP44Element(true, index))
-
-        val privateKey = keys.keyPair.privateKey.key.toHexStringNoPrefix()
-        val publicKey = keys.keyPair.toHexPublicKey64()
-
-        Timber.i("New Identity (i$index)")
-        Timber.i("Address key: ${keys.keyPair.toBtcAddress()}")
-        Timber.i("Private key: $privateKey")
-        Timber.i("Public key: $publicKey")
-
-        return@withContext keys
+        return@withContext identity.identityKeys.generateChildKey(BIP44Element(true, index))
     }
+
+    private suspend fun generateKeysForStxAddressesFromMnemonicWords(
+        seedPhrase: String,
+        index: Int = 0
+    ): ExtendedKey = withContext(Dispatchers.IO) {
+        val words = MnemonicWords(seedPhrase)
+        val identity = BlockstackIdentity(words.toSeed().toKey("m/888'/0'"))
+
+        return@withContext identity.identityKeys.generateChildKey(BIP44Element(true, index))
+    }
+
 }

@@ -49,8 +49,7 @@ class UpdateWallet
 
             identityJson.put(IdentityModel.APP_MODELS, appModels)
 
-
-            identities[identities.indexOfFirst { it.username == identity.username }] =
+            identities[identities.indexOfFirst { it.address == identity.address }] =
                 IdentityModel(
                     identityJson
                 )

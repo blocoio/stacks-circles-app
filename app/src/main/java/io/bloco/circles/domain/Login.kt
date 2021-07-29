@@ -2,12 +2,17 @@ package io.bloco.circles.domain
 
 import com.colendi.ecies.EncryptedResult
 import com.colendi.ecies.Encryption
+import io.bloco.circles.data.EncryptedPreferencesIdentityRepository
+import io.bloco.circles.data.EncryptedPreferencesSecretKeyRepository
+import io.bloco.circles.data.IdentityModel
+import io.bloco.circles.data.network.services.GaiaService
+import io.bloco.circles.shared.IdentitiesParsingFailed
+import io.bloco.circles.shared.forEach
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
 import org.blockstack.android.sdk.model.BlockstackIdentity
 import org.blockstack.android.sdk.toBtcAddress
-import org.blockstack.android.sdk.toHexPublicKey64
 import org.json.JSONException
 import org.json.JSONObject
 import org.kethereum.bip32.generateChildKey
@@ -15,14 +20,7 @@ import org.kethereum.bip32.model.ExtendedKey
 import org.kethereum.bip32.toKey
 import org.kethereum.bip39.model.MnemonicWords
 import org.kethereum.bip39.toSeed
-import org.kethereum.extensions.toHexStringNoPrefix
 import org.komputing.kbip44.BIP44Element
-import io.bloco.circles.data.EncryptedPreferencesIdentityRepository
-import io.bloco.circles.data.EncryptedPreferencesSecretKeyRepository
-import io.bloco.circles.data.IdentityModel
-import io.bloco.circles.data.network.services.GaiaService
-import io.bloco.circles.shared.IdentitiesParsingFailed
-import io.bloco.circles.shared.forEach
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -47,7 +45,9 @@ class Login
             keys.keyPair.privateKey.key
         )
 
-        val identities = identitiesFromDecodeCipher(text.decodeToString())
+        val decodedText = text.decodeToString()
+        print(decodedText)
+        val identities = identitiesFromDecodeCipher(decodedText)
 
         identitiesRepo.set(identities)
         secretKeyRepo.set(mnemonicWords)
@@ -62,13 +62,7 @@ class Login
             val words = MnemonicWords(seedPhrase)
             val identity = BlockstackIdentity(words.toSeed().toKey("m/"))
 
-            val key = identity.identityKeys.generateChildKey(BIP44Element(true, 45))
-
-            Timber.i("Address key: ${key.keyPair.toBtcAddress()}")
-            Timber.i("Private key: ${key.keyPair.privateKey.key.toHexStringNoPrefix()}")
-            Timber.i("Public key: ${key.keyPair.toHexPublicKey64()}")
-
-            return@withContext key
+            return@withContext identity.identityKeys.generateChildKey(BIP44Element(true, 45))
         }
 
     /**

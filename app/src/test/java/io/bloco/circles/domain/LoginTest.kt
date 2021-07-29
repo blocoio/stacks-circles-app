@@ -1,32 +1,50 @@
 package io.bloco.circles.domain
 
 import com.nhaarman.mockitokotlin2.mock
-import kotlinx.coroutines.runBlocking
-import org.junit.Test
+import com.nhaarman.mockitokotlin2.whenever
 import io.bloco.circles.data.EncryptedPreferencesIdentityRepository
 import io.bloco.circles.data.EncryptedPreferencesSecretKeyRepository
+import io.bloco.circles.data.network.models.WalletConfig
 import io.bloco.circles.data.network.services.GaiaService
+import junit.framework.Assert
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.runBlocking
+import org.junit.Test
 
 class LoginTest {
 
-    val seed_phrase = "suggest pitch guide owner skin follow strategy point piano giraffe hole anchor"
+    private val walletConfigAddress = "14tCpJ6hiY6YRZHwtkDPEPf1TWTJjFa7UP"
+    private val seedPhrase = "spray forum chronic innocent exercise market ice pact foster twice glory account"
 
-    val mockGaiaService = mock<GaiaService>()
-    val mockIdentitiesRepo = mock<EncryptedPreferencesIdentityRepository>()
-    val mockSecretKeyRepo = mock<EncryptedPreferencesSecretKeyRepository>()
+    private val walletIv = "f9574bf0f6cb57dd6b7dc96688a21390"
+    private val walletEphemeralPK = "03ac944e5351ea85ccc589fd3b2f6ca469ee1500ed177562b6f13497040c94527a"
+    private val walletCipherText = "dfc2d35f83a7a06ae2c5c1e5c3f9826a7f18b4d205b37a5fddb856eb7873fd7320d3ee248bd3b183376c7e402c52009459d7ababd76f44ab168e54fd9b472eca7b85323062596a12a60e4489ebe15c51bee5da29488cfa4216fea70d5b082ba3c3abeeba250e5c871b2ade7374e3a0455719a6fa246d67aac7ec6035cb8eed7988e3463ccc89b8b6f42493e377c718cbe8fe1b6536f608d75c0491ecd820afad4dccf14fe53fcd6e305453a08fe7a88474ab02c2ae5f9f78db06b388524e5cf1bb5fb2eaa68272904919996037a8dc8938b487b31f02943759a54041e16b8b5fa970eb50df4904fdbf28229e596b341899f7ef479acc431dd7b3b4309c7ce55ba32444cb2aebe9ebddfaae3bb49462eb3b9cb284d776e88cfcad027926bf16392fe31c93ce205984c1c350ae38682082d12ade1295eff60f1818c0fc9ef6b65e"
+    private val walletMac = "6f3f2923490ff613f1db40f1a389f14745a046baa0451fe530ba44c631269158"
+    private val walletWasString = true
+
+    private val mockGaiaService = mock<GaiaService>()
+    private val mockIdentitiesRepo = mock<EncryptedPreferencesIdentityRepository>()
+    private val mockSecretKeyRepo = mock<EncryptedPreferencesSecretKeyRepository>()
 
     @Test
     fun decrypt() { runBlocking {
-        /* val login = Login(mockGaiaService, mockIdentitiesRepo, mockSecretKeyRepo)
+         val login = Login(mockGaiaService, mockIdentitiesRepo, mockSecretKeyRepo)
 
-        whenever(mockGaiaService.wallet(any<String>())).thenReturn(flowOf(WalletConfig(
-"a4317a79a0669274c74b749df9a3636eb3485262312ce9e10b490d16fc9039559a9f36fa9cd4be5fd4be043566c67982d46b731b082545b9be2f0d8ed018218284ef55bf3e7dca38ac5b1131844526ceea8d345ca1f1ac7383a02ddacc094b5002f3dd765135222db09f26d35c7f930c1ecd5f7b56857b48589f76ccad2ac47ab195bdbc7a693dabe666c12d181e3b24d5f65a714bd367ecab11a07b1971ebe42add2fad1062763c05742464eec19c416ea1c52795d4daf9f34f012eed6ac357a0caab4a4ea61196325ac3789e18bb5bc9ddbd9e509008302ba6216d131ce8e4b9bbd0cedc2bfc87d29a21e3feb6025bc70669682a6d8e7a9f28156a6dae6a080c7353cb00da310a3acb486345edecd2",
-            "0364dcaff5ae8c970c6cf05f5e28f02c6b49c6fa4127133bb7b0b21ca009a47006",
-            "16a5174b005a271597df9c19f3c09206",
-            "9cc84236cda88a98d32e48f2787e88f80410662b78a7ce208d386ecb9f41cbbe",
-            true
-        )))
+        val wallet = WalletConfig(
+            walletCipherText,
+            walletEphemeralPK,
+            walletIv,
+            walletMac,
+            walletWasString
+        )
 
-        login.login(seed_phrase).first() */
+        whenever(mockGaiaService.wallet(walletConfigAddress)).thenReturn(wallet)
+        whenever(mockSecretKeyRepo.observe()).thenReturn(flowOf(seedPhrase))
+        whenever(mockIdentitiesRepo.observe()).thenReturn(flowOf(emptyList()))
+
+       val result = login.login(seedPhrase)
+        Assert.assertTrue(result.isSuccess)
     }}
+
 }
+

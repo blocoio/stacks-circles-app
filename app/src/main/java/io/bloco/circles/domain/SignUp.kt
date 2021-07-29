@@ -3,7 +3,8 @@ package io.bloco.circles.domain
 import io.bloco.circles.data.IdentityModel
 import io.bloco.circles.data.ProfileModel
 import io.bloco.circles.data.interfaces.IdentityRepository
-import org.blockstack.android.sdk.toBtcAddress
+import org.blockstack.android.sdk.extensions.toBtcAddress
+import org.blockstack.android.sdk.extensions.toStxAddress
 import javax.inject.Inject
 
 class SignUp
@@ -16,18 +17,24 @@ class SignUp
     private val uploadWallet: UploadWallet,
 ) {
     suspend fun newAccount(username: String?): Result<IdentityModel> = try {
-        val keys = identityKeys.new()
-
-        val btcAddress = keys.toBtcAddress()
+        val btcKeys = identityKeys.new()
+        val stxKeys = identityKeys.forStxAddresses()
 
         val profile = ProfileModel()
         val newIdentity = generateIdentity.generate(
-            btcAddress,
+            stxKeys.toStxAddress(true),
             username
         )
 
-        username?.also {  registrarProfile.register(username, btcAddress) }
-        uploadProfile.upload(profile, keys)
+        username?.also { unwrappedUsername ->
+            registrarProfile.register(
+                unwrappedUsername,
+                btcKeys.toBtcAddress(),
+                stxKeys.toStxAddress(true)
+            )
+        }
+
+        uploadProfile.upload(profile, btcKeys)
         uploadWallet.upload(newIdentity)
         identityRepository.set(listOf(newIdentity))
 

@@ -9,11 +9,9 @@ class GenerateIdentity
 
     fun generate(address: String, username: String?): IdentityModel {
         val json = JSONObject().apply {
-            val unWrappedUsername = username?.let {
-                "$it.id.stx"
-            } ?: address
-
-            put(IdentityModel.USERNAME, unWrappedUsername)
+            username?.let { unwrappedUsername ->
+                put(IdentityModel.USERNAME,  "$unwrappedUsername.id.stx")
+            }
             put(IdentityModel.ADDRESS, address)
             put(IdentityModel.APP_MODELS, JSONObject())
         }
