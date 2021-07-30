@@ -17,24 +17,25 @@ class SignUp
     private val uploadWallet: UploadWallet,
 ) {
     suspend fun newAccount(username: String?): Result<IdentityModel> = try {
-        val btcKeys = identityKeys.new()
-        val stxKeys = identityKeys.forStxAddresses()
+        val keys = identityKeys.new()
+        val btcKeys = keys.toBtcAddress()
+        val stxKeys = keys.toStxAddress(true)
 
         val profile = ProfileModel()
         val newIdentity = generateIdentity.generate(
-            stxKeys.toStxAddress(true),
+            stxKeys,
             username
         )
 
         username?.also { unwrappedUsername ->
             registrarProfile.register(
                 unwrappedUsername,
-                btcKeys.toBtcAddress(),
-                stxKeys.toStxAddress(true)
+                btcKeys,
+                stxKeys
             )
         }
 
-        uploadProfile.upload(profile, btcKeys)
+        uploadProfile.upload(profile, keys)
         uploadWallet.upload(newIdentity)
         identityRepository.set(listOf(newIdentity))
 

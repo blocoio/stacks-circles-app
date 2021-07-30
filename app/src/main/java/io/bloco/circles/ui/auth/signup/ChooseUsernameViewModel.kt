@@ -48,6 +48,8 @@ class ChooseUsernameViewModel
             .onEach { errors.send(InvalidUsername) }
             .launchIn(viewModelScope)
 
+        //TODO: add regex
+        // You can only use lowercase letters (a–z), numbers (0–9), and underscores (_).
         usernameSubmitted
             .filter { it.isNotEmpty() && !it.contains(" ") && !loading.value }
             .map {

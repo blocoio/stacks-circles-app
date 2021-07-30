@@ -40,27 +40,7 @@ class IdentityKeys
         return generateIdentityKeysFromMnemonicWords(secretKey, index)
     }
 
-    suspend fun forStxAddresses() : ECKeyPair {
-        val identities = identityRepository.observe().first()
-        val secretKey = secretKeyRepository.observe().first()
-
-        return generateKeysForStxAddressesFromMnemonicWords(
-            secretKey,
-            (identities.size - 1).coerceAtLeast(0)
-        ).keyPair
-    }
-
     private suspend fun generateIdentityKeysFromMnemonicWords(
-        seedPhrase: String,
-        index: Int = 0
-    ): ExtendedKey = withContext(Dispatchers.IO) {
-        val words = MnemonicWords(seedPhrase)
-        val identity = BlockstackIdentity(words.toSeed().toKey("m/888'/0'"))
-
-        return@withContext identity.identityKeys.generateChildKey(BIP44Element(true, index))
-    }
-
-    private suspend fun generateKeysForStxAddressesFromMnemonicWords(
         seedPhrase: String,
         index: Int = 0
     ): ExtendedKey = withContext(Dispatchers.IO) {

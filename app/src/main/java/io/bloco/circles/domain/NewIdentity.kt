@@ -20,10 +20,11 @@ class NewIdentity
     suspend fun create(username: String?): Result<IdentityModel> = try {
         var identities = identityRepository.observe().first()
 
-        val btcKeys = identityKeys.new()
-        val stxKeys = identityKeys.forStxAddresses()
+        val keys = identityKeys.new()
+        val btcKeys = keys.toBtcAddress()
+        val stxKeys = keys.toStxAddress(true)
 
-        val newIdentity = generateIdentity.generate(stxKeys.toStxAddress(true), username)
+        val newIdentity = generateIdentity.generate(stxKeys, username)
 
         identities = identities + newIdentity
 
@@ -31,12 +32,12 @@ class NewIdentity
         username?.also {
             registrarProfile.register(
                 username,
-                btcKeys.toBtcAddress(),
-                stxKeys.toStxAddress(true)
+                btcKeys,
+                stxKeys
             )
         }
 
-        uploadProfile.upload(profile, btcKeys)
+        uploadProfile.upload(profile, keys)
         uploadWallet.upload(identities)
         identityRepository.set(identities)
 
