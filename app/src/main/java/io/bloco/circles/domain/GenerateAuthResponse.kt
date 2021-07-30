@@ -30,8 +30,7 @@ class GenerateAuthResponse
         val authRequest = authRequestsStore.get() ?: throw Exception()
 
         val words = MnemonicWords((repository.observe().first()))
-        //TODO: change based on current identity this one assumes 0
-        val salt = BlockstackIdentity(words.toSeed().toKey("m/44'/5757'/0'/0")).salt
+        val salt = BlockstackIdentity(words.toSeed().toKey("m/888'/0'")).salt
         val keys = identityKeys.from(identity)
 
         val account = BlockstackAccount(identity.completeUsername, keys, salt)

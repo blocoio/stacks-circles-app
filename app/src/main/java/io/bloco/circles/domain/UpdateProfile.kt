@@ -1,6 +1,9 @@
 package io.bloco.circles.domain
 
 import com.google.gson.Gson
+import io.bloco.circles.data.ProfileModel
+import io.bloco.circles.data.ProfileModel.AppMetaData
+import io.bloco.circles.data.network.services.GaiaService
 import org.blockstack.android.sdk.Blockstack
 import org.blockstack.android.sdk.model.BlockstackAccount
 import org.blockstack.android.sdk.toHexPublicKey64
@@ -8,9 +11,6 @@ import org.json.JSONArray
 import org.kethereum.crypto.toECKeyPair
 import org.kethereum.model.PrivateKey
 import org.komputing.khex.model.HexString
-import io.bloco.circles.data.ProfileModel
-import io.bloco.circles.data.ProfileModel.AppMetaData
-import io.bloco.circles.data.network.services.GaiaService
 import javax.inject.Inject
 
 class UpdateProfile
@@ -30,7 +30,7 @@ class UpdateProfile
         val decodedToken =
             blockstack.decodeToken(jwtProfiles.getJSONObject(0).getString("token")).second
 
-        val profile = gson.fromJson(decodedToken.toString(), ProfileModel::class.java)
+        var profile = gson.fromJson(decodedToken.toString(), ProfileModel::class.java)
 
         val apps = profile.apps.toMutableMap()
         val appsMeta = profile.appsMeta.toMutableMap()
@@ -52,6 +52,11 @@ class UpdateProfile
                 appHub
             )
         }
+
+        profile = profile.copy(
+            apps = apps,
+            appsMeta = appsMeta
+        )
 
         upProfile.upload(profile, account.keys.keyPair)
     }
