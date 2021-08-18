@@ -42,7 +42,6 @@ class SignUpTest {
         mockkStatic(ECKeyPair::toBtcAddress)
 
         whenever(mockIdentityKeys.new()).thenReturn(mockBtcKeys)
-        whenever(mockIdentityKeys.forStxAddresses()).thenReturn(mockStxKeys)
         whenever(mockGenerateIdentity.generate(stxRegisterAddress, username)).thenReturn(identity)
 
         every {
@@ -73,7 +72,6 @@ class SignUpTest {
         mockkStatic(ECKeyPair::toBtcAddress)
 
         whenever(mockIdentityKeys.new()).thenReturn(mockBtcKeys)
-        whenever(mockIdentityKeys.forStxAddresses()).thenReturn(mockStxKeys)
         whenever(mockGenerateIdentity.generate(stxRegisterAddress, null)).thenReturn(identity)
 
         every {

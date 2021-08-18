@@ -49,7 +49,7 @@ class IdentityKeysTest {
         val identityKeys = build()
 
         // Act
-        val result = identityKeys.forStxAddresses()
+        val result = identityKeys.new()
 
         // Assert
         assertEquals(stxRegisterAddress, result.toStxAddress(true))
