@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.0.3] - 2021-06-09
 ### Added
+- Skip username is now based on Auth Request
+### Changed
 - Username lookup service
 
 ### Changed

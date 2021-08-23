@@ -9,9 +9,12 @@ import io.bloco.circles.domain.CheckUsernameStatus.UsernameStatus.Available
 import io.bloco.circles.shared.foldOnEach
 import io.bloco.circles.ui.BaseViewModel
 import io.bloco.circles.ui.auth.signup.ChooseUsernameViewModel.Error.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.channels.sendBlocking
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -38,10 +41,17 @@ class ChooseUsernameViewModel
     // Outputs
     private val sendAuthResponse = BroadcastChannel<AuthResponseModel>(1)
     private val openNewAccountScreen = BroadcastChannel<Unit>(1)
+    private val canSkipUsername = MutableStateFlow(true)
     private val loading = MutableStateFlow(false)
     private val errors = BroadcastChannel<Error>(1)
 
     init {
+        if (isAuthRequest) {
+            GlobalScope.launch(Dispatchers.IO) {
+                val authRequest = authRequestsStore.get()!!
+                canSkipUsername.emit(!authRequest.registerSubdomain)
+            }
+        }
 
         usernameSubmitted
             .filter { it.isEmpty() || it.contains(" ") }
@@ -109,6 +119,7 @@ class ChooseUsernameViewModel
     fun skipUsername() = newAccount.sendBlocking(Unit)
 
     // Outputs
+    fun canSkipUsername(): Flow<Boolean> = canSkipUsername.asStateFlow()
     fun sendAuthResponse(): Flow<AuthResponseModel> = sendAuthResponse.asFlow()
     fun openNewAccountScreen() = openNewAccountScreen.asFlow()
     fun loading() = loading.asStateFlow()

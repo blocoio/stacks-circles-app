@@ -34,6 +34,11 @@ class IdentitiesActivity : BaseActivity() {
 
         newIdentity
             .clicks()
+            .onEach { viewModel.createNewIdentity() }
+            .launchIn(lifecycleScope)
+
+        viewModel
+            .chooseNewIdentityUsername()
             .onEach { startActivity(ChooseUsernameActivity.getIntent(this)) }
             .launchIn(lifecycleScope)
 

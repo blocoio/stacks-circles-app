@@ -17,7 +17,7 @@ class NewIdentity
     private val uploadProfile: UploadProfile,
     private val uploadWallet: UploadWallet,
 ) {
-    suspend fun create(username: String?): Result<IdentityModel> = try {
+    suspend fun create(username: String? = null): Result<IdentityModel> = try {
         var identities = identityRepository.observe().first()
 
         val keys = identityKeys.new()

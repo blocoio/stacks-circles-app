@@ -33,6 +33,10 @@ data class AuthRequestModel(
 
     val sendToSignIn: Boolean,
 
+    val connectVersion: String,
+
+    val registerSubdomain: Boolean,
+
     @SerializedName("supports_hub_url")
     val supportsHubUrl: Boolean,
 

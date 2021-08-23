@@ -26,6 +26,8 @@ import reactivecircus.flowbinding.android.widget.textChanges
 @AndroidEntryPoint
 class ChooseUsernameActivity : BaseActivity() {
 
+    private var canSkip = true
+
     private val viewModel: ChooseUsernameViewModel by lazy {
         ViewModelProvider(this).get(ChooseUsernameViewModel::class.java)
     }
@@ -62,6 +64,14 @@ class ChooseUsernameActivity : BaseActivity() {
             .launchIn(lifecycleScope)
 
         viewModel
+            .canSkipUsername()
+            .onEach {
+                canSkip = it
+                skip.isVisible = canSkip
+            }
+            .launchIn(lifecycleScope)
+
+        viewModel
             .openNewAccountScreen()
             .onEach { startActivity(WelcomeActivity.getIntent(this, signUp)) }
             .launchIn(lifecycleScope)
@@ -69,10 +79,10 @@ class ChooseUsernameActivity : BaseActivity() {
         viewModel
             .loading()
             .onEach { loading ->
-                skip.isVisible = !loading
                 continueBtn.isVisible = !loading
                 loadingSpinner.isVisible = loading
                 chooseUsernameLayout.isVisible = !loading
+                skip.isVisible = if(loading) false else canSkip
             }
             .launchIn(lifecycleScope)
 
