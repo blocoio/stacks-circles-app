@@ -76,6 +76,6 @@ to learn more.
     <!--WELCOME SCREEN-->
     <string name="all_set">You’re all set!</string>
     <string name="go_to">Go to %1$s</string>
-    <string name="invalid_username">Invalid Username</string>
+    <string name="invalid_username">Invalid Username, you can only use lowercase letters (a–z), numbers (0–9), and underscores (_).</string>
 
 </resources>

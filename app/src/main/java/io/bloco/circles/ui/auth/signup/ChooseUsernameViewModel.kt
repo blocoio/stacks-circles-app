@@ -9,8 +9,6 @@ import io.bloco.circles.domain.CheckUsernameStatus.UsernameStatus.Available
 import io.bloco.circles.shared.foldOnEach
 import io.bloco.circles.ui.BaseViewModel
 import io.bloco.circles.ui.auth.signup.ChooseUsernameViewModel.Error.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.channels.sendBlocking
 import kotlinx.coroutines.flow.*
@@ -47,21 +45,21 @@ class ChooseUsernameViewModel
 
     init {
         if (isAuthRequest) {
-            GlobalScope.launch(Dispatchers.IO) {
+            ioScope.launch {
                 val authRequest = authRequestsStore.get()!!
                 canSkipUsername.emit(!authRequest.registerSubdomain)
             }
         }
 
         usernameSubmitted
-            .filter { it.isEmpty() || it.contains(" ") }
+            .filter {
+                it.isEmpty() || it.isBlank() || !"[a-z0-9_]+".toRegex().matches(it)
+            }
             .onEach { errors.send(InvalidUsername) }
             .launchIn(viewModelScope)
 
-        //TODO: add regex
-        // You can only use lowercase letters (a–z), numbers (0–9), and underscores (_).
         usernameSubmitted
-            .filter { it.isNotEmpty() && !it.contains(" ") && !loading.value }
+            .filter { it.isNotEmpty() && it.isNotBlank() && "[a-z0-9_]+".toRegex().matches(it) && !loading.value }
             .map {
                 loading.emit(true)
                 checkUsernameStatus.isAvailable(it)

@@ -46,7 +46,6 @@ class Login
         )
 
         val decodedText = text.decodeToString()
-        print(decodedText)
         val identities = identitiesFromDecodeCipher(decodedText)
 
         identitiesRepo.set(identities)
