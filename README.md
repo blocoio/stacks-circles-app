@@ -15,23 +15,24 @@
 <a href='https://play.google.com/store/apps/details?id=io.bloco.circles'><img  height='55' src='images/google_play_badge.png'></a>
 </p>
 
-# BETA
-
-Currently the app is in Beta, if you want to join our testing group take
-a look at [Google Playstore
-Testing](https://play.google.com/apps/testing/io.bloco.circles), or download and install our APK from the releases and use [our v0.1 PR for
-feedback](https://github.com/blocoio/stacks-circles-app/pull/28)
-
 # Stacks Circles Android App
 
 The Stacks Circles App provides a native Android experience to the [Stacks ecosystem](https://www.stacks.co/). You can:
 
-- Learn more about Stacks
+- Learn more about the Stacks Ecosystem
 - Create a Stacks account
 - Manage your account identities
 - Safely sign in into web and Android apps using your Stacks account
 
-This app is open sourced. The project was made possible by the [Stacks Grants program](https://github.com/stacksgov/Stacks-Grants/issues/22) and is currently maintained by [Bloco](http://bloco.io/).
+This app is open source. The project was made possible by the [Stacks Grants program](https://github.com/stacksgov/Stacks-Grants/issues/22) and is currently maintained by [Bloco](http://bloco.io/).
+
+**New to the Stacks ecosystem?** 
+
+Stacks offers the ability decentralized apps, creation of smart contracts, end-to-end encryption and many other features. This and other information can be seen at [https://www.stacks.co/](https://www.stacks.co/).
+
+**Where to start?**
+
+Take a look at apps like [BlockSurvey](https://blocksurvey.io/), that make use of Stacks to provide privacy-first apps with no ads, no trackers. Protect your respondents' data and privacy with **BlockSurvey.** You can check this and other apps at [https://www.app.co/](https://www.app.co/).
 
 ## Design
 
@@ -77,6 +78,17 @@ For authenticating other apps, this app intercepts the `app.blockstack.org` URL.
 
 If an account is already configured, the user simply needs to pick an Identity (or create a new one) to complete the Authentication with other apps. If no account is configured the user can
 also complete the Login/Signup experience within the app to complete the Authentication.
+
+**For developers:**
+Apps/Websites using Stacks Connect or the Android Blockstack SDK v0.6.4 or higher, should be able to make use of Circles app to authenticate without any problems.
+If you encounter any problems make sure the following pre-requisites are met:
+
+- support [BNS](https://docs.stacks.co/references/bns-contract) v2
+- redirect uri equal to access uri
+- redirect uri ability to read `?authResponse=`
+
+If you still find problems and wish to see them resolved please open the issue on our Github.
+For developers is also worth noting that Circles is compatible with the flag `registerSubdomain` (by default the flag is false).
 
 # Roadmap
 
