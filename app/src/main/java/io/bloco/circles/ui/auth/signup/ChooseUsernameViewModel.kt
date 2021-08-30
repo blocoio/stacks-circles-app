@@ -1,7 +1,7 @@
 package io.bloco.circles.ui.auth.signup
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.bloco.circles.data.AuthRequestsStore
 import io.bloco.circles.data.AuthResponseModel
 import io.bloco.circles.domain.*
@@ -12,10 +12,13 @@ import io.bloco.circles.ui.auth.signup.ChooseUsernameViewModel.Error.*
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.channels.sendBlocking
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
+@HiltViewModel
 class ChooseUsernameViewModel
-@ViewModelInject constructor(
+@Inject constructor(
     generateAuthResponse: GenerateAuthResponse,
     checkUsernameStatus: CheckUsernameStatus,
     authRequestsStore: AuthRequestsStore,
@@ -36,18 +39,27 @@ class ChooseUsernameViewModel
     // Outputs
     private val sendAuthResponse = BroadcastChannel<AuthResponseModel>(1)
     private val openNewAccountScreen = BroadcastChannel<Unit>(1)
+    private val canSkipUsername = MutableStateFlow(true)
     private val loading = MutableStateFlow(false)
     private val errors = BroadcastChannel<Error>(1)
 
     init {
+        if (isAuthRequest) {
+            ioScope.launch {
+                val authRequest = authRequestsStore.get()!!
+                canSkipUsername.emit(!authRequest.registerSubdomain)
+            }
+        }
 
         usernameSubmitted
-            .filter { it.isEmpty() || it.contains(" ") }
+            .filter {
+                it.isEmpty() || it.isBlank() || !"[a-z0-9_]+".toRegex().matches(it)
+            }
             .onEach { errors.send(InvalidUsername) }
             .launchIn(viewModelScope)
 
         usernameSubmitted
-            .filter { it.isNotEmpty() && !it.contains(" ") && !loading.value }
+            .filter { it.isNotEmpty() && it.isNotBlank() && "[a-z0-9_]+".toRegex().matches(it) && !loading.value }
             .map {
                 loading.emit(true)
                 checkUsernameStatus.isAvailable(it)
@@ -105,6 +117,7 @@ class ChooseUsernameViewModel
     fun skipUsername() = newAccount.sendBlocking(Unit)
 
     // Outputs
+    fun canSkipUsername(): Flow<Boolean> = canSkipUsername.asStateFlow()
     fun sendAuthResponse(): Flow<AuthResponseModel> = sendAuthResponse.asFlow()
     fun openNewAccountScreen() = openNewAccountScreen.asFlow()
     fun loading() = loading.asStateFlow()

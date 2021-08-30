@@ -1,5 +1,8 @@
 package io.bloco.circles.domain
 
+import io.bloco.circles.data.AuthRequestsStore
+import io.bloco.circles.data.IdentityModel
+import io.bloco.circles.data.interfaces.SecretKeyRepository
 import kotlinx.coroutines.flow.first
 import org.blockstack.android.sdk.Blockstack
 import org.blockstack.android.sdk.Scope
@@ -10,9 +13,6 @@ import org.json.JSONObject
 import org.kethereum.bip32.toKey
 import org.kethereum.bip39.model.MnemonicWords
 import org.kethereum.bip39.toSeed
-import io.bloco.circles.data.AuthRequestsStore
-import io.bloco.circles.data.IdentityModel
-import io.bloco.circles.data.interfaces.SecretKeyRepository
 import javax.inject.Inject
 
 class GenerateAuthResponse
