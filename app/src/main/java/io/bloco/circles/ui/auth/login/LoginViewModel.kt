@@ -73,7 +73,7 @@ class LoginViewModel
     fun loading() = loading.asStateFlow()
 
     companion object {
-        const val SECRET_KEY_WORDS = 12
+        const val SECRET_KEY_WORDS = 24
     }
 
 }
