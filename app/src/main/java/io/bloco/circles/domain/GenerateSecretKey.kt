@@ -16,7 +16,7 @@ class GenerateSecretKey
     }
 
     //TODO: add test to check if string is 12 words
-    suspend fun generate(): String = generateMnemonic(wordList = words.toList()).also {
+    suspend fun generate(): String = generateMnemonic(256, words.toList()).also {
             secretKeyRepository.set(it)
     }
 }

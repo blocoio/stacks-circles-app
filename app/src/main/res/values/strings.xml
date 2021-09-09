@@ -23,7 +23,7 @@
     <string name="login_message">Enter your Secret Key to sign in</string>
     <string name="new_to_stacks">I\'m new to Stacks</string>
     <string name="continue_key">Continue with Secret Key</string>
-    <string name="how_connect_works"><u>How Stacks Works</u></string>
+    <string name="how_connect_works"><u>What is Stacks</u></string>
     <string name="sign_in">Sign In</string>
     <string name="secret_key">Secret Key</string>
     <string name="save">Save</string>
@@ -32,11 +32,11 @@
     <string name="welcome_info">Access your account at any time by clicking on the avatar icon, on the top right corner.</string>
     <string name="discover_stacks">Discover Stacks App</string>
     <string name="how_it_works">How it works</string>
-    <string name="how_it_works_info"><b>The app keeps everything you do private with Blockstack\'s Secret Key technology</b>\nNormally, apps keep your data for them to use. When you have a Secret Key, you no longer have to trust the app with your data because the app won\'t have access.
-\n\n<b>What is Blockstack?</b>\nBlockstack is the open-source technology that generates your Secret Key. There\'s no company that owns or controls Blockstack, it is independent. Go to blockstack.org
+    <string name="how_it_works_info"><b>The app keeps everything you do private with Stacks\'s Secret Key technology</b>\nNormally, apps keep your data for them to use. When you have a Secret Key, you no longer have to trust the app with your data because the app won\'t have access.
+\n\n<b>What is Stacks?</b>\Stacks is the open-source technology that generates your Secret Key. There\'s no company that owns or controls Stacks, it is independent. Go to stacks.co
 to learn more.
 \n\n<b>Encryption</b>\nEncryption is always on. It locks everything you do in the app into useless codes. Because of this, the app can\'t see or track your activity. Your data can only be unlocked with the key that you own. No one else has this key, not even the app, so no one else can unlock your data
-\n\n<b>What is a Secret Key?</b>\nYour Secret Key unlocks your data. It\'s created independently from the app to make sure that the app doesn\'t have it. An open-source protocol called Blockstack generates your Secret Key when you sign up. Nobody but you will have your Secret Key, to make sure that only you have access to your data.
+\n\n<b>What is a Secret Key?</b>\nYour Secret Key unlocks your data. It\'s created independently from the app to make sure that the app doesn\'t have it. An open-source protocol called Stacks generates your Secret Key when you sign up. Nobody but you will have your Secret Key, to make sure that only you have access to your data.
 \n\n<b>When will I need my Secret Key?</b>\nYou\'ll need your Secret Key to prove it\'s you when you use the app on a new device, such as a new phone or laptop. After that, your Secret Key will stay active to keep you safe and private in the apps you use on that device.
     </string>
     <string name="choose_username_info">This is how others will see you on other apps.</string>

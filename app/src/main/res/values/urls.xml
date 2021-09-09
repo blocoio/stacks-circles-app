@@ -6,7 +6,7 @@
     <!-- <string name="lookup_endpoint_btc" translatable="false">https://core.blockstack.org/</string> -->
     <string name="lookup_endpoint_stx" translatable="false">https://stacks-node-api.mainnet.stacks.co/</string>
     <string name="registrar_endpoint" translatable="false">https://registrar.stacks.co/</string>
-    <string name="about_us_url" translatable="false">https://www.blockstack.org/how-blockstack-works</string>
-    <string name="newsletter_url" translatable="false">http://newsletters.blockstack.org/</string>
+    <string name="about_us_url" translatable="false">https://www.stacks.co/what-is-stacks</string>
+    <string name="newsletter_url" translatable="false">https://stacks.org/updates</string>
     <string name="discord_url" translatable="false">https://discord.gg/tR8HjHnb</string>
 </resources>
